@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoo Arcadia</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <!-- Menu de navigation -->
+        <nav class="navbar navbar-expand-lg row navbar-custom">
+            <div class="container-fluid ">
+                <a class="navbar-brand me-5" href="index.html"></a>
+                <img src="" alt="" width="40" height="60">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav mx-auto">
+                    <a class="nav-link me-5 fs-2" aria-current="page" href="index.html">Accueil</a>
+                    <a class="nav-link me-5 fs-2" href="#">Habitats</a>
+                    <a class="nav-link me-5 fs-2" href="#">Services</a>                    
+                </div>
+                <div class="navbar-nav"></div>
+                <a class="nav-link me-5 fs-2" href="#">
+                    <button type="button" class="btn btn-outline-light btn-lg" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Espace professionnel</button>
+                    
+                </a>
+                </div>
+            </div>
+            </nav>
+            <!-- Offcanvas pour espace professionnel -->
+            <section>
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasRightLabel">Espace professionnel</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <div class="container">
+                            <h2 class="mb-5">Connexion</h2>
+                            <form action="login.php" method="POST">
+                            <div class="form-group">
+                                <label for="username">Email :</label>
+                                <input type="text" id="username" name="username" placeholder="Ex : arcadia@zoo.fr" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Mot de passe :</label>
+                                <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Se connecter">
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                
+            </section>
+    </header>
+    <script src="js/bootstrap.min.js"></script>
+</body>
+</html>

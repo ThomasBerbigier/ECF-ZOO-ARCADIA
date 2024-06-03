@@ -8,9 +8,14 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
+    <!-- Début Header -->
     <header>
-        <!-- Menu de navigation -->
-        <nav class="navbar navbar-expand-lg row navbar-custom">
+        <!-- image de présentation -->
+        <img class="img-header" src="assets/header/image header.png" alt="image représentant l'allée d'arrivée au zoo arcadia">
+        <!-- Début Menu de navigation -->
+        <div class="overlay">
+            <h1>Bienvenue au Zoo Arcadia</h1>
+        <nav class="navbar navbar-expand-lg navbar-custom">
             <div class="container-fluid ">
                 <a class="navbar-brand me-5" href="index.html"></a>
                 <img src="" alt="" width="40" height="60">
@@ -19,19 +24,21 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav mx-auto">
-                    <a class="nav-link me-5 fs-2" aria-current="page" href="index.html">Accueil</a>
-                    <a class="nav-link me-5 fs-2" href="#">Habitats</a>
-                    <a class="nav-link me-5 fs-2" href="#">Services</a>                    
+                    <a class="nav-link me-5 fs-4" aria-current="page" href="index.html">Accueil</a>
+                    <a class="nav-link me-5 fs-4" href="#">Habitats</a>
+                    <a class="nav-link me-5 fs-4" href="#">Services</a> 
+                    <a class="nav-link me-5 fs-4" href="#">Contact</a>                   
                 </div>
                 <div class="navbar-nav"></div>
-                <a class="nav-link me-5 fs-2" href="#">
+                <a class="nav-link me-5 fs-4" href="#">
                     <button type="button" class="btn btn-outline-light btn-lg" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Espace professionnel</button>
                     
                 </a>
                 </div>
             </div>
             </nav>
-            <!-- Offcanvas pour espace professionnel -->
+            <!-- Fin menu de navigation -->
+            <!-- Début Offcanvas pour espace professionnel -->
             <section>
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
                     <div class="offcanvas-header">
@@ -58,9 +65,8 @@
                     </div>
                 </div>
             </section>
-            <section>
-                
-            </section>
+            <!-- Fin Offcanvas -->            
+            </div>
     </header>
     <script src="js/bootstrap.min.js"></script>
 </body>

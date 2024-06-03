@@ -11,7 +11,6 @@ header {
     height: auto;
     object-fit: cover;
 }
-
 header .overlay {
     position: absolute;
     top: 0;
@@ -31,6 +30,7 @@ h1 {
     font-size: 5rem;
     font-weight: bold;
 }
+
 /* navbar */
 .navbar-custom {
     background-color: rgb(18, 55, 42, 0.5);
@@ -88,6 +88,66 @@ h1 {
     background-color: rgb(18, 55, 42);
 }
 
+/* bandeau separation header/main */
+.bandeau {
+    background-color: #000000; /* Couleur de fond du bandeau */
+    color: white;              /* Couleur du texte */
+    padding: 20px;             /* Espacement interne */
+    text-align: center;        /* Centrer le texte */
+    font-size: 24px;           /* Taille du texte */
+    font-weight: bold;         /* Mettre le texte en gras */
+    width: 100%;               /* Occupe toute la largeur */
+}
+
+/* image et texte présentant le zoo */
+.container-presentation {
+    display: flex;
+    align-items: center; /* Centre les éléments verticalement */
+}
+.photo, .description {
+    flex: 1;
+    opacity: 0;
+    transition: all 1s ease-out;
+    width: 50%; /* Chaque élément prend 50% de la largeur du conteneur */
+    box-sizing: border-box; /* Inclut les bordures et le padding dans la largeur */
+}
+.photo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(-100%);
+    
+}
+.photo img {
+    width: 100%; /* Réduit la largeur de la photo à 50% de la largeur de son conteneur */
+    margin-bottom: 20px; /* Ajoute un espace en bas de la photo */
+}
+.description {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    transform: translateX(100%);
+    box-sizing: border-box;
+    width: 50%; /* Définit la largeur de la description à 50% de la largeur de son conteneur */
+}
+.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+.article {
+    background-color: rgb(67, 104, 80); /* Ajoute un fond gris clair à l'article */
+    color: rgba(255, 255, 255,0.7);
+    padding: 20px; /* Ajoute un espacement autour du contenu de l'article */
+    border-radius: 5px; /* Arrondit les coins de l'article */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Ajoute une ombre douce à l'article */
+    box-sizing: border-box; /* Inclut les bordures et le padding dans la largeur et la hauteur */
+}
+.article h3 {
+    margin-bottom: 40px;
+}
+
+/* media queries mobile */
 @media only screen and (max-width: 600px) {
     .navbar-collapse {
         background-color: rgb(18, 55, 42);

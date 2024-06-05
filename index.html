@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zoo Arcadia</title>
+    <link rel="stylesheet" type="texte/css" media="screen" href="css/reset.css">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
+    <!-- Image de fond -->
+    <div class="background">
+        <img class="blob-image" src="assets/background-blob/background-blob.png" alt="Background Blobs">
+    </div>
     <!-- Début Header -->
     <header>
         <!-- image de présentation -->
@@ -47,6 +52,7 @@
                     </div>
                     <div class="offcanvas-body">
                         <div class="container">
+                            <div class=" container-form">
                             <h2 class="mb-5">Connexion</h2>
                             <form action="login.php" method="POST">
                             <div class="form-group">
@@ -62,29 +68,72 @@
                             </div>
                             </form>
                         </div>
+                        </div>
                     </div>
                 </div>
             </section>
             <!-- Fin Offcanvas -->            
             </div>
-            
+            <!-- Fin Header -->
     </header>
     <main>
+        <!-- Bandeau de séparation entre header et main -->
         <div class="bandeau">
             <h3>Venez découvrir un lieu aux valeurs écologiques et humaines</h3>
         </div>
+        <!-- Début présentation du zoo -->
         <div class="container-presentation">
             <div class="photo">
-            <img src="assets/main presentation.png" alt="Photo de deux éléphants devant un groupe de visiteurs">
+            <img src="assets/main/presentation/presentation.png" alt="Photo de deux éléphants devant un groupe de visiteurs">
             </div>
             <div class="description">
                 <article class="article">
                     <h3>Un zoo fort de 60 années d'expérience</h3>
                     <p>Niché au cœur de la majestueuse forêt de Brocéliande en Bretagne depuis 1960, le zoo Arcadia est bien plus qu'un simple sanctuaire animalier.</p>
                     <p>C'est un havre de paix où la faune prospère dans des habitats soigneusement reconstitués, de la savane à la jungle luxuriante en passant par le marais humide.</p>
-                    <p> Chaque jour,vétérinaires et employés veillent attentivement à la santé de leurs pensionnaires, qui par ailleurs se portent à mérveille! Mais Arcadia ne se contente pas de prendre soin de ses animaux. </p>
+                    <p>Vous retrouverez dans ces habitats bon nombre de petits et gros pensionnaires dont le bien-être est notre priorité.</p>
+                    <p> Chaque jour,vétérinaires et employés veillent attentivement à la santé de leurs petits protégés, qui par ailleurs se portent à mérveille! Vous pourrez d'ailleur (avec un peu de chance) aux nourissages quotidiens. Mais Arcadia ne se contente pas de prendre soin de ses animaux. </p>
                     <p>Fier de son engagement envers l'environnement, le zoo a réalisé l'exploit de devenir totalement indépendant sur le plan énergétique.</p>
+                    <p>C'est un engagement important pour l'avenir du zoo mais aussi de la panète.</p>                   
                 </article>
+            </div>
+        </div>
+        <!-- Fin présentation du zoo -->
+        <!-- Début cards habitats/animaux -->
+        <div class="container">
+            <div class="container-card mt-5">
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-4 mb-3">
+                    <div class="card h-100 card-savane" style="width: 100%;">
+                        <img src="assets/main/accueil-habitats/savane-girafe.png" class="card-img-top h-100" alt="Photo d'une girafe dans la savane">
+                        <div class="card-body">
+                            <h5 class="card-title text-center fs-3">Savane</h5>
+                            <p class="card-text">Bienvenue dans l'habitat savane de notre zoo, une vaste étendue qui capture l'essence des plaines africaines. Ici, les lions règnent en maîtres, les élégantes girafes se promènent gracieusement et les majestueux éléphants complètent ce tableau.</p>
+                            <a href="#" class="btn btn-outline-light fs-5">Je découvre la savane !</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 mb-3">
+                    <div class="card h-100 card-marais" style="width: 100%;">
+                        <img src="assets/main/accueil-habitats/marais-alligator.png" class="card-img-top h-100" alt="Photo d'un alligator dans l'eau">
+                        <div class="card-body">
+                            <h5 class="card-title text-center fs-3">Marais</h5>
+                            <p class="card-text">Bienvenue dans l'habitat marais de notre zoo, un écosystème fascinant où l'eau et la terre se rencontrent pour créer un refuge unique. Les imposants alligators, Les flamboyants flamants roses et les robustes buffles peuplent cet habitat.</p>
+                            <a href="#" class="btn btn-outline-light fs-5">Je découvre le marais !</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 mb-3">
+                    <div class="card h-100 card-jungle" style="width: 100%;">
+                        <img src="assets/main/accueil-habitats/jungle-koala.png" class="card-img-top h-100" alt="Photo d'un koala marchant sur une branche">
+                        <div class="card-body">
+                            <h5 class="card-title text-center fs-3">Jungle</h5>
+                            <p class="card-text">Bienvenue dans l'habitat jungle de notre zoo, une oasis luxuriante où la nature s'épanouit dans toute sa splendeur. Ici, vous pouvez admirer les majestueux gorilles, plus loin, les adorables koalas et enfin, les puissants tigres.</p>
+                            <a href="#" class="btn btn-outline-light justify-content-center fs-5">Je découvre la jungle !</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
             </div>
         </div>
     </main>

@@ -214,6 +214,22 @@ h1 {
     margin-right: 10px; /* Espace entre le logo et le titre */
 }
 
+/* Footer */
+footer{
+    margin-top: 8%;
+    background-color: rgb(18, 55, 42, 0.3);
+}
+.copyright{
+    border-top: solid 1px rgba(255, 255, 255, 0.05);
+    color: rgb(255, 255, 255, 0.5);
+}
+.flex-column a:hover {
+    color: rgb(251, 250, 218) !important; /* Changement de couleur au survol */
+}
+footer a{
+    text-decoration: none;
+}
+
 /* media queries mobile */
 @media only screen and (max-width: 600px) {
     .navbar-collapse {
@@ -241,6 +257,9 @@ h1 {
         display: -webkit-box;
         -webkit-box-orient: vertical;
         overflow: hidden;
+    }
+    footer {
+        text-align: center 
     }
 }
 

@@ -13,3 +13,15 @@ window.addEventListener("scroll", () => {
         description.classList.add("show");
     }
 });
+
+window.addEventListener("scroll", () => {
+    const container = document.querySelector(".container-services");
+    const windowHeight = window.innerHeight;
+
+    const containerTop = container.getBoundingClientRect().top;
+
+    if (containerTop < windowHeight - 100) {
+        container.classList.add("show-new");
+    }
+  });
+

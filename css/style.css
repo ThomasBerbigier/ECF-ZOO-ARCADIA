@@ -159,8 +159,8 @@ h1 {
     transform: translateX(0);
 }
 .article {
-    background-color: rgb(67, 104, 80); /* Ajoute un fond gris clair à l'article */
-    color: rgba(255, 255, 255,0.7);
+    background-color: rgb(67, 104, 80, 0.8); /* Ajoute un fond gris clair à l'article */
+    color: rgba(255, 255, 255,0.8);
     padding: 20px; /* Ajoute un espacement autour du contenu de l'article */
     border-radius: 5px; /* Arrondit les coins de l'article */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Ajoute une ombre douce à l'article */
@@ -186,6 +186,34 @@ h1 {
 .card-text, .card-title {
     color: rgb(255, 255, 255, 0.7);
 }
+
+/* Accueil services */
+.container-services {
+    transform: translateY(100px); /* Initialement déplacé vers le bas */
+  opacity: 0; /* Initialement masqué */
+  transition: transform 1s ease, opacity 2s ease; /* Transition pour l'animation */
+  color: rgba(0, 0, 0);
+  background-color: rgb(251, 250, 218, 0.8);
+  border-radius: 5px;
+}
+.show-new {
+    transform: translateY(0); /* Ramène à la position originale */
+    opacity: 1; /* Rendre visible */
+}
+.custom-list {
+    list-style: none;
+}
+.title-with-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.title-with-logo img {
+    width: 40px; /* Ajustez la taille selon vos besoins */
+    height: auto;
+    margin-right: 10px; /* Espace entre le logo et le titre */
+}
+
 /* media queries mobile */
 @media only screen and (max-width: 600px) {
     .navbar-collapse {
@@ -215,3 +243,7 @@ h1 {
         overflow: hidden;
     }
 }
+
+
+
+

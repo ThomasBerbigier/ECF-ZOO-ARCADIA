@@ -214,6 +214,22 @@ h1 {
     margin-right: 10px; /* Espace entre le logo et le titre */
 }
 
+/* Avis */
+.review-carousel, .form-card {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: rgb(173, 188, 159, 0.9);
+    color: rgba(0, 0, 0);
+     border-radius: 5px;
+}
+.carousel-item {
+    padding: 20px;
+}
+.review-card {
+    background-color: rgb(255,255,255, 0.5);
+    color: rgba(0, 0, 0);
+}
+
 /* Footer */
 footer{
     margin-top: 8%;

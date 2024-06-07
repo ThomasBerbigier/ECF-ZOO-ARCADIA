@@ -23,7 +23,7 @@
         <nav class="navbar navbar-expand-lg navbar-custom">
             <div class="container-fluid ">
                 <a class="navbar-brand me-5" href="index.html"></a>
-                <img src="" alt="" width="40" height="60">
+                <img src="assets/Logo/Capture_d_écran_2024-06-07_205635-removebg-preview.png" alt="Logo du zoo" width="130" height="80">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
                 </button>
@@ -146,13 +146,13 @@
                     <li > 
                         <h3 class="title-with-logo">
                         <span>
-                            <img src="assets/main/restaurant_7409492.svg">
+                            <img src="assets/main/accueil-services/restaurant_7409492.svg">
                         </span>
                         <span>
                             Restauration
                         </span>
                         <span  class="px-3">
-                            <img src="assets/main/restaurant_7409492.svg">
+                            <img src="assets/main/accueil-services/restaurant_7409492.svg">
                         </span>
                         </h3>
                         <p>Venez goûter aux spécialités bretonnes dans l'un de nos trois restaurants !</p>
@@ -160,13 +160,13 @@
                     <li>
                         <h3 class="title-with-logo">
                             <span>
-                                <img src="assets/main/guide_13794712.svg">
+                                <img src="assets/main/accueil-services/guide_13794712.svg">
                             </span>
                             <span>
                                 Visite guidée
                             </span>
                             <span class="px-3">
-                                <img src="assets/main/guide_13794712.svg">
+                                <img src="assets/main/accueil-services/guide_13794712.svg">
                             </span>
                         </h3>
                         <p>Un guide vous fera visiter gratuitement les différents habitats du parc !</p>
@@ -174,13 +174,13 @@
                     <li>
                         <h3 class="title-with-logo">
                             <span>
-                                <img src="assets/main/icons8-train-64.png">
+                                <img src="assets/main/accueil-services/icons8-train-64.png">
                             </span>
                             <span>
                                 Tour du zoo en petit train
                             </span>
                             <span class="px-2">
-                                <img src="assets/main/icons8-train-64.png">
+                                <img src="assets/main/accueil-services/icons8-train-64.png">
                             </span>
                             </h3>
                         <p>Si vous aussi vous adorez les balades en petit train ne râtez pas le départ !</p>
@@ -192,38 +192,87 @@
             </div>
         </div>
         <!-- Fin accueil services -->
-        
+        <!-- Début avis -->
+        <!-- Présentation avis-->
+        <div id="reviewsCarousel" class="carousel carousel-dark review-carousel slide mt-5" data-bs-ride="carousel">
+            <div class="carousel-inner" id="reviewsSection">
+                <div class="carousel-item active">
+                    <div class="card review-card text-center ">
+                        <div class="card-header fs-5">
+                            Pseudo
+                        </div>
+                        <div class="card-body fs-5" id="reviewsSection">
+                            <p>Aucun avis pour le moment. Soyez le premier à laisser un avis !</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#reviewsCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Précédent</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#reviewsCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Suivant</span>
+            </button>
+        </div>
+    </div>
+        <!-- Fin présentation avis-->
+        <!-- Début laisser un avis-->
+        <div class="container my-3">
+            <!-- Formulaire d'avis -->
+            <div class="row">
+                <div class="card text-center form-card mb-5">
+                    <div class="card-header">
+                    <h3>Laisser un avis</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="reviewForm">
+                            <div class="mb-3">
+                                <label for="name" class="form-label form-label-bg fs-5">Nom</label>
+                                <input type="text" class="form-control" id="name" placeholder="Ecrivez votre pseudo ici" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="review" class="form-label form-label-bg fs-5" >Avis</label>
+                                <textarea class="form-control" id="review" rows="3" placeholder="Ecrivez votre texte ici" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-dark fs-5">Soumettre</button>
+                        </form>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </main>
     <!--Début Footer-->
     <footer class="pt-1 text-white ">
         <div class="container-fluid">
             <div class="row p-4">
                 <div class="col-12 col-lg-3 d-flex justify-content-center text-center">
                     <div>
-                        <h6 class="text-uppercase fw-bold mb-4 h5">Arcadia</h6>
+                        <img src="assets/Logo/Capture_d_écran_2024-06-07_205635-removebg-preview.png" alt="Logo du zoo" width="120" height="70">
                         <div class="d-flex">
-                            <div class="d-flex flex-column mx-4">
+                            <div class="d-flex flex-column pt-1 mx-4">
                                 <a href="index.html" class="text-light">Accueil</a>
                                 <a href="#" class="text-light">Habitats</a>
                                 <a href="#" class="text-light">Services</a>
                             </div>
-                            <div class="d-flex flex-column mx-4 mb-4">
+                            <div class="d-flex flex-column pt-1 mx-4 mb-4">
                                 <a href="#" class="text-light">Contact</a>
-                                <a href="#" class="text-light" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Espace professionnel</a>
+                                <a href="#" class="text-light" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Espace pro</a>
                                 <a href="#" class="text-light">Laisser un avis</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-lg-3 text-center" id="horaires">
+                <div class="col-12 col-lg-3 text-center pt-5" id="horaires">
                     <h6 class="text-uppercase fw-bold mb-4">horaires d'ouverture </h6>
-                    <p>La saison d'été a commencé !</p>
-                    <p>Du lundi au dimanche de 10h à 18h</p>    
+                    <p>La saison d'été a commencé ! <br>Du lundi au dimanche de 10h à 18h</p>    
                 </div>
-                <div class="col-12 col-lg-3 text-center">
+                <div class="col-12 col-lg-3 text-center pt-5">
                     <h6 class="text-uppercase fw-bold mb-3 ">Adresse</h6>
                     <p> 1 chemin du roi Saint-Judicaël <br> 35380 Paimpont <br> Bretagne, France</p>
                 </div>
-                <div class="col-12 col-lg-3 text-center" id="social">
+                <div class="col-12 col-lg-3 pt-5 text-center" id="social">
                     <h6 class="text-uppercase fw-bold mb-4">réseaux sociaux</h6>
                     <div id="tags-social">
                         <a class="p-1" href="#"><i class="fa-brands fa-facebook-f fa-2xl" style="color: #3783f4;"></i></a>
@@ -247,3 +296,8 @@
     <script src="https://kit.fontawesome.com/ef78b716d2.js" crossorigin="anonymous"></script>
 </body>
 </html>
+<div class="container">
+    <div class="row">>
+            
+    </div>
+</div>

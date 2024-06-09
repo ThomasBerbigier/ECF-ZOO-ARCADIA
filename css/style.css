@@ -187,7 +187,7 @@ header {
     display: flex;
     justify-content: center;
 }
-.accueil .card-text, .card-title {
+.accueil .card-text, .accueil .card-title {
     color: rgb(255, 255, 255, 0.7);
 }
 
@@ -311,6 +311,13 @@ footer a{
     box-shadow: none;
     color: rgba(0, 0, 0);
 }
+
+/* Page services */
+.card-services {
+    background-color: rgb(251, 250, 218, 0.5);
+    color: rgba(0, 0, 0);
+}
+
 /* media queries mobile */
 @media only screen and (max-width: 600px) {
     .navbar-collapse {

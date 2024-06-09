@@ -314,8 +314,17 @@ footer a{
 
 /* Page services */
 .card-services {
-    background-color: rgb(251, 250, 218, 0.5);
+    background-color: rgb(251, 250, 218, 0.7);
     color: rgba(0, 0, 0);
+}
+
+/* Page contact */
+.form-style {
+    padding-top: 7%;
+    color: rgb(255, 255, 255, 0.8);
+}
+.form-style .form-control {
+    background-color: rgb(255, 255, 255, 0.8);
 }
 
 /* media queries mobile */

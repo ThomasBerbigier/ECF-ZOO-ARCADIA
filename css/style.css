@@ -172,21 +172,22 @@ header {
 .article h3 {
     margin-bottom: 40px;
 }
+
 /* cards habitats/animaux */
-.card-savane {
+.accueil .card-savane {
     background-color: rgb(67, 104, 80);
 }
-.card-marais {
+.accueil .card-marais {
     background-image: linear-gradient(to right, #436850, #365b46, #2a4f3d, #1e4333, #12372a);
 }
-.card-jungle {
+.accueil .card-jungle {
     background-color: rgb(18, 55, 42);
 }
 .container-card {
     display: flex;
     justify-content: center;
 }
-.card-text, .card-title {
+.accueil .card-text, .card-title {
     color: rgb(255, 255, 255, 0.7);
 }
 
@@ -249,14 +250,73 @@ footer a{
     text-decoration: none;
 }
 
+/* Page Habitats */
+
+/* Présentation habitats */
+.presentation-habitats {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding-top: 7%;
+}
+
+.presentation-habitats h1 {
+    color: rgb(255, 255, 255);
+    font-size: 3rem;
+    font-weight: bold;
+    padding-bottom: 1%;
+}
+/* Cards habitats */
+.habitats .card-title {
+    color: rgba(0, 0, 0);
+    font-weight: bold;
+}
+.habitats-text {
+    color: rgba(0, 0, 0);
+}
+.habitat-savane, .habitat-marais, .habitat-jungle {
+    max-width: 70%;
+    transition: transform 0.3s ease;
+    margin-top: 1%;
+}
+.habitat-savane, .animal-savane {
+    background-color: rgb(251, 250, 218, 0.8);
+}
+.habitat-marais, .animal-marais {
+    background-color: rgb(173, 188, 159, 0.8);
+}
+.habitat-jungle, .animal-jungle {
+    background-color: rgb(67, 104, 80, 0.8);
+}
+.habitat-savane:hover, .habitat-marais:hover, .habitat-jungle:hover {
+    transform: scale(1.05);
+}
+
+   /* Accordéon habitats */
+/* card savane */
+.accordion-button-savane, .savane-body, .accordion-button-savane:not(.collapsed) {
+    background-color: rgb(251, 250, 218);
+    color: rgba(0, 0, 0);
+}
+/* card marais */
+.accordion-button-marais, .marais-body, .accordion-button-marais:not(.collapsed) {
+    background-color: rgb(173, 188, 159);
+    color: rgba(0, 0, 0);
+}
+/* card jungle */
+.accordion-button-jungle, .jungle-body, .accordion-button-jungle:not(.collapsed) {
+    background-color: rgb(67, 104, 80);
+    color: rgba(0, 0, 0);
+}
+.accordion-button-savane:focus, .accordion-button-marais:focus, .accordion-button-jungle:focus{
+    outline: none;
+    box-shadow: none;
+    color: rgba(0, 0, 0);
+}
 /* media queries mobile */
 @media only screen and (max-width: 600px) {
     .navbar-collapse {
         background-color: rgb(18, 55, 42);
     }
     header {
-
-
         height: 97px;
     }
     
@@ -280,6 +340,15 @@ footer a{
     footer {
         text-align: center 
     }
+    .presentation-habitats h1 {
+        color: rgb(255, 255, 255);
+        font-size: 2rem;
+        font-weight: bold;
+        padding-bottom: 3%;
+    }
+    .habitat-savane, .habitat-marais, .habitat-jungle {
+    max-width: 100%;
+    }
 }
 
 @media only screen and (min-width: 601px) and (max-width: 961px) {
@@ -287,8 +356,6 @@ footer a{
         background-color: rgb(18, 55, 42);
     }
     header {
-
-
         height: 97px;
     }
     
@@ -312,6 +379,9 @@ footer a{
     footer {
         text-align: center 
     }
+    .habitat-savane, .habitat-marais, .habitat-jungle {
+        max-width: 100%;
+        }
 }
 
 

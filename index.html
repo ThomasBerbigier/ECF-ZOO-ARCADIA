@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zoo Arcadia</title>
+    <title>Parc animalier au coeur de la Bretagne - Zoo Arcadia</title>
     <link rel="stylesheet" type="texte/css" media="screen" href="css/reset.css">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -14,45 +14,39 @@
         <img class="blob-image" src="assets/background-blob/background-blob.png" alt="Background Blobs">
     </div>
     <!-- Début Header -->
+    <!-- Menu de navigation -->
     <header>
-        <!-- image de présentation -->
-        <img class="img-header" src="assets/header/image header.png" alt="image représentant un groupe de flamants roses présents dans le zoo">
-        <!-- Début Menu de navigation -->
-        <div class="overlay">
-            <h1>Bienvenue au Zoo Arcadia</h1>
         <nav class="navbar navbar-expand-lg navbar-custom">
             <div class="container-fluid ">
                 <a class="navbar-brand me-5" href="index.html"></a>
                 <img src="assets/Logo/Capture_d_écran_2024-06-07_205635-removebg-preview.png" alt="Logo du zoo" width="130" height="80">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav mx-auto">
-                    <a class="nav-link me-5 fs-4" aria-current="page" href="index.html">Accueil</a>
-                    <a class="nav-link me-5 fs-4" href="#">Habitats</a>
-                    <a class="nav-link me-5 fs-4" href="#">Services</a> 
-                    <a class="nav-link me-5 fs-4" href="#">Contact</a>                   
-                </div>
-                <div class="navbar-nav"></div>
-                <a class="nav-link me-5 fs-4" href="#">
-                    <button type="button" class="btn btn-outline-light btn-lg" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Espace professionnel</button>
-                    
-                </a>
+                    <div class="navbar-nav mx-auto">
+                        <a class="nav-link me-5 fs-4" aria-current="page" href="index.html">Accueil</a>
+                        <a class="nav-link me-5 fs-4" href="habitats.html">Habitats</a>
+                        <a class="nav-link me-5 fs-4" href="#">Services</a> 
+                        <a class="nav-link me-5 fs-4" href="#">Contact</a>                   
+                    </div>
+                    <a class="nav-link me-5 fs-4" href="#">
+                        <button type="button" class="btn btn-outline-light btn-lg" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Espace professionnel</button>
+                    </a>
                 </div>
             </div>
-            </nav>
+        </nav>
             <!-- Fin menu de navigation -->
             <!-- Début Offcanvas pour espace professionnel -->
-            <section>
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-                    <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasRightLabel">Espace professionnel</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body">
-                        <div class="container">
-                            <div class=" container-form">
+        <section>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasRightLabel">Espace professionnel</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <div class="container">
+                        <div class=" container-form">
                             <h2 class="mb-5">Connexion</h2>
                             <form action="login.php" method="POST">
                             <div class="form-group">
@@ -68,23 +62,28 @@
                             </div>
                             </form>
                         </div>
-                        </div>
                     </div>
                 </div>
-            </section>
-            <!-- Fin Offcanvas -->            
             </div>
+        </section>
+            <!-- Fin Offcanvas -->            
             <!-- Fin Header -->
     </header>
     <main>
-        <!-- Bandeau de séparation entre header et main -->
+        <!-- Image de présentation -->
+        <img class="img-accueil" src="assets/header/image header.png" alt="image représentant un groupe de flamants roses présents dans le zoo">
+        <!--  Titre de présentation -->
+        <div class="overlay">
+            <h1 class="title-index">Bienvenue au Zoo Arcadia</h1>
+        </div>
+        <!-- Bandeau de séparation -->
         <div class="bandeau">
             <h3>Venez découvrir un lieu aux valeurs écologiques et humaines</h3>
         </div>
         <!-- Début présentation du zoo -->
         <div class="container-presentation">
             <div class="photo">
-            <img src="assets/main/presentation/presentation.png" alt="Photo de deux éléphants devant un groupe de visiteurs">
+                <img src="assets/main/presentation/presentation.png" alt="Photo de deux éléphants devant un groupe de visiteurs">
             </div>
             <div class="description">
                 <article class="article">
@@ -199,7 +198,7 @@
                 <div class="carousel-item active">
                     <div class="card review-card text-center ">
                         <div class="card-header fs-5">
-                            Pseudo
+                            <p>Pseudo</p>
                         </div>
                         <div class="card-body fs-5" id="reviewsSection">
                             <p>Aucun avis pour le moment. Soyez le premier à laisser un avis !</p>
@@ -224,7 +223,7 @@
             <div class="row">
                 <div class="card text-center form-card mb-5">
                     <div class="card-header">
-                    <h3>Laisser un avis</h3>
+                        <h3>Laisser un avis</h3>
                     </div>
                     <div class="card-body">
                         <form id="reviewForm">
@@ -253,7 +252,7 @@
                         <div class="d-flex">
                             <div class="d-flex flex-column pt-1 mx-4">
                                 <a href="index.html" class="text-light">Accueil</a>
-                                <a href="#" class="text-light">Habitats</a>
+                                <a href="habitats.html" class="text-light">Habitats</a>
                                 <a href="#" class="text-light">Services</a>
                             </div>
                             <div class="d-flex flex-column pt-1 mx-4 mb-4">

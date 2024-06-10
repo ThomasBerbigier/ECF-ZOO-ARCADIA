@@ -33,8 +33,8 @@ header {
     width: 100%;
     z-index: 1000;
 }
-.nav-link  {
-    color: white;
+.nav-link {
+    color:rgb(255, 255, 255);
 }
 .navbar-toggler {
     border-color: rgba(255, 255, 255);
@@ -50,7 +50,7 @@ header {
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #f9f9f9;
+    background-color: rgb(251, 250, 218);
 }
 .container-form h2 {
     text-align: center;
@@ -103,7 +103,7 @@ header {
     text-align: center;
     padding: 1rem;
 }
-.overlay h1 {
+.overlay .title-index {
     margin-bottom: 200px;
     font-size: 5rem;
     font-weight: bold;
@@ -121,7 +121,7 @@ header {
 }
 
 /* image et texte présentant le zoo */
-.container-presentation {
+.container-presentation, .photo, .description {
     display: flex;
     align-items: center; /* Centre les éléments verticalement */
 }
@@ -131,13 +131,10 @@ header {
     transition: all 1s ease-out;
     width: 50%; /* Chaque élément prend 50% de la largeur du conteneur */
     box-sizing: border-box; /* Inclut les bordures et le padding dans la largeur */
+    justify-content: center;
 }
 .photo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     transform: translateX(-100%);
-    
 }
 .photo img {
     width: 100%; /* Réduit la largeur de la photo à 50% de la largeur de son conteneur */
@@ -147,12 +144,7 @@ header {
     border-radius: 5px;
 }
 .description {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     transform: translateX(100%);
-    box-sizing: border-box;
-    width: 50%; /* Définit la largeur de la description à 50% de la largeur de son conteneur */
     margin-left: 2%;
     margin-bottom: 2%;
     margin-top: 2%;
@@ -187,7 +179,8 @@ header {
     display: flex;
     justify-content: center;
 }
-.accueil .card-text, .accueil .card-title {
+.accueil .card-text,
+.accueil .card-title {
     color: rgb(255, 255, 255, 0.7);
 }
 
@@ -219,7 +212,8 @@ header {
 }
 
 /* Avis */
-.review-carousel, .form-card {
+.review-carousel,
+.form-card {
     max-width: 500px;
     margin: 0 auto;
     background-color: rgb(173, 188, 159, 0.9);
@@ -235,18 +229,18 @@ header {
 }
 
 /* Footer */
-footer{
+footer {
     margin-top: 8%;
     background-color: rgb(18, 55, 42, 0.3);
 }
-.copyright{
+.copyright {
     border-top: solid 1px rgba(255, 255, 255, 0.05);
     color: rgb(255, 255, 255, 0.5);
 }
 .flex-column a:hover {
     color: rgb(251, 250, 218) !important; /* Changement de couleur au survol */
 }
-footer a{
+footer a {
     text-decoration: none;
 }
 
@@ -264,6 +258,7 @@ footer a{
     font-weight: bold;
     padding-bottom: 1%;
 }
+
 /* Cards habitats */
 .habitats .card-title {
     color: rgba(0, 0, 0);
@@ -272,41 +267,58 @@ footer a{
 .habitats-text {
     color: rgba(0, 0, 0);
 }
-.habitat-savane, .habitat-marais, .habitat-jungle {
+.habitat-savane, 
+.habitat-marais, 
+.habitat-jungle {
     max-width: 70%;
     transition: transform 0.3s ease;
     margin-top: 1%;
 }
-.habitat-savane, .animal-savane {
+.habitat-savane, 
+.animal-savane {
     background-color: rgb(251, 250, 218, 0.8);
 }
-.habitat-marais, .animal-marais {
+.habitat-marais, 
+.animal-marais {
     background-color: rgb(173, 188, 159, 0.8);
 }
-.habitat-jungle, .animal-jungle {
+.habitat-jungle, 
+.animal-jungle {
     background-color: rgb(67, 104, 80, 0.8);
 }
-.habitat-savane:hover, .habitat-marais:hover, .habitat-jungle:hover {
+.habitat-savane:hover, 
+.habitat-marais:hover, 
+.habitat-jungle:hover {
     transform: scale(1.05);
 }
 
    /* Accordéon habitats */
 /* card savane */
-.accordion-button-savane, .savane-body, .accordion-button-savane:not(.collapsed) {
+.accordion-button-savane, 
+.savane-body, 
+.accordion-button-savane:not(.collapsed) {
     background-color: rgb(251, 250, 218);
     color: rgba(0, 0, 0);
 }
+
 /* card marais */
-.accordion-button-marais, .marais-body, .accordion-button-marais:not(.collapsed) {
+.accordion-button-marais, 
+.marais-body, 
+.accordion-button-marais:not(.collapsed) {
     background-color: rgb(173, 188, 159);
     color: rgba(0, 0, 0);
 }
+
 /* card jungle */
-.accordion-button-jungle, .jungle-body, .accordion-button-jungle:not(.collapsed) {
+.accordion-button-jungle, 
+.jungle-body, 
+.accordion-button-jungle:not(.collapsed) {
     background-color: rgb(67, 104, 80);
     color: rgba(0, 0, 0);
 }
-.accordion-button-savane:focus, .accordion-button-marais:focus, .accordion-button-jungle:focus{
+.accordion-button-savane:focus, 
+.accordion-button-marais:focus, 
+.accordion-button-jungle:focus {
     outline: none;
     box-shadow: none;
     color: rgba(0, 0, 0);
@@ -321,10 +333,12 @@ footer a{
 /* Page contact */
 .form-style {
     padding-top: 7%;
-    color: rgb(255, 255, 255, 0.8);
-}
+} 
 .form-style .form-control {
     background-color: rgb(255, 255, 255, 0.8);
+}
+.form-style {
+    color: rgb(255, 255, 255,0.8);
 }
 
 /* media queries mobile */
@@ -342,8 +356,8 @@ footer a{
         height: 100%;
         object-fit: cover;
     }
-    .overlay h1 {
-        margin-bottom: 400px;
+    .overlay .title-index {
+        margin-bottom: 300px;
         font-size: 2rem;
         font-weight: bold;
     }
@@ -381,7 +395,7 @@ footer a{
         height: 100%;
         object-fit: cover;
     }
-    .overlay h1 {
+    .overlay .title-index {
         margin-bottom: 400px;
         font-size: 2.5rem;
         font-weight: bold;

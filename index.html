@@ -30,9 +30,7 @@
                         <a class="nav-link me-5 fs-4" href="services.html">Services</a> 
                         <a class="nav-link me-5 fs-4" href="contact.html">Contact</a>                   
                     </div>
-                    <a class="nav-link me-5 fs-4" href="#">
-                        <button type="button" class="btn btn-outline-light btn-lg" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Espace professionnel</button>
-                    </a>
+                    <a href="#" class="btn btn-outline-light me-5 fs-4" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Espace professionnel</a>
                 </div>
             </div>
         </nav>
@@ -41,7 +39,7 @@
         <section>
             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
                 <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasRightLabel">Espace professionnel</h5>
+                    <h2 class="offcanvas-title" id="offcanvasRightLabel">Espace professionnel</h2>
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body">
@@ -71,7 +69,7 @@
     </header>
     <main>
         <!-- Image de présentation -->
-        <img class="img-accueil" src="assets/header/image header.png" alt="image représentant un groupe de flamants roses présents dans le zoo">
+        <img class="img-accueil" src="assets/header/image_header.png" alt="image représentant un groupe de flamants roses présents dans le zoo">
         <!--  Titre de présentation -->
         <div class="overlay">
             <h1 class="title-index">Bienvenue au Zoo Arcadia</h1>
@@ -145,13 +143,13 @@
                     <li > 
                         <h3 class="title-with-logo">
                         <span>
-                            <img src="assets/main/accueil-services/restaurant_7409492.svg">
+                            <img src="assets/main/accueil-services/restaurant_7409492.svg" alt="Logo restaurant">
                         </span>
                         <span>
                             Restauration
                         </span>
                         <span  class="px-3">
-                            <img src="assets/main/accueil-services/restaurant_7409492.svg">
+                            <img src="assets/main/accueil-services/restaurant_7409492.svg" alt="Logo restaurant">
                         </span>
                         </h3>
                         <p>Venez goûter aux spécialités bretonnes dans l'un de nos trois restaurants !</p>
@@ -159,13 +157,13 @@
                     <li>
                         <h3 class="title-with-logo">
                             <span>
-                                <img src="assets/main/accueil-services/guide_13794712.svg">
+                                <img src="assets/main/accueil-services/guide_13794712.svg" alt="Logo visite guidée">
                             </span>
                             <span>
                                 Visite guidée
                             </span>
                             <span class="px-3">
-                                <img src="assets/main/accueil-services/guide_13794712.svg">
+                                <img src="assets/main/accueil-services/guide_13794712.svg" alt="Logo visite guidée">
                             </span>
                         </h3>
                         <p>Un guide vous fera visiter gratuitement les différents habitats du parc !</p>
@@ -173,13 +171,13 @@
                     <li>
                         <h3 class="title-with-logo">
                             <span>
-                                <img src="assets/main/accueil-services/icons8-train-64.png">
+                                <img src="assets/main/accueil-services/icons8-train-64.png" alt="Logo petit train">
                             </span>
                             <span>
                                 Tour du zoo en petit train
                             </span>
                             <span class="px-2">
-                                <img src="assets/main/accueil-services/icons8-train-64.png">
+                                <img src="assets/main/accueil-services/icons8-train-64.png" alt="Logo petit train">
                             </span>
                             </h3>
                         <p>Si vous aussi vous adorez les balades en petit train ne râtez pas le départ !</p>
@@ -200,7 +198,7 @@
                         <div class="card-header fs-5">
                             <p>Pseudo</p>
                         </div>
-                        <div class="card-body fs-5" id="reviewsSection">
+                        <div class="card-body fs-5" id="reviewsComment">
                             <p>Aucun avis pour le moment. Soyez le premier à laisser un avis !</p>
                         </div>
                     </div>
@@ -215,7 +213,6 @@
                 <span class="visually-hidden">Suivant</span>
             </button>
         </div>
-    </div>
         <!-- Fin présentation avis-->
         <!-- Début laisser un avis-->
         <div class="container my-3">
@@ -232,7 +229,7 @@
                                 <input type="text" class="form-control" id="name" placeholder="Ecrivez votre pseudo ici" required>
                             </div>
                             <div class="mb-3">
-                                <label for="review" class="form-label form-label-bg fs-5" >Avis</label>
+                                <label for="comment" class="form-label form-label-bg fs-5" >Avis</label>
                                 <textarea class="form-control" id="comment" rows="3" placeholder="Ecrivez votre texte ici" required></textarea>
                             </div>
                             <button type="submit" class="btn btn-dark fs-5">Soumettre</button>

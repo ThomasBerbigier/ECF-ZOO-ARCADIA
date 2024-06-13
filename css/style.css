@@ -1,0 +1,419 @@
+/* image de fond */
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Mettre en arrière-plan */
+}
+/* Style pour l'image de fond "blobs" */
+.blob-image {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    filter: brightness(0.5) 
+}
+
+/* header */
+header {
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+
+/* navbar */
+.navbar-custom {
+    background-color: rgb(18, 55, 42, 0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+.nav-link {
+    color:rgb(255, 255, 255);
+}
+.navbar-toggler {
+    border-color: rgba(255, 255, 255);
+}
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* formulaire espace professionnel */
+.container-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: rgb(251, 250, 218);
+}
+.container-form h2 {
+    text-align: center;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+.form-group label {
+    display: block;
+    font-weight: bold;
+}
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.form-group input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(18, 55, 42);
+    color: #fff;
+    cursor: pointer;
+}
+.form-group input[type="submit"]:hover {
+    background-color: rgb(18, 55, 42);
+}
+
+/* image bienvenue */
+.img-accueil {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+/* titre bienvenue */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+.overlay .title-index {
+    margin-bottom: 200px;
+    font-size: 5rem;
+    font-weight: bold;
+}
+
+/* bandeau separation header/main */
+.bandeau {
+    background-color: rgba(0, 0, 0, 0.6); /* Couleur de fond du bandeau */
+    color: white;              /* Couleur du texte */
+    padding: 20px;             /* Espacement interne */
+    text-align: center;        /* Centrer le texte */
+    font-size: 24px;           /* Taille du texte */
+    font-weight: bold;         /* Mettre le texte en gras */
+    width: 100%;               /* Occupe toute la largeur */
+}
+
+/* image et texte présentant le zoo */
+.container-presentation, .photo, .description {
+    display: flex;
+    align-items: center; /* Centre les éléments verticalement */
+}
+.photo, .description {
+    flex: 1;
+    opacity: 0;
+    transition: all 1s ease-out;
+    width: 50%; /* Chaque élément prend 50% de la largeur du conteneur */
+    box-sizing: border-box; /* Inclut les bordures et le padding dans la largeur */
+    justify-content: center;
+}
+.photo {
+    transform: translateX(-100%);
+}
+.photo img {
+    width: 100%; /* Réduit la largeur de la photo à 50% de la largeur de son conteneur */
+    margin-bottom: 4%; /* Ajoute un espace en bas de la photo */
+    margin-top: 2%;
+    margin-left: 2%;
+    border-radius: 5px;
+}
+.description {
+    transform: translateX(100%);
+    margin-left: 2%;
+    margin-bottom: 2%;
+    margin-top: 2%;
+}
+.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+.article {
+    background-color: rgb(67, 104, 80, 0.8); /* Ajoute un fond gris clair à l'article */
+    color: rgba(255, 255, 255,0.8);
+    padding: 20px; /* Ajoute un espacement autour du contenu de l'article */
+    border-radius: 5px; /* Arrondit les coins de l'article */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Ajoute une ombre douce à l'article */
+    box-sizing: border-box; /* Inclut les bordures et le padding dans la largeur et la hauteur */
+}
+.article h3 {
+    margin-bottom: 40px;
+}
+
+/* cards habitats/animaux */
+.accueil .card-savane {
+    background-color: rgb(67, 104, 80);
+}
+.accueil .card-marais {
+    background-image: linear-gradient(to right, #436850, #365b46, #2a4f3d, #1e4333, #12372a);
+}
+.accueil .card-jungle {
+    background-color: rgb(18, 55, 42);
+}
+.container-card {
+    display: flex;
+    justify-content: center;
+}
+.accueil .card-text,
+.accueil .card-title {
+    color: rgb(255, 255, 255, 0.7);
+}
+
+/* Accueil services */
+.container-services {
+    transform: translateY(100px); /* Initialement déplacé vers le bas */
+    opacity: 0; /* Initialement masqué */
+    transition: transform 1s ease, opacity 2s ease; /* Transition pour l'animation */
+    color: rgba(0, 0, 0);
+    background-color: rgb(251, 250, 218, 0.8);
+    border-radius: 5px;
+}
+.show-new {
+    transform: translateY(0); /* Ramène à la position originale */
+    opacity: 1; /* Rendre visible */
+}
+.custom-list {
+    list-style: none;
+}
+.title-with-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.title-with-logo img {
+    width: 40px; /* Ajustez la taille selon vos besoins */
+    height: auto;
+    margin-right: 10px; /* Espace entre le logo et le titre */
+}
+
+/* Avis */
+.review-carousel,
+.form-card {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: rgb(173, 188, 159, 0.9);
+    color: rgba(0, 0, 0);
+    border-radius: 5px;
+}
+.carousel-item {
+    padding: 20px;
+}
+.review-card {
+    background-color: rgb(255,255,255, 0.5);
+    color: rgba(0, 0, 0);
+}
+
+/* Footer */
+footer {
+    margin-top: 8%;
+    background-color: rgb(18, 55, 42, 0.3);
+}
+.copyright {
+    border-top: solid 1px rgba(255, 255, 255, 0.05);
+    color: rgb(255, 255, 255, 0.5);
+}
+.flex-column a:hover {
+    color: rgb(251, 250, 218) !important; /* Changement de couleur au survol */
+}
+footer a {
+    text-decoration: none;
+}
+
+/* Page Habitats */
+
+/* Présentation habitats */
+.presentation-habitats {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding-top: 7%;
+}
+
+.presentation-habitats h1 {
+    color: rgb(255, 255, 255);
+    font-size: 3rem;
+    font-weight: bold;
+    padding-bottom: 1%;
+}
+
+/* Cards habitats */
+.habitats .card-title {
+    color: rgba(0, 0, 0);
+    font-weight: bold;
+}
+.habitats-text {
+    color: rgba(0, 0, 0);
+}
+.habitat-savane, 
+.habitat-marais, 
+.habitat-jungle {
+    max-width: 70%;
+    transition: transform 0.3s ease;
+    margin-top: 1%;
+}
+.habitat-savane, 
+.animal-savane {
+    background-color: rgb(251, 250, 218, 0.8);
+}
+.habitat-marais, 
+.animal-marais {
+    background-color: rgb(173, 188, 159, 0.8);
+}
+.habitat-jungle, 
+.animal-jungle {
+    background-color: rgb(67, 104, 80, 0.8);
+}
+.habitat-savane:hover, 
+.habitat-marais:hover, 
+.habitat-jungle:hover {
+    transform: scale(1.05);
+}
+
+   /* Accordéon habitats */
+/* card savane */
+.accordion-button-savane, 
+.savane-body, 
+.accordion-button-savane:not(.collapsed) {
+    background-color: rgb(251, 250, 218);
+    color: rgba(0, 0, 0);
+}
+
+/* card marais */
+.accordion-button-marais, 
+.marais-body, 
+.accordion-button-marais:not(.collapsed) {
+    background-color: rgb(173, 188, 159);
+    color: rgba(0, 0, 0);
+}
+
+/* card jungle */
+.accordion-button-jungle, 
+.jungle-body, 
+.accordion-button-jungle:not(.collapsed) {
+    background-color: rgb(67, 104, 80);
+    color: rgba(0, 0, 0);
+}
+.accordion-button-savane:focus, 
+.accordion-button-marais:focus, 
+.accordion-button-jungle:focus {
+    outline: none;
+    box-shadow: none;
+    color: rgba(0, 0, 0);
+}
+
+/* Page services */
+.card-services {
+    background-color: rgb(251, 250, 218, 0.7);
+    color: rgba(0, 0, 0);
+}
+
+/* Page contact */
+.form-style {
+    padding-top: 7%;
+} 
+.form-style .form-control {
+    background-color: rgb(255, 255, 255, 0.8);
+}
+.form-style {
+    color: rgb(255, 255, 255,0.8);
+}
+
+/* media queries mobile */
+@media only screen and (max-width: 600px) {
+    .navbar-collapse {
+        background-color: rgb(18, 55, 42);
+    }
+    header {
+        height: 97px;
+    }
+    
+    /* image header */
+    .img-accueil{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .overlay .title-index {
+        margin-bottom: 300px;
+        font-size: 2rem;
+        font-weight: bold;
+    }
+    .article {
+        -webkit-line-clamp: 10;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    footer {
+        text-align: center 
+    }
+    .presentation-habitats h1 {
+        color: rgb(255, 255, 255);
+        font-size: 2rem;
+        font-weight: bold;
+        padding-bottom: 3%;
+    }
+    .habitat-savane, .habitat-marais, .habitat-jungle {
+    max-width: 100%;
+    }
+}
+
+@media only screen and (min-width: 601px) and (max-width: 961px) {
+    .navbar-collapse {
+        background-color: rgb(18, 55, 42);
+    }
+    header {
+        height: 97px;
+    }
+    
+    /* image header */
+    .img-accueil{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .overlay .title-index {
+        margin-bottom: 400px;
+        font-size: 2.5rem;
+        font-weight: bold;
+    }
+    .article {
+        -webkit-line-clamp: 10;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    footer {
+        text-align: center 
+    }
+    .habitat-savane, .habitat-marais, .habitat-jungle {
+        max-width: 100%;
+        }
+}
+
+
+
+

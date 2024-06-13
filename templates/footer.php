@@ -13,8 +13,12 @@
                             </div>
                             <div class="d-flex flex-column pt-1 mx-4 mb-4">
                                 <a href="contact.php" class="text-light">Contact</a>
-                                <a href="#" class="text-light" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Espace pro</a>
                                 <a href="index.php#review" class="text-light">Laisser un avis</a>
+                                <?php if (isset($_SESSION['user'])) { ?>
+                                    <a href="logout.php" class="text-light">Déconnexion</a>
+                                <?php } else { ?>
+                                    <a href="#" class="text-light" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Espace pro</a>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>

@@ -23,5 +23,7 @@ window.addEventListener("scroll", () => {
     if (containerTop < windowHeight - 100) {
         container.classList.add("show-new");
     }
-  });
+});
+
+
 

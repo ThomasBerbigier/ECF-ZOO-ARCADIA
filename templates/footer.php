@@ -14,11 +14,17 @@
                             <div class="d-flex flex-column pt-1 mx-4 mb-4">
                                 <a href="contact.php" class="text-light">Contact</a>
                                 <a href="index.php#review" class="text-light">Laisser un avis</a>
-                                <?php if (isset($_SESSION['user'])) { ?>
-                                    <a href="logout.php" class="text-light">Déconnexion</a>
-                                <?php } else { ?>
-                                    <a href="#" class="text-light" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Espace pro</a>
-                                <?php } ?>
+                                <?php if (isset($_SESSION['user'])) {?> 
+                                    <?php if ($_SESSION['role'] == 'administrateur') {?> 
+                                        <a class="text-light" href="administrateur.php">Espace administrateur</a>
+                                    <?php } else if ($_SESSION['role'] == 'employe') { ?>
+                                        <a class="text-light" href="employe.php">Espace employé</a>
+                                    <?php } else if ($_SESSION['role'] == 'veterinaire') { ?> 
+                                        <a class="text-light" href="veterinaire.php">Espace vétérinaire</a>  
+                                    <?php } ?>
+                                    <?php } else { ?> 
+                                        <a href="#" class="text-light" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Espace pro</a>
+                                    <?php } ?>
                             </div>
                         </div>
                     </div>

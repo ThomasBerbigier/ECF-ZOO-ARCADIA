@@ -3,7 +3,6 @@
 require_once __DIR__. "/templates/header.php";
 require_once __DIR__. "/lib/pdo.php"; 
 require_once __DIR__. "/lib/user.php";
-require_once __DIR__. "/lib/roles.php";
 
 $errors = [];
 
@@ -27,9 +26,9 @@ if(isset($_POST['loginUser'])) {
              // Rediriger l'utilisateur en fonction de son rôle
             if ($role['type'] == 'administrateur') {
                 header('Location: administrateur.php');
-            } elseif ($role['type'] == 'employé') {
+            } else if ($role['type'] == 'employe') {
                 header('Location: employe.php');
-            } elseif ($role['type'] == 'vétérinaire') {
+            } else if ($role['type'] == 'veterinaire') {
                 header('Location: veterinaire.php');
             } else {
                 // Rôle non reconnu
@@ -45,9 +44,13 @@ if(isset($_POST['loginUser'])) {
 }
 
 foreach ($errors as $error) { ?>
-    <div class="alert alert-danger" role="alert">
-    <?=$error; ?>
-    </div>
+    <div class="pt-5">
+        <div class="container pt-5">
+            <div class="alert alert-danger" role="alert">
+            <?=$error; ?>
+            </div>
+            </div>
+        </div>
     <?php }
 
 

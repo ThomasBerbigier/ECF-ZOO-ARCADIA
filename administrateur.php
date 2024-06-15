@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__. "/templates/header.php";
+require_once __DIR__. "/create_user.php";
 
 ?>
 <main>
@@ -32,6 +33,7 @@ require_once __DIR__. "/templates/header.php";
         </div>
     </div>
 </main>
+<!-- ?JoseArcadia!555 / 6976 / Windows Hello -->
 <?php 
-require_once __DIR__. "/create_user.php";
+require_once __DIR__. "/templates/footer.php";
 ?>

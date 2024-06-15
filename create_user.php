@@ -3,7 +3,7 @@
 require_once __DIR__. "/templates/header.php";
 require_once __DIR__. "/lib/pdo.php"; 
 require_once __DIR__. "/lib/user.php";
-require_once __DIR__. "/login.php";
+require_once __DIR__. "/lib/send_email.php";
 
 
 
@@ -22,7 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt = $pdo->prepare('INSERT INTO users (email, password, role_id) VALUES (?, ?, ?)');
             $stmt->execute([$email, $password, $role]);
         
-            echo "L'utilisateur a été créé avec succès.";
+            sendEmail($email);
+            echo "L'utilisateur a été créé avec succès et un email lui a été envoyé.";
         } else {
             echo "Rôle invalide.";
         }

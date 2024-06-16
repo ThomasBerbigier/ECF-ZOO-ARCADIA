@@ -11,12 +11,12 @@ function sendEmail($recipientEmail) {
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'jose555.arcadia@gmail.com'; // Remplacez par votre email SMTP
-        $mail->Password   = 'qypa zmrk nbog ytzm '; // Remplacez par votre mot de passe SMTP
+        $mail->Username   = 'jose555.arcadia@gmail.com';
+        $mail->Password   = 'qypa zmrk nbog ytzm '; // Mot de passed'application
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = 587;
 
-        // Destinataire
+        // Expéditeur / destinataire
         $mail->setFrom('jose555.arcadia@gmail.com', 'Zoo Arcadia');
         $mail->addAddress($recipientEmail);
 

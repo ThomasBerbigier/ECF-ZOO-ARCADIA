@@ -1,7 +1,10 @@
 <?php 
 
 require_once __DIR__. "/templates/header.php"; 
-require_once __DIR__. "/administrateur_crud.php";
+require_once __DIR__. "/lib/pdo.php";
+
+$stmtServices = $pdo->query('SELECT * FROM services');
+$services = $stmtServices->fetchAll();
 ?>
     <main>
         <!-- Bandeau page-->

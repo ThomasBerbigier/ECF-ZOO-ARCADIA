@@ -1,3 +1,9 @@
+<?php
+require_once __DIR__. "/../lib/pdo.php";
+
+$stmtSchedules = $pdo->query('SELECT * FROM schedule');
+$schedules = $stmtSchedules->fetchAll();
+?>
 <!--Début Footer-->
 <footer class="pt-1 text-white ">
         <div class="container-fluid">
@@ -31,7 +37,11 @@
                 </div>
                 <div class="col-12 col-lg-3 text-center pt-5" id="horaires">
                     <h6 class="text-uppercase fw-bold mb-4">horaires d'ouverture </h6>
-                    <p>La saison d'été a commencé ! <br>Du lundi au dimanche de 10h à 18h</p>    
+                    <p>La saison d'été a commencé ! <br>
+                    <?php foreach($schedules as $schedule) { ?>
+                        <?php echo htmlspecialchars($schedule['day']).' '.htmlspecialchars($schedule['hour']) ?> 
+                    <?php }  ?> 
+                    </p> 
                 </div>
                 <div class="col-12 col-lg-3 text-center pt-5">
                     <h6 class="text-uppercase fw-bold mb-3 ">Adresse</h6>

@@ -171,15 +171,45 @@ require_once __DIR__. "/administrateur_crud.php";
                             <label for="add_picture" class="form-label">Image :</label>
                             <input type="file" name="add_picture" class="form-control" required>
                         </div>
-                        <button type="submit" name="add_habitat" class="btn btn-outline-light mt-2 btn-lg">Ajouter l'Habitat'</button>
+                        <button type="submit" name="add_habitat" class="btn btn-outline-light mt-2 btn-lg">Ajouter l'Habitat</button>
                     </form>
+
+                    <h2 class="pt-5">Modifer / Supprimer un habitat</h2>
+                    <?php foreach ($habitats as $habitat) { ?>
+                        <div class="card mb-3 mt-3">
+                            <img src="<?= htmlspecialchars($habitat['picture']) ?>" alt="Image de l'habitat " class="img-fluid">
+                            <div class="card-body">
+                                <form action="administrateur.php" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="id" value="<?= $habitat['id'] ?>">
+                                    <div class="mb-3">
+                                        <label for="ud_name" class="form-label fs-5">Nom de l'habitat :</label>
+                                        <input type="text" name="ud_name" class="form-control" value="<?= htmlspecialchars($habitat['name']) ?>" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="description" class="form-label fs-5">Description :</label>
+                                        <textarea name="ud_description" class="form-control" required><?= htmlspecialchars($habitat['description']) ?></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="ud_picture" class="form-label fs-5">Image (laisser vide pour conserver l'actuelle) :</label>
+                                        <input type="file" name="ud_picture" class="form-control">
+                                    </div>
+                                    <button type="submit" name="update_habitat" class="btn btn-warning">Mettre à jour l'Habitat</button>
+                                    <button type="submit" name="delete_habitat" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet habitat ?');">Supprimer l'habitat</button>
+                                </form>
+                            </div>
+                        </div>
+                    <?php }; ?>
                 </div>
             </div>
         </div>
     </div>
+</div>
+            
+        
+    
 </main>
 
-<!-- ?JoseArcadia!555 / 6976 / Windows Hello -->
+<!-- ?JoseArcadia!555 / 6976 / Windows Hello Plongez au cœur de notre habitat jungle, où vous pourrez admirer la majesté des gorilles, la douceur des koalas, et la puissance des tigres, dans un environnement luxuriant et exotique recréant fidèlement leur habitat naturel.-->
 <?php 
 require_once __DIR__. "/templates/footer.php";
 ?>

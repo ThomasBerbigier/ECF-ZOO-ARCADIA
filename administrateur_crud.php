@@ -14,6 +14,9 @@ $schedules = $stmtSchedules->fetchAll();
 $stmtHabitats = $pdo->query('SELECT * FROM habitats');
 $habitats = $stmtHabitats->fetchAll();
 
+$stmtAnimaux = $pdo->query('SELECT * FROM animals');
+$animals = $stmtAnimaux->fetchAll();
+
 if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'administrateur') {
     header('Location: index.php');
     exit();
@@ -46,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header('Location: administrateur.php');
             exit();
         }
-
+        // CRUD SERVICE
         // Création d'un service
         if (isset($_POST['add_service'])) {
             // stockage données du formulaire
@@ -138,7 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header('Location: administrateur.php');
             exit();
         }
-
+        // CRUD HORAIRE
         // Ajout d'un horaire
         if(isset($_POST['add_schedule'])) {
             // stockage données formulaire
@@ -179,6 +182,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header('Location: administrateur.php');
             exit();
         }
+        // CRUD HABITAT
         // Création d'un Habitat
         if (isset($_POST['add_habitat'])) {
             // stockage données du formulaire
@@ -214,6 +218,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             
             header('Location: administrateur.php');
             exit();
+            // Mis à jour d'un habitat
         } else if (isset($_POST['update_habitat'])) {
              // stockage données du formulaire
             $id = $_POST['id'];
@@ -268,7 +273,99 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header('Location: administrateur.php');
             exit();
         }
-        
+        // CRUD ANIMAUX
+        // Création d'un Animal
+        if (isset($_POST['add_animal'])) {
+            // stockage données du formulaire
+            $name = $_POST['add_name'];
+            $race = $_POST['add_race'];
+            $habitat = $_POST['add_animal_habitat'];
+            // Sécurité attaques XSS
+            $file_name = strip_tags($_FILES['add_picture']['name']);
+            $file_size = $_FILES['add_picture']['size'];
+            $file_tmp = $_FILES ['add_picture']['tmp_name'];
+            $file_type = $_FILES['add_picture']['type'];
+
+            $file_ext = explode('.', $file_name);
+            $file_end = end($file_ext);
+            $file_end = strtolower($file_end);
+            $extensions  = [ 'jpeg', 'jpg', 'png', 'svg'];
+            
+            if(in_array($file_end, $extensions) === false) {
+                $_SESSION['error'] = "Veuillez utiliser les extensions suivantes : JPEG, JPG , PNG , SVG";
+            } elseif($file_size > 10000000) { 
+                
+                $_SESSION['error'] = "Le fichier est trop volumineux";
+            } else {
+                // Supprime les caractères spéciaux
+                $file_name = preg_replace('/[^A-Za-z0-9.\-]/', '' ,$file_name);
+                $file_bdd = "assets/main/habitats/animaux/".$file_name;
+                // Déplacer l'image uploadée dans le répertoire souhaité
+                move_uploaded_file($file_tmp, $file_bdd); 
+            
+                $stmt = $pdo->prepare('INSERT INTO animals (name, race, picture, habitat) VALUES (?, ?, ?, ?)');
+                $stmt->execute([$name, $race, $file_bdd, $habitat]);
+                $_SESSION['message'] = "Animal ajouté avec succès.";
+            }
+            
+            header('Location: administrateur.php');
+            exit();
+            // Mis à jour d'un animal
+        } else if (isset($_POST['update_animal'])) {
+             // stockage données du formulaire
+            $id = $_POST['id'];
+            $name = $_POST['ud_name'];
+            $race = $_POST['ud_race'];
+            $habitat = $_POST['ud_animal_habitat'];
+             // Sécurité attaques XSS
+            $file_name = strip_tags($_FILES['ud_picture']['name']);
+            $file_size = $_FILES['ud_picture']['size'];
+            $file_tmp = $_FILES ['ud_picture']['tmp_name'];
+            $file_type = $_FILES['ud_picture']['type'];
+
+            $file_ext = explode('.', $file_name);
+            $file_end = end($file_ext);
+            $file_end = strtolower($file_end);
+            $extensions  = [ 'jpeg', 'jpg', 'png', 'svg'];
+
+            if ($_FILES['ud_picture']['error'] == 0) {
+                if(in_array($file_end, $extensions) === false) {
+                    $_SESSION['error'] = "Veuillez utiliser les extensions suivantes : JPEG, JPG , PNG , SVG";
+                } elseif($file_size > 10000000) { 
+                    
+                    $_SESSION['error'] = "Le fichier est trop volumineux";
+                } else {
+                     // Supprime les caractères spéciaux
+                    $file_name = preg_replace('/[^A-Za-z0-9.\-]/', '' ,$file_name);
+                    $file_bdd = "assets/main/habitats/animaux/".$file_name;
+                     // Déplacer l'image uploadée dans le répertoire souhaité
+                    move_uploaded_file($file_tmp, $file_bdd); 
+                
+                    $stmt = $pdo->prepare('UPDATE animals SET name = ?, description = ?, picture = ?, habitat = ? WHERE id = ?');
+                    $stmt->execute([$name, $race, $file_bdd, $habitat, $id]);
+                    $_SESSION['message'] = "Animal mis à jour avec succès.";
+                }
+            } else {
+                $stmt = $pdo->prepare('UPDATE animals SET name = ?, description = ?, habitat = ? WHERE id = ?');
+                $stmt->execute([$name, $race, $habitat, $id]);
+                $_SESSION['message'] = "Animal mis à jour avec succès.";
+            }
+            header('Location: administrateur.php');
+            exit();
+
+         // Suppression d'un animal
+        } else if (isset($_POST['delete_animal'])) {
+             // stockage données du formulaire
+            $id = $_POST['id'];
+            $stmt = $pdo->prepare('DELETE FROM animals WHERE id = ?');
+            if($stmt->execute([$id])) {
+            $_SESSION['message'] = "Animal supprimé avec succès.";
+            } else {
+                $_SESSION['error'] = "Erreur lors de la suppression de l'animal.";
+            }
+            header('Location: administrateur.php');
+            exit();
+        }
     } catch (PDOException $e) {
         echo "Erreur de connexion : " . $e->getMessage();
     }

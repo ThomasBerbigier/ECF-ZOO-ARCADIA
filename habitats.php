@@ -3,9 +3,21 @@
 require_once __DIR__. "/templates/header.php";
 require_once __DIR__. "/lib/pdo.php";
 
+// Récupérer tous les habitats
 $stmtHabitats = $pdo->query('SELECT * FROM habitats');
 $habitats = $stmtHabitats->fetchAll();
 
+// Récupérer tous les animaux
+$stmtAnimaux = $pdo->query('SELECT * FROM animals');
+$animals = $stmtAnimaux->fetchAll();
+
+// Trier animaux par habitats
+$animals_by_habitat = [];
+foreach($animals as $animal) {
+    $animals_by_habitat[$animal['habitat']][] = $animal;
+}
+
+// Variables pour appliquer classes CSS
 $habitatClass = '';
 $accordionClass = '';
 $bodyClass = '';
@@ -25,8 +37,11 @@ $animalClass = '';
             <div class="container-card text-center mt-5">
                 <div class="row">
                     <?php foreach ($habitats as $habitat) { ?>
-
                         <?php
+                        // Stocke le nom de l'habitat
+                        $habitat_name = $habitat['name'];
+                        // Associe nom d'habitat et tableau animaux / Retourne un tableau vide si null
+                        $habitat_animals = $animals_by_habitat[$habitat_name] ?? [];
                         // Récupérer les animaux de chaque habitat
                         $stmt = $pdo->prepare('SELECT * FROM animals WHERE habitat = ?');
                         $stmt->execute([$habitat['name']]);
@@ -45,17 +60,17 @@ $animalClass = '';
                         <div class="col-12 my-4 d-flex justify-content-center" id="habitats">
                             <!-- Début cards -->
                             <div class="card <?= $habitatClass ?>">
-                                <img src="<?= htmlspecialchars($habitat['picture']) ?>" class="card-img-top image" alt="<?= htmlspecialchars($habitat['name']) ?>"  data-bs-toggle="collapse" data-bs-target="<?= '#collapse'.htmlspecialchars($habitat['name']) ?>" aria-expanded="false" aria-controls="<?= 'collapse'.htmlspecialchars($habitat['name']) ?>" role="button" tabindex="0">
+                                <img src="<?= htmlspecialchars($habitat['picture']) ?>" class="card-img-top image" alt="<?= htmlspecialchars($habitat_name) ?>"  data-bs-toggle="collapse" data-bs-target="<?= '#collapse'.htmlspecialchars($habitat_name) ?>" role="button" tabindex="0">
                                 <div class="card-body ">
-                                    <h2 class="card-title text-center"><?= htmlspecialchars($habitat['name']) ?></h2>
-                                    <div class="collapse" id="<?= 'collapse'.htmlspecialchars($habitat['name']) ?>">
+                                    <h2 class="card-title text-center"><?= htmlspecialchars($habitat_name) ?></h2>
+                                    <div class="collapse" id="<?= 'collapse'.htmlspecialchars($habitat_name) ?>">
                                         <div class="collapse-habitats">
                                             <div class="container">
                                                 <div class="fs-5">
                                                     <p class="habitats-text"><?= htmlspecialchars($habitat['description']) ?></p>
                                                 </div>
                                                 <div class="row">
-                                                    <?php foreach ($animals as $animal) { ?>
+                                                    <?php foreach ($habitat_animals as $animal) { ?>
                                                         <?php if ($animal['habitat'] == 'savane') { ?>
                                                             <?php $accordionClass = 'accordion-button-savane'; ?>
                                                             <?php $bodyClass = 'savane-body'; ?>

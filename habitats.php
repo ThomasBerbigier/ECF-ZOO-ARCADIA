@@ -57,7 +57,7 @@ $animalClass = '';
                         <?php } else { ?>
                             <?php $habitatClass = 'habitat-marais'; ?>
                         <?php } ?>
-                        <div class="col-12 my-4 d-flex justify-content-center" id="habitats">
+                        <div class="col-12 my-4 d-flex justify-content-center" id="<?=htmlspecialchars($habitat_name) ?>">
                             <!-- Début cards -->
                             <div class="card <?= $habitatClass ?>">
                                 <img src="<?= htmlspecialchars($habitat['picture']) ?>" class="card-img-top image" alt="<?= htmlspecialchars($habitat_name) ?>"  data-bs-toggle="collapse" data-bs-target="<?= '#collapse'.htmlspecialchars($habitat_name) ?>" role="button" tabindex="0">

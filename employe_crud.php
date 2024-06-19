@@ -16,13 +16,14 @@ $stmtServices = $pdo->query('SELECT * FROM services');
 $services = $stmtServices->fetchAll();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Récupère les données du formulaire de nourrissage
-    $food = $_POST['food'];
-    $food_weight = $_POST['food_weight'];
-    $date = $_POST['date'];
-    $animal_id = $_POST['animal_id'];
 
     if(isset($_POST['add_food'])) {
+
+        // Récupère les données du formulaire de nourrissage
+        $food = $_POST['food'];
+        $food_weight = $_POST['food_weight'];
+        $date = $_POST['date'];
+        $animal_id = $_POST['animal_id'];
 
         $stmt = $pdo->prepare("INSERT INTO foods (food, food_weight, date, animal_id) VALUES (?, ?, ?, ?)");
         if($stmt->execute([$food, $food_weight, $date, $animal_id])) {

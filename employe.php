@@ -99,6 +99,8 @@ $animals = $stmtAnimaux->fetchAll();
             </div>
         </div>
     </div>
+    <!-- Fin Formulaire nourrissage animaux -->
+    <?php require_once __DIR__. '/services_form.php'; ?>
 </main>
 
 

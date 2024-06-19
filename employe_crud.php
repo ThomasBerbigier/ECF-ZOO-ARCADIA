@@ -9,12 +9,11 @@ if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'employe') {
     exit();
 }
 
-$stmtServices = $pdo->query('SELECT * FROM services');
-$services = $stmtServices->fetchAll();
-
 $stmtFoods = $pdo->query('SELECT * FROM foods');
 $foods = $stmtFoods->fetchAll();
 
+$stmtServices = $pdo->query('SELECT * FROM services');
+$services = $stmtServices->fetchAll();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Récupère les données du formulaire de nourrissage
@@ -34,4 +33,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: employe.php#foodSection');
         exit();
     }
+    
 }

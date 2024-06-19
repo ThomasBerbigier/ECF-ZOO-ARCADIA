@@ -16,6 +16,22 @@ $stmtFoods = $pdo->query('SELECT * FROM foods');
 $foods = $stmtFoods->fetchAll();
 
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Récupère les données du formulaire de nourrissage
+    $food = $_POST['food'];
+    $food_weight = $_POST['food_weight'];
+    $date = $_POST['date'];
+    $animal_id = $_POST['animal_id'];
 
+    if(isset($_POST['add_food'])) {
 
-
+        $stmt = $pdo->prepare("INSERT INTO foods (food, food_weight, date, animal_id) VALUES (?, ?, ?, ?)");
+        if($stmt->execute([$food, $food_weight, $date, $animal_id])) {
+            $_SESSION['message'] = "L'animal a bien été nourri.";
+        } else {
+            $_SESSION['error'] = "Erreur lors du nourrissage.";
+        }
+        header('Location: employe.php#foodSection');
+        exit();
+    }
+}

@@ -5,6 +5,7 @@ require_once __DIR__. "/lib/pdo.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try{
+        // Insère l'avis en bdd pour que l'employé le récupère sur sa page
         if(isset($_POST['submit_review'])) {
 
             $name = $_POST['name'];

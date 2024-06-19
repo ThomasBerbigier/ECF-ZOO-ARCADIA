@@ -7,42 +7,42 @@ require_once __DIR__. "/administrateur_crud.php";
 <!-- Début Formulaire ajout utilisateur employé ou vétérinaire -->
 <main>
     <div class="pt-5">
-            <div class="container pt-5">
-                <div class="row d-flex justify-content-center">
-                    <div class="col-12 col-lg-6 text-light">
-                    <?php if (isset($_SESSION['message'])){ ?>
-                        <div class="alert alert-info">
-                            <?= $_SESSION['message'] ?>
-                        </div>
-                        <?php unset($_SESSION['message']); ?>
-                        <?php } else if (isset($_SESSION['error'])) { ?>
-                            <div class="alert alert-danger">
-                            <?= $_SESSION['error'] ?>
-                        </div>
-                        <?php unset($_SESSION['error']); ?>
-                        <?php }; ?>
-                        <h2>Créer un compte utilisateur</h2>
-                        <form action="administrateur.php" method="POST">
-                        <div class="mt-2">
-                            <label for="createEmail" class="form-label">Email :</label>
-                            <input type="email" class="form-control" id="createEmail" name="createEmail" placeholder="Entrer l'email" required>
-                        </div>
-                        <div class="mt-2">
-                            <label for="createPassword" class="form-label">Mot de passe :</label>
-                            <input type="password" class="form-control" id="createPassword" name="createPassword" placeholder="Entrer le mot de passe" required>
-                        </div>
-                        <div class="mt-2">
-                            <label for="selectRole" class="form-label">Rôle :</label>
-                            <select class="form-select" id="selectRole" name="selectRole" aria-label="Default select example" required>
-                                <option value="2">Employé</option>
-                                <option value="3">Vétérinaire</option>
-                            </select>
-                        </div>
-                        <button type="submit" name="add_user" class="btn btn-outline-light mt-2 btn-lg">Créer le compte</button>
-                    </form>
+        <div class="container pt-5">
+            <div class="row d-flex justify-content-center">
+                <div class="col-12 col-lg-6 text-light">
+                <?php if (isset($_SESSION['message'])){ ?>
+                    <div class="alert alert-info">
+                        <?= $_SESSION['message'] ?>
                     </div>
+                    <?php unset($_SESSION['message']); ?>
+                    <?php } else if (isset($_SESSION['error'])) { ?>
+                        <div class="alert alert-danger">
+                        <?= $_SESSION['error'] ?>
+                    </div>
+                    <?php unset($_SESSION['error']); ?>
+                    <?php }; ?>
+                    <h2>Créer un compte utilisateur</h2>
+                    <form action="administrateur.php" method="POST">
+                    <div class="mt-2">
+                        <label for="createEmail" class="form-label">Email :</label>
+                        <input type="email" class="form-control" id="createEmail" name="createEmail" placeholder="Entrer l'email" required>
+                    </div>
+                    <div class="mt-2">
+                        <label for="createPassword" class="form-label">Mot de passe :</label>
+                        <input type="password" class="form-control" id="createPassword" name="createPassword" placeholder="Entrer le mot de passe" required>
+                    </div>
+                    <div class="mt-2">
+                        <label for="selectRole" class="form-label">Rôle :</label>
+                        <select class="form-select" id="selectRole" name="selectRole" aria-label="Default select example" required>
+                            <option value="2">Employé</option>
+                            <option value="3">Vétérinaire</option>
+                        </select>
+                    </div>
+                    <button type="submit" name="add_user" class="btn btn-outline-light mt-2 btn-lg">Créer le compte</button>
+                </form>
                 </div>
             </div>
+        </div>
     </div>
 <!-- Fin Formulaire ajout utilisateur employé ou vétérinaire -->
 <!-- Début Formulaires CRUD Services -->

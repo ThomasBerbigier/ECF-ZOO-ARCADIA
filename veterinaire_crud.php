@@ -26,7 +26,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $_SESSION['error'] = "Erreur lors de la soumission du compte rendu.";
         }
-        header('Location: veterinaire.php#reportSection');
+        header('Location: veterinaire.php');
+        exit();
+        
+    }
+    if(isset($_POST['add_comment'])) {
+
+        $comment = $_POST['comment'];
+        $habitat = $_POST['selectHabitat'];
+
+        $stmt = $pdo->prepare('UPDATE habitats SET comment = ? WHERE id = ?');
+        if($stmt->execute([$comment, $habitat])) {
+            $_SESSION['message'] = "Le commentaire a bien été envoyé.";
+        } else {
+            $_SESSION['error'] = "Erreur lors de la soumission du commentaire.";
+        }
+        header('Location: veterinaire.php');
         exit();
         
     }

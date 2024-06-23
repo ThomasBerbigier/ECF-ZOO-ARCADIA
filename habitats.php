@@ -3,18 +3,45 @@
 require_once __DIR__. "/templates/header.php";
 require_once __DIR__. "/lib/pdo.php";
 
-// Récupérer tous les habitats
-$stmtHabitats = $pdo->query('SELECT * FROM habitats');
-$habitats = $stmtHabitats->fetchAll();
+// Récupère les lignes des trois tables nécessaires, puis les combine
+$stmt = $pdo->prepare(
+    "SELECT habitats.id AS habitat_id, habitats.name AS habitat_name, habitats.description AS habitat_description, habitats.picture AS habitat_picture,
+            animals.id AS animal_id, animals.name AS animal_name, animals.race AS animal_race, animals.picture AS animal_picture,
+            reports.state AS animal_state
+    FROM habitats
+    LEFT JOIN animals ON habitats.name = animals.habitat
+    LEFT JOIN reports ON animals.id = reports.animal_id
+    ORDER BY habitats.id, animals.id;"
+    );
+$stmt->execute();
+$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Récupérer tous les animaux
-$stmtAnimaux = $pdo->query('SELECT * FROM animals');
-$animals = $stmtAnimaux->fetchAll();
+// Organise les données par habitat
+$habitats = [];
 
-// Trier animaux par habitats
-$animals_by_habitat = [];
-foreach($animals as $animal) {
-    $animals_by_habitat[$animal['habitat']][] = $animal;
+foreach ($results as $row) {
+
+    $habitat_id = $row['habitat_id'];
+    // Données habitat, initialisation tableau vide pour animaux
+    if (!isset($habitats[$habitat_id])) {
+
+        $habitats[$habitat_id] = [
+            'name' => $row['habitat_name'],
+            'description' => $row['habitat_description'],
+            'picture' => $row['habitat_picture'],
+            'animals' => []
+        ];
+    }
+    // Données animaux
+    if ($row['animal_id'] !== null) {
+
+        $habitats[$habitat_id]['animals'][$row['animal_id']] = [
+            'name' => $row['animal_name'],
+            'race' => $row['animal_race'],
+            'picture' => $row['animal_picture'],
+            'state' => $row['animal_state']
+        ];
+    }
 }
 
 // Variables pour appliquer classes CSS
@@ -36,17 +63,7 @@ $animalClass = '';
         <div class="container habitats">
             <div class="container-card text-center mt-5">
                 <div class="row">
-                    <?php foreach ($habitats as $habitat) { ?>
-                        <?php
-                        // Stocke le nom de l'habitat
-                        $habitat_name = $habitat['name'];
-                        // Associe nom d'habitat et tableau animaux / Retourne un tableau vide si null
-                        $habitat_animals = $animals_by_habitat[$habitat_name] ?? [];
-                        // Récupérer les animaux de chaque habitat
-                        $stmt = $pdo->prepare('SELECT * FROM animals WHERE habitat = ?');
-                        $stmt->execute([$habitat['name']]);
-                        $animals = $stmt->fetchAll();
-                        ?>
+                    <?php foreach ($habitats as $habitat_id => $habitat) { ?>
 
                         <?php if ($habitat['name'] == 'savane') { ?>
                             <?php $habitatClass = 'habitat-savane'; ?>
@@ -57,29 +74,30 @@ $animalClass = '';
                         <?php } else { ?>
                             <?php $habitatClass = 'habitat-marais'; ?>
                         <?php } ?>
-                        <div class="col-12 my-4 d-flex justify-content-center" id="<?=htmlspecialchars($habitat_name) ?>">
+                        <div class="col-12 my-4 d-flex justify-content-center" id="heading<?= $habitat_id ?>">
                             <!-- Début cards -->
                             <div class="card <?= $habitatClass ?>">
-                                <img src="<?= htmlspecialchars($habitat['picture']) ?>" class="card-img-top image" alt="<?= htmlspecialchars($habitat_name) ?>"  data-bs-toggle="collapse" data-bs-target="<?= '#collapse'.htmlspecialchars($habitat_name) ?>" role="button" tabindex="0">
+                                <img src="<?= htmlspecialchars($habitat['picture']) ?>" class="card-img-top image" alt="<?= htmlspecialchars($habitat['name']) ?>"  data-bs-toggle="collapse" data-bs-target="#collapse<?= $habitat_id ?>" role="button" aria-controls="collapse<?= $habitat_id ?>" tabindex="0">
                                 <div class="card-body ">
-                                    <h2 class="card-title text-center"><?= htmlspecialchars($habitat_name) ?></h2>
-                                    <div class="collapse" id="<?= 'collapse'.htmlspecialchars($habitat_name) ?>">
+                                    <h2 class="card-title text-center"><?= htmlspecialchars($habitat['name']) ?></h2>
+                                    <div class="collapse" id="collapse<?= $habitat_id ?>" aria-labelledby="heading<?= $habitat_id ?>" data-bs-parent="#accordionExample">
                                         <div class="collapse-habitats">
                                             <div class="container">
                                                 <div class="fs-5">
                                                     <p class="habitats-text"><?= htmlspecialchars($habitat['description']) ?></p>
                                                 </div>
                                                 <div class="row">
-                                                    <?php foreach ($habitat_animals as $animal) { ?>
-                                                        <?php if ($animal['habitat'] == 'savane') { ?>
+                                                    <?php foreach ($habitat['animals'] as $animal_id => $animal) { ?>
+
+                                                        <?php if ($habitat['name'] == 'savane') { ?>
                                                             <?php $accordionClass = 'accordion-button-savane'; ?>
                                                             <?php $bodyClass = 'savane-body'; ?>
                                                             <?php $animalClass = 'animal-savane'; ?>
-                                                        <?php } else if ($animal['habitat'] == 'marais') { ?>
+                                                        <?php } else if ($habitat['name'] == 'marais') { ?>
                                                             <?php $accordionClass = 'accordion-button-marais'; ?>
                                                             <?php $bodyClass = 'marais-body'; ?>
                                                             <?php $animalClass = 'animal-marais'; ?>
-                                                        <?php } else if ($animal['habitat'] == 'jungle') { ?>
+                                                        <?php } else if ($habitat['name'] == 'jungle') { ?>
                                                             <?php $accordionClass = 'accordion-button-jungle'; ?>
                                                             <?php $bodyClass = 'jungle-body'; ?>
                                                             <?php $animalClass = 'animal-jungle'; ?>
@@ -107,11 +125,9 @@ $animalClass = '';
                                                                                             <p>Race : <?= htmlspecialchars($animal['race']) ?></p>
                                                                                         </li>
                                                                                         <li>
-                                                                                            <p>Habitat : <?= htmlspecialchars($animal['habitat']) ?></p>
+                                                                                            <p>Etat de l'animal : <?= htmlspecialchars($animal['state']) ?></p>
                                                                                         </li>
-                                                                                        <li> <!-- Echanger avec rapport véto !! -->
-                                                                                            <p>Etat de l'animal : <?= htmlspecialchars($animal['name']) ?></p>
-                                                                                        </li>
+                                                                                        
                                                                                     </ul>
                                                                                 </div>
                                                                             </div>
@@ -121,7 +137,7 @@ $animalClass = '';
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    <?php } ?>   
+                                                    <?php } ?>  
                                                 </div>
                                             </div>
                                         </div>

@@ -77,7 +77,7 @@ $animalClass = '';
                         <div class="col-12 my-4 d-flex justify-content-center" id="heading<?= $habitat_id ?>">
                             <!-- Début cards -->
                             <div class="card <?= $habitatClass ?>">
-                                <img src="<?= htmlspecialchars($habitat['picture']) ?>" class="card-img-top image" alt="<?= htmlspecialchars($habitat['name']) ?>"  data-bs-toggle="collapse" data-bs-target="#collapse<?= $habitat_id ?>" role="button" aria-controls="collapse<?= $habitat_id ?>" tabindex="0">
+                                <img src="<?= htmlspecialchars($habitat['picture']) ?>" class="card-img-top image" alt="<?= htmlspecialchars($habitat['name']) ?>"  data-bs-toggle="collapse" data-bs-target="#collapse<?= $habitat_id ?>"  role="button" aria-controls="collapse<?= $habitat_id ?>" tabindex="0">
                                 <div class="card-body ">
                                     <h2 class="card-title text-center"><?= htmlspecialchars($habitat['name']) ?></h2>
                                     <div class="collapse" id="collapse<?= $habitat_id ?>" aria-labelledby="heading<?= $habitat_id ?>" data-bs-parent="#accordionExample">
@@ -146,7 +146,7 @@ $animalClass = '';
                             </div>
                         </div>
                     <?php } ?>
-                    <!-- Fin card jungle -->
+                    <!-- Fin card -->
                 </div>
             </div>
         </div>

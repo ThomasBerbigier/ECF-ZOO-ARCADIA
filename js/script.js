@@ -13,7 +13,7 @@ window.addEventListener("scroll", () => {
         description.classList.add("show");
     }
 });
-
+// animation services
 window.addEventListener("scroll", () => {
     const container = document.querySelector(".container-services");
     const windowHeight = window.innerHeight;

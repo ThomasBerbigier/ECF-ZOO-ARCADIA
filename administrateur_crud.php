@@ -1,9 +1,12 @@
 <?php
 
+require 'vendor/autoload.php';
 require_once __DIR__. "/templates/header.php";
 require_once __DIR__. "/lib/pdo.php"; 
 require_once __DIR__. "/lib/user.php";
 require_once __DIR__. "/lib/send_email.php";
+
+use MongoDB\Client;
 
 $stmtServices = $pdo->query('SELECT * FROM services');
 $services = $stmtServices->fetchAll();
@@ -16,6 +19,13 @@ $habitats = $stmtHabitats->fetchAll();
 
 $stmtAnimaux = $pdo->query('SELECT * FROM animals');
 $animals = $stmtAnimaux->fetchAll();
+
+$client = new Client("mongodb://localhost:27017");
+$collection = $client->zoo_arcadia->animals_clicks;
+// Récupère tous les documents de la collection, trie en ordre décroissant
+$cursor = $collection->find([], [
+    'sort' => ['click_count' => -1]
+]);
 
 if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'administrateur') {
     header('Location: index.php');
@@ -40,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Insérer le nouvel utilisateur
             $stmt = $pdo->prepare('INSERT INTO users (email, password, role_id) VALUES (?, ?, ?)');
             $stmt->execute([$email, $password, $role]);
-        // Envoyer mail de confirmation
+            // Envoyer mail de confirmation
             $_SESSION['message'] = "Compte utilisateur crée avec succès. Mail de confirmation envoyé.";
             sendEmail($email);
         } else {

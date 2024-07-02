@@ -45,6 +45,7 @@ require_once __DIR__. "/administrateur_crud.php";
         </div>
     </div>
     <!-- Fin Formulaire ajout utilisateur employé ou vétérinaire -->
+    <!-- Inclusion formulaires CRUD Services -->
     <?php require_once __DIR__. '/services_form.php'; ?>
     <!-- Début Formulaires CRUD horaires -->
     <div class="pt-5">
@@ -151,77 +152,101 @@ require_once __DIR__. "/administrateur_crud.php";
             </div>
         </div>
     </div>
-</div>
-<!-- Début Formulaires CRUD animaux -->
-<div class="pt-5">
-    <div class="container">
-        <div class="row d-flex justify-content-center">
-            <div class="col-12 col-lg-6 text-light">
-                <h2>Ajouter un animal</h2>
-                <!--  le formulaire contient un file upload -->
-                <form action="administrateur.php" method="POST" enctype="multipart/form-data">
-                    <div class="mt-2">
-                        <label for="add_name" class="form-label">Prénom :</label>
-                        <input type="text" name="add_name" class="form-control" required>
-                    </div>
-                    <div class="mt-2">
-                        <label for="add_race" class="form-label">Race :</label>
-                        <textarea name="add_race" class="form-control" required></textarea>
-                    </div>
-                    <div class="mt-2">
-                        <label for="add_animal_habitat" class="form-label">Habitat :</label>
-                        <textarea name="add_animal_habitat" class="form-control" required></textarea>
-                    </div>
-                    <div class="mt-2">
-                        <label for="add_picture" class="form-label">Image :</label>
-                        <input type="file" name="add_picture" class="form-control" required>
-                    </div>
-                    <button type="submit" name="add_animal" class="btn btn-outline-light mt-2 btn-lg">Ajouter l'animal</button>
-                </form>
+    <!-- Fin Formulaires CRUD habitats -->
+    <!-- Début Formulaires CRUD animaux -->
+    <div class="pt-5">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-12 col-lg-6 text-light">
+                    <h2>Ajouter un animal</h2>
+                    <!--  le formulaire contient un file upload -->
+                    <form action="administrateur.php" method="POST" enctype="multipart/form-data">
+                        <div class="mt-2">
+                            <label for="add_name" class="form-label">Prénom :</label>
+                            <input type="text" name="add_name" class="form-control" required>
+                        </div>
+                        <div class="mt-2">
+                            <label for="add_race" class="form-label">Race :</label>
+                            <textarea name="add_race" class="form-control" required></textarea>
+                        </div>
+                        <div class="mt-2">
+                            <label for="add_animal_habitat" class="form-label">Habitat :</label>
+                            <textarea name="add_animal_habitat" class="form-control" required></textarea>
+                        </div>
+                        <div class="mt-2">
+                            <label for="add_picture" class="form-label">Image :</label>
+                            <input type="file" name="add_picture" class="form-control" required>
+                        </div>
+                        <button type="submit" name="add_animal" class="btn btn-outline-light mt-2 btn-lg">Ajouter l'animal</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="pt-5">
-    <div class="container">
-        <div class="row d-flex justify-content-center">
-            <h2 class="pt-5 text-light text-center">Modifer / Supprimer un animal</h2>
-            <?php foreach ($animals as $animal) { ?>
-                <div class="col-6 col-lg-3 ">
-                    <div class="card mb-3 mt-3">
-                        <img src="<?= htmlspecialchars($animal['picture']) ?>" alt="Image de l'habitat " class="img-fluid">
-                        <div class="card-body">
-                            <form action="administrateur.php" method="post" enctype="multipart/form-data">
-                                <input type="hidden" name="id" value="<?= $animal['id'] ?>">
-                                <div class="mb-3">
-                                    <label for="ud_name" class="form-label fs-5">Prénom :</label>
-                                    <input type="text" name="ud_name" class="form-control" value="<?= htmlspecialchars($animal['name']) ?>" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="ud_race" class="form-label fs-5">Race :</label>
-                                    <textarea name="ud_race" class="form-control" required><?= htmlspecialchars($animal['race']) ?></textarea>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="ud_animal_habitat" class="form-label fs-5">Habitat :</label>
-                                    <textarea name="ud_animal_habitat" class="form-control" required><?= htmlspecialchars($animal['habitat']) ?></textarea>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="ud_picture" class="form-label fs-5">Image (laisser vide pour conserver l'actuelle) :</label>
-                                    <input type="file" name="ud_picture" class="form-control">
-                                </div>
-                                <button type="submit" name="update_animal" class="btn btn-warning">Mettre à jour l'animal</button>
-                                <button type="submit" name="delete_animal" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet habitat ?');">Supprimer l'animal</button>
-                            </form>
+    <div class="pt-5">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <h2 class="pt-5 text-light text-center">Modifer / Supprimer un animal</h2>
+                <?php foreach ($animals as $animal) { ?>
+                    <div class="col-6 col-lg-3 ">
+                        <div class="card mb-3 mt-3">
+                            <img src="<?= htmlspecialchars($animal['picture']) ?>" alt="Image de l'habitat " class="img-fluid">
+                            <div class="card-body">
+                                <form action="administrateur.php" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="id" value="<?= $animal['id'] ?>">
+                                    <div class="mb-3">
+                                        <label for="ud_name" class="form-label fs-5">Prénom :</label>
+                                        <input type="text" name="ud_name" class="form-control" value="<?= htmlspecialchars($animal['name']) ?>" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="ud_race" class="form-label fs-5">Race :</label>
+                                        <textarea name="ud_race" class="form-control" required><?= htmlspecialchars($animal['race']) ?></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="ud_animal_habitat" class="form-label fs-5">Habitat :</label>
+                                        <textarea name="ud_animal_habitat" class="form-control" required><?= htmlspecialchars($animal['habitat']) ?></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="ud_picture" class="form-label fs-5">Image (laisser vide pour conserver l'actuelle) :</label>
+                                        <input type="file" name="ud_picture" class="form-control">
+                                    </div>
+                                    <button type="submit" name="update_animal" class="btn btn-warning">Mettre à jour l'animal</button>
+                                    <button type="submit" name="delete_animal" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet habitat ?');">Supprimer l'animal</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-            <?php }; ?>
+                <?php }; ?>
+            </div>
         </div>
     </div>
-</div>
-    
-
-            
+    <!-- Fin Formulaires CRUD animaux -->
+    <!-- Début dashboard animaux -->
+    <section>
+        <div class="container mt-5">
+            <h1 class="text-center text-light">Tableau de bord des clics sur les animaux</h1>
+            <div class="row d-flex justify-content-center">
+                <div class="col-12 col-lg-6">
+                    <table class="table table-striped table-hover mt-3 ">
+                        <thead>
+                            <tr>
+                                <th>Nom de l'animal</th>
+                                <th>Nombre de clics</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($cursor as $document) { ?>
+                            <tr>
+                                <td><?= htmlspecialchars($document['animal_name']) ?></td>
+                                <td><?= htmlspecialchars($document['click_count']) ?></td>
+                            </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
         
     
 </main>

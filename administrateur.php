@@ -221,10 +221,78 @@ require_once __DIR__. "/administrateur_crud.php";
         </div>
     </div>
     <!-- Fin Formulaires CRUD animaux -->
-    <!-- Début dashboard animaux -->
+    <!-- Début Comptes rendus filtrés  -->
     <section>
         <div class="container mt-5">
-            <h1 class="text-center text-light">Tableau de bord des clics sur les animaux</h1>
+            <h2 class="text-center mb-4 text-light">Liste des Comptes Rendus</h2>
+                <!-- Formulaires de filtrage -->
+                <form method="GET" class="mb-4" action="#reports-table">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-12 col-lg-3">
+                            <label for="animal_id" class="form-label text-light">Filtrer par Animal :</label>
+                            <select name="animal_id" id="animal_id" class="form-select">
+                                <option value="">Tous les animaux</option>
+                                <!-- Option pour chaque animal -->
+                                <?php foreach ($animals_filter as $animal_filter) { ?>
+                                    <option value="<?= $animal_filter['id'] ?>" <?= ($_GET['animal_id'] ?? '') == $animal_filter['id'] ? 'selected' : '' ?>>
+                                        <?= htmlspecialchars($animal_filter['name']) ?>
+                                    </option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="col-12 col-lg-3">
+                            <label for="report_date" class="form-label text-light">Filtrer par Date :</label>
+                            <input type="date" name="report_date" id="report_date" class="form-control" value="<?= $_GET['report_date'] ?? '' ?>">
+                        </div>
+                        <div class="col-3 align-self-end">
+                            <button type="submit" class="btn btn-primary">Filtrer</button>
+                        </div>
+                    </div>
+                </form>
+                <!-- Ancre pour le tableau -->
+                <div id="reports-table">
+                </div>
+                <!-- Tableau des comptes rendus -->
+                <div class="row d-flex justify-content-center">
+                    <div class="col-12 col-lg-8">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Date de Passage</th>
+                                        <th>Nom de l'Animal</th>
+                                        <th>État</th>
+                                        <th>Nourriture</th>
+                                        <th>Poids de la Nourriture</th>
+                                        <th>Détail</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($reports as $index => $row) { ?>
+                                        <tr>
+                                            <td><?= $index + 1 ?></td>
+                                            <td><?= htmlspecialchars($row['passage']) ?></td>
+                                            <td><?= htmlspecialchars($row['animal_name']) ?></td>
+                                            <td><?= htmlspecialchars($row['state']) ?></td>
+                                            <td><?= htmlspecialchars($row['food']) ?></td>
+                                            <td><?= htmlspecialchars($row['food_weight']) ?></td>
+                                            <td><?= htmlspecialchars($row['detail']) ?></td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Fin Comptes rendus filtrés -->
+    <!-- Début dashboard clics animaux -->
+    <section>
+        <div class="container mt-5">
+            <h2 class="text-center text-light">Tableau de bord des clics sur les animaux</h2>
             <div class="row d-flex justify-content-center">
                 <div class="col-12 col-lg-6">
                     <table class="table table-striped table-hover mt-3 ">
@@ -247,8 +315,7 @@ require_once __DIR__. "/administrateur_crud.php";
             </div>
         </div>
     </section>
-        
-    
+    <!-- Fin dashboard clics animaux -->
 </main>
 
 <!-- ?JoseArcadia!555 / 6976 / Windows Hello Plongez au cœur de notre habitat jungle, où vous pourrez admirer la majesté des gorilles, la douceur des koalas, et la puissance des tigres, dans un environnement luxuriant et exotique recréant fidèlement leur habitat naturel.-->

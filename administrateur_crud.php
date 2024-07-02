@@ -20,6 +20,47 @@ $habitats = $stmtHabitats->fetchAll();
 $stmtAnimaux = $pdo->query('SELECT * FROM animals');
 $animals = $stmtAnimaux->fetchAll();
 
+$animalFilter =  '';
+$dateFilter =  '';
+
+// Ajoute une clause SQL en fonction de l'animal sélectionné
+if(isset($_GET['animal_id']) && is_numeric($_GET['animal_id'])) {
+    $animalFilter = 'AND reports.animal_id = :animal_id';
+}
+
+// Ajoute une clause SQL en fonction de la date de passage
+if(isset($_GET['report_date']) && !empty($_GET['report_date'])) {
+    $dateFilter = 'AND DATE(reports.passage) = :report_date';
+} 
+
+$stmtReports = $pdo->prepare(
+    "SELECT reports.id AS report_id, reports.state, reports.food, reports.food_weight, reports.passage, reports.detail, 
+            animals.name AS animal_name
+    FROM reports
+    JOIN animals ON reports.animal_id = animals.id
+    WHERE 1=1 
+    $animalFilter 
+    $dateFilter
+    ORDER BY reports.passage DESC"
+    );
+
+// Liaison des paramètres nommés
+if (!empty($animalFilter)) {
+    $stmtReports->bindParam(':animal_id', $_GET['animal_id'], PDO::PARAM_INT);
+}
+if (!empty($dateFilter)) {
+    // Si $_GET['report_date'] est une chaîne au format 'YYYY-MM-DD'
+    $stmtReports->bindParam(':report_date', $_GET['report_date'], PDO::PARAM_STR);
+}
+
+$stmtReports->execute();
+$reports = $stmtReports->fetchAll(PDO::FETCH_ASSOC);
+
+// Récupération de la liste des animaux (pour le filtre animal)
+$stmtFilter = $pdo->query("SELECT id, name FROM animals ORDER BY name");
+$animals_filter = $stmtFilter->fetchAll(PDO::FETCH_ASSOC);
+
+// Accès BDDNR
 $client = new Client("mongodb://localhost:27017");
 $collection = $client->zoo_arcadia->animals_clicks;
 // Récupère tous les documents de la collection, trie en ordre décroissant

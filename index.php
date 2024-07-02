@@ -198,4 +198,5 @@ require_once __DIR__. "/lib/pdo.php";
         </div>
     </div>
 </main>
+<script src="js/script.js"></script>
 <?php require_once __DIR__. "/templates/footer.php"; ?>

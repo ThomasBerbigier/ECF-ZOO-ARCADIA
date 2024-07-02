@@ -1,5 +1,5 @@
 <?php 
-
+require 'vendor/autoload.php';
 require_once __DIR__. "/templates/header.php";
 require_once __DIR__. "/lib/pdo.php";
 
@@ -32,7 +32,7 @@ foreach ($results as $row) {
             'animals' => []
         ];
     }
-    // Données animaux
+    // Données animaux dans habitat correspondant
     if ($row['animal_id'] !== null) {
 
         $habitats[$habitat_id]['animals'][$row['animal_id']] = [
@@ -114,7 +114,7 @@ $animalClass = '';
                                                                     <div class="accordion" id="<?= 'accordion'.htmlspecialchars($animal['name']) ?>">
                                                                         <div class="accordion-item">
                                                                             <div class="accordion-header">
-                                                                            <button class="accordion-button fs-2 <?= $accordionClass ?>" data-bs-toggle="collapse" data-bs-target="<?= '#collapse'.htmlspecialchars($animal['name']) ?>" aria-expanded="true" aria-controls="collapseAnimals" type="button" tabindex="0">
+                                                                            <button class="accordion-button fs-2 <?= $accordionClass ?>" data-animal-id="<?= $animal_id ?>" data-bs-toggle="collapse" data-bs-target="<?= '#collapse'.htmlspecialchars($animal['name']) ?>" aria-expanded="true" aria-controls="collapseAnimals" type="button" tabindex="0">
                                                                             <?= htmlspecialchars($animal['name']) ?>
                                                                             </button>
                                                                         </div>
@@ -152,4 +152,26 @@ $animalClass = '';
         </div>
     </section>
 </main>
+<!-- Enregistrer clics animaux -->
+<script>
+document.querySelectorAll('.accordion-button').forEach(button => {
+    button.addEventListener('click', () => {
+        const animalId = button.getAttribute('data-animal-id');
+        const animalName = button.textContent.trim();
+
+        // Envoi une requête HTTP à 'register_click.php'
+        fetch('register_click.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            // Corps de la requête, conversion en chaîne JSON
+            body: JSON.stringify({ animal_id: animalId, animal_name: animalName })
+        })
+        .then(response => response.json())
+        .then(data => console.log('Clic enregistré',data))
+        .catch(error => console.error('Error:', error));
+    });
+});
+</script>
 <?php require_once __DIR__. "/templates/footer.php"; ?>

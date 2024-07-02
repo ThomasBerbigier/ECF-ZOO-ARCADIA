@@ -66,7 +66,6 @@ $schedules = $stmtSchedules->fetchAll();
     </div>        
     </footer>
     <!-- Fin Footer -->
-    <script src="js/script.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/ef78b716d2.js" crossorigin="anonymous"></script>
 </body>

@@ -4,28 +4,41 @@ require_once __DIR__. "/templates/header.php";
 require_once __DIR__. "/veterinaire_crud.php";
 
 // Récupère les animaux pour les options du select 
-$stmtAnimals = $pdo->query('SELECT id, name FROM animals');
+$sql = 'SELECT id, name FROM animals';
+try {
+    $stmtAnimals = $pdo->query($sql);
+}catch (Exception $e) {
+    echo " Erreur ! " . $e->getMessage();
+}
 $animals = $stmtAnimals->fetchAll();
 
 // Récupère les habitats pour les options du select
-$stmtHabitats = $pdo->query('SELECT id, name FROM habitats');
+$sql = 'SELECT id, name FROM habitats';
+try {
+    $stmtHabitats = $pdo->query($sql);
+}catch (Exception $e) {
+    echo " Erreur ! " . $e->getMessage();
+}
 $habitats = $stmtHabitats->fetchAll();
 
 // Récupérer les animaux et leurs repas
 // Jointure combine chaque ligne sélectionnée de animals avec les lignes correspondantes de foods où animals.id est égal à foods.animal_id.
-$stmt = $pdo->prepare(
-    "SELECT
-        animals.id AS animal_id, 
-        animals.name AS animal_name, 
-        animals.picture AS animal_picture, 
-        foods.food AS food_name, 
-        foods.food_weight AS food_weight, 
-        foods.date AS food_date
-    FROM animals
-    LEFT JOIN foods ON animals.id = foods.animal_id
-    ORDER BY animals.id, foods.date DESC"
-);
-$stmt->execute();
+$sql =     "SELECT
+animals.id AS animal_id, 
+animals.name AS animal_name, 
+animals.picture AS animal_picture, 
+foods.food AS food_name, 
+foods.food_weight AS food_weight, 
+foods.date AS food_date
+FROM animals
+LEFT JOIN foods ON animals.id = foods.animal_id
+ORDER BY animals.id, foods.date DESC";
+try {
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+}catch (Exception $e) {
+    echo " Erreur ! " . $e->getMessage();
+}
 $food_by_animal = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $animals_history = [];
@@ -65,12 +78,12 @@ foreach ($food_by_animal as $row) {
                 <div class="col-12 col-lg-6 text-light">
                 <?php if (isset($_SESSION['message'])){ ?>
                     <div class="alert alert-info">
-                        <?= $_SESSION['message'] ?>
+                        <?= htmlspecialchars($_SESSION['message']) ?>
                     </div>
                     <?php unset($_SESSION['message']); ?>
                     <?php } else if (isset($_SESSION['error'])) { ?>
                         <div class="alert alert-danger">
-                        <?= $_SESSION['error'] ?>
+                        <?= htmlspecialchars($_SESSION['error']) ?>
                     </div>
                     <?php unset($_SESSION['error']); ?>
                     <?php }; ?>

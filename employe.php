@@ -6,14 +6,23 @@ require_once __DIR__. "/employe_crud.php";
 
 // Récupère les avis en attente de validation
 $validate = 0;
-
-$stmtReviews = $pdo->prepare("SELECT * FROM reviews WHERE validate = :validate");
-$stmtReviews->bindValue(':validate', $validate, PDO::PARAM_INT);
-$stmtReviews->execute();
+$sql = "SELECT * FROM reviews WHERE validate = :validate";
+try {
+    $stmtReviews = $pdo->prepare($sql);
+    $stmtReviews->bindValue(':validate', $validate, PDO::PARAM_INT);
+    $stmtReviews->execute();
+}catch (Exception $e) {
+    echo " Erreur ! " . $e->getMessage();
+}
 $reviews = $stmtReviews->fetchAll(PDO::FETCH_ASSOC);
 
 // Récupère les animaux pour les options du select
-$stmtAnimaux = $pdo->query('SELECT id, name FROM animals');
+$sql = 'SELECT id, name FROM animals';
+try {
+    $stmtAnimaux = $pdo->query($sql);
+} catch (Exception $e) {
+    echo " Erreur ! " . $e->getMessage();
+}
 $animals = $stmtAnimaux->fetchAll();
 
 ?>
@@ -25,12 +34,12 @@ $animals = $stmtAnimaux->fetchAll();
                 <h2 class="pt-5 text-light text-center">Valider / Invalider un avis</h2>
                 <?php if (isset($_SESSION['message'])){ ?>
                     <div class="alert alert-info">
-                        <?= $_SESSION['message'] ?>
+                        <?= htmlspecialchars($_SESSION['message']) ?>
                     </div>
                     <?php unset($_SESSION['message']); ?>
                     <?php } else if (isset($_SESSION['error'])) { ?>
                         <div class="alert alert-danger">
-                        <?= $_SESSION['error'] ?>
+                        <?= htmlspecialchars($_SESSION['error']) ?>
                     </div>
                     <?php unset($_SESSION['error']); ?>
                 <?php }; ?>
@@ -62,12 +71,12 @@ $animals = $stmtAnimaux->fetchAll();
                 <div class="col-12 col-lg-6 text-light">
                 <?php if (isset($_SESSION['message'])){ ?>
                     <div class="alert alert-info">
-                        <?= $_SESSION['message'] ?>
+                        <?= htmlspecialchars($_SESSION['message']) ?>
                     </div>
                     <?php unset($_SESSION['message']); ?>
                     <?php } else if (isset($_SESSION['error'])) { ?>
                         <div class="alert alert-danger">
-                        <?= $_SESSION['error'] ?>
+                        <?= htmlspecialchars($_SESSION['error']) ?>
                     </div>
                     <?php unset($_SESSION['error']); ?>
                     <?php }; ?>

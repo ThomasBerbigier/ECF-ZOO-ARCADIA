@@ -3,9 +3,14 @@
 function verifyUserLoginPassword(PDO $pdo, string $email, string $password):bool|array
 { 
     // Requête préparée = requête sécurisée
-    $query = $pdo->prepare("SELECT * FROM users WHERE email = :email");
-    $query->bindValue(':email', $email, PDO::PARAM_STR);
-    $query->execute();
+    $sql = "SELECT * FROM users WHERE email = :email";
+    try {
+        $query = $pdo->prepare($sql);
+        $query->bindValue(':email', $email, PDO::PARAM_STR);
+        $query->execute();
+    }catch (Exception $e) {
+        echo " Erreur ! " . $e->getMessage();
+    }
     // fetch() récupère une seule ligne
     $user = $query->fetch(PDO::FETCH_ASSOC);
 

@@ -8,9 +8,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if(isset($_POST['submitContact'])) {
 
-        $title = $_POST['title'];
-        $description = $_POST['description'];
-        $userEmail = $_POST['email'];
+        $title = htmlspecialchars($_POST['title'], ENT_QUOTES, 'UTF-8');
+        $description = htmlspecialchars($_POST['description'], ENT_QUOTES, 'UTF-8');
+        $userEmail = htmlspecialchars($_POST['email'], ENT_QUOTES, 'UTF-8');
 
         $mail = new PHPMailer(true);
 

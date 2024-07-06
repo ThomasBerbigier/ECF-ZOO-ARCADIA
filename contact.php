@@ -11,12 +11,12 @@ require_once __DIR__. "/contact_email.php" ;
             <div class="col-12 col-md-6">
                 <?php if (isset($_SESSION['message'])){ ?>
                     <div class="alert alert-info">
-                        <?= $_SESSION['message'] ?>
+                        <?= htmlspecialchars($_SESSION['message']) ?>
                     </div>
                     <?php unset($_SESSION['message']); ?>
                     <?php } else if (isset($_SESSION['error'])) { ?>
                         <div class="alert alert-danger">
-                        <?= $_SESSION['error'] ?>
+                        <?= htmlspecialchars($_SESSION['error']) ?>
                     </div>
                     <?php unset($_SESSION['error']); ?>
                 <?php }; ?>

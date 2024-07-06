@@ -3,8 +3,18 @@
 require_once __DIR__. "/templates/header.php";
 require_once __DIR__. "/lib/pdo.php";
 
-?>
+$validate = 1;
+$sql = "SELECT * FROM reviews WHERE validate = :validate";
+try {
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindValue(':validate', $validate, PDO::PARAM_INT).
+    $stmt->execute();
+} catch(Exception $e){
+    echo " Erreur ! ".$e->getMessage();
+}
+$reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+?>
 
 <main>
     <!-- Image de présentation -->
@@ -128,13 +138,6 @@ require_once __DIR__. "/lib/pdo.php";
         </div>
     </div>
     <!-- Fin accueil services -->
-    <?php
-        $validate = 1;
-        $stmt = $pdo->prepare("SELECT * FROM reviews WHERE validate = :validate");
-        $stmt->bindValue(':validate', $validate, PDO::PARAM_INT).
-        $stmt->execute();
-        $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    ?>
     <!-- Début avis -->
     <!-- Présentation avis-->
     <div id="reviewsCarousel" class="carousel carousel-dark review-carousel slide mt-5" data-bs-ride="carousel">
@@ -185,12 +188,12 @@ require_once __DIR__. "/lib/pdo.php";
                 </div>
                 <?php if (isset($_SESSION['message'])){ ?>
                     <div class="alert alert-info">
-                        <?= $_SESSION['message'] ?>
+                        <?= htmlspecialchars($_SESSION['message']) ?>
                     </div>
                     <?php unset($_SESSION['message']); ?>
                     <?php } else if (isset($_SESSION['error'])) { ?>
                         <div class="alert alert-danger">
-                        <?= $_SESSION['error'] ?>
+                        <?= htmlspecialchars($_SESSION['error']) ?>
                     </div>
                     <?php unset($_SESSION['error']); ?>
                 <?php }; ?> 

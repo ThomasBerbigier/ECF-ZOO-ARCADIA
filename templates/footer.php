@@ -1,7 +1,12 @@
 <?php
 require_once __DIR__. "/../lib/pdo.php";
 
-$stmtSchedules = $pdo->query('SELECT * FROM schedule');
+$sql = 'SELECT * FROM schedule';
+try {
+    $stmtSchedules = $pdo->query($sql);
+}catch (Exception $e) {
+    echo " Erreur ! " . $e->getMessage();
+}
 $schedules = $stmtSchedules->fetchAll();
 ?>
 <!--Début Footer-->
@@ -27,8 +32,8 @@ $schedules = $stmtSchedules->fetchAll();
                                         <a class="text-light" href="employe.php">Espace employé</a>
                                     <?php } else if ($_SESSION['role'] == 'veterinaire') { ?> 
                                         <a class="text-light" href="veterinaire.php">Espace vétérinaire</a>  
-                                    <?php } ?>
-                                    <?php } else { ?> 
+                                    <?php } 
+                                        } else { ?> 
                                         <a href="#" class="text-light" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Espace pro</a>
                                     <?php } ?>
                             </div>
@@ -39,7 +44,7 @@ $schedules = $stmtSchedules->fetchAll();
                     <h6 class="text-uppercase fw-bold mb-4">horaires d'ouverture </h6>
                     <p>La saison d'été a commencé ! <br>
                     <?php foreach($schedules as $schedule) { ?>
-                        <?php echo htmlspecialchars($schedule['day']).' '.htmlspecialchars($schedule['hour']) ?> 
+                        <?= htmlspecialchars($schedule['day']).' '.htmlspecialchars($schedule['hour']) ?> 
                     <?php }  ?> 
                     </p> 
                 </div>

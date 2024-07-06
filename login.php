@@ -4,6 +4,7 @@ require_once __DIR__. "/templates/header.php";
 require_once __DIR__. "/lib/pdo.php"; 
 require_once __DIR__. "/lib/user.php";
 
+// Initialisation tableau d'erreurs
 $errors = [];
 
 if(isset($_POST['loginUser'])) {
@@ -16,8 +17,13 @@ if(isset($_POST['loginUser'])) {
         $_SESSION['role_id'] = $user['role_id'];
 
         // récupérer le type de rôle
-        $stmt = $pdo->prepare('SELECT type FROM roles WHERE id = ?');
-        $stmt->execute([$user['role_id']]);
+        $sql = 'SELECT type FROM roles WHERE id = ?';
+        try {
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([$user['role_id']]);
+        }catch (Exception $e) {
+            echo " Erreur ! " . $e->getMessage();
+        }
         $role = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if($role) {

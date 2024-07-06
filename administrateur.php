@@ -12,12 +12,12 @@ require_once __DIR__. "/administrateur_crud.php";
                 <div class="col-12 col-lg-6 text-light">
                 <?php if (isset($_SESSION['message'])){ ?>
                     <div class="alert alert-info">
-                        <?= $_SESSION['message'] ?>
+                        <?= htmlspecialchars($_SESSION['message']) ?>
                     </div>
                     <?php unset($_SESSION['message']); ?>
                     <?php } else if (isset($_SESSION['error'])) { ?>
                         <div class="alert alert-danger">
-                        <?= $_SESSION['error'] ?>
+                        <?= htmlspecialchars($_SESSION['error']) ?>
                     </div>
                     <?php unset($_SESSION['error']); ?>
                     <?php }; ?>

@@ -3,8 +3,14 @@
 require_once __DIR__. "/templates/header.php"; 
 require_once __DIR__. "/lib/pdo.php";
 
-$stmtServices = $pdo->query('SELECT * FROM services');
+$sql = 'SELECT * FROM services';
+try {
+    $stmtServices = $pdo->query($sql);
+}catch (Exception $e) {
+    echo " Erreur ! " . $e->getMessage();
+}
 $services = $stmtServices->fetchAll();
+
 ?>
     <main>
         <!-- Bandeau page-->

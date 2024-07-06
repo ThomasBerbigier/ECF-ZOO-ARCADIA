@@ -33,8 +33,8 @@
                         <a class="nav-link me-5 fs-4" href="habitats.php">Habitats</a>
                         <a class="nav-link me-5 fs-4" href="services.php">Services</a> 
                         <a class="nav-link me-5 fs-4" href="contact.php">Contact</a>  
-                        <?php if (isset($_SESSION['user'])) {?> 
-                            <?php if ($_SESSION['role'] == 'administrateur') {?> 
+                        <?php if (isset($_SESSION['user'])) { 
+                                if ($_SESSION['role'] == 'administrateur') {?> 
                             <a class="nav-link me-5 fs-4" href="administrateur.php">Espace administrateur</a>
                         <?php } else if ($_SESSION['role'] == 'employe') { ?>
                             <a class="nav-link me-5 fs-4" href="employe.php">Espace employé</a>

@@ -31,12 +31,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if(isset($_POST['add_food'])) {
         
         // Récupère les données du formulaire de nourrissage
-        $food = htmlspecialchars($_POST['food'], ENT_QUOTES, 'UTF-8');
-        $food_weight = htmlspecialchars($_POST['food_weight'], ENT_QUOTES, 'UTF-8');
-        $date = $_POST['date'];
-        $animal_id = $_POST['animal_id'];
+        $food = filter_input(INPUT_POST, 'food', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $food_weight = filter_input(INPUT_POST, 'food_weight', FILTER_VALIDATE_INT, ['options' => ['max_range' => 1000]]);
+        $date = filter_input(INPUT_POST, 'date', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $animal_id = filter_input(INPUT_POST, 'animal_id', FILTER_VALIDATE_INT);
         
-        if ($food && $food_weight && $date && $animal_id) {
+        if ((!empty($food)) && (!empty($food_weight)) && (!empty($date)) && (!empty($animal_id))) {
             $sql = "INSERT INTO foods (food, food_weight, date, animal_id) VALUES (?, ?, ?, ?)";
             try {
                 $stmt = $pdo->prepare($sql);

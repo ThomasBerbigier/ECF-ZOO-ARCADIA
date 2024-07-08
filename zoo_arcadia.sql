@@ -252,9 +252,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `password`, `role_id`) VALUES
-(1, 'admin@arcadia.fr', '$2y$10$6aHLwvNZmYDwhsGWSd0.KuBndHXHXPe6KrXzpzcyvsqZuX7h/e.Fe', 1),
-(19, 'veterinaire@arcadia.fr', '$2y$10$Z9tesUVNZblTZdPY0CSzyusxWml2Tjcm0IYgSBFh0e/o3EdtAIq4O', 3),
-(20, 'employe@arcadia.fr', '$2y$10$JFaDqw7aNSoaU0AdLSHmCuPfH044n58h7ycwf2sFWvcqnBpqmlb7a', 2);
+(1, 'admin@arcadia.fr', '$2y$10$5PyxN9PEGSCRBhR2SKRto.lcK9bUs1GR3heL7DH94vkifI07jXqJi', 1),
+(19, 'veterinaire@arcadia.fr', '$2y$10$sc2tOowJzuM1ZnY2gr/HVuDAqYX.pwPsCeroJAQdYMc5SgeSkGw9K', 3),
+(20, 'employe@arcadia.fr', '$2y$10$Ai.xEJKllp2mtucFjklC5.Gp2ouTvq/S77V7pKYNmxzRS9yT7HPGe', 2);
 
 --
 -- Index pour les tables déchargées

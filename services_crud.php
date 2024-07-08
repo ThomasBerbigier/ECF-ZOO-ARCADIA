@@ -13,8 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Création d'un service
     if (isset($_POST['add_service'])) {
         // stockage données du formulaire
-        $name = htmlspecialchars($_POST['add_name'], ENT_QUOTES, 'UTF-8');
-        $description = htmlspecialchars($_POST['add_description'], ENT_QUOTES, 'UTF-8');
+        $name = filter_input(INPUT_POST, 'add_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $description = filter_input(INPUT_POST, 'add_description', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         // Sécurité attaques XSS
         $file_name = strip_tags($_FILES['add_picture']['name']);
         $file_size = $_FILES['add_picture']['size'];
@@ -38,26 +38,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Déplacer l'image uploadée dans le répertoire souhaité
             move_uploaded_file($file_tmp, $file_bdd); 
             
-            $sql = 'INSERT INTO services (name, description, picture) VALUES (?, ?, ?)';
-            try {
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute([$name, $description, $file_bdd]);
-            }catch (Exception $e) {
-                $_SESSION['error'] = "Erreur lors de l'ajout du service.". $e->getMessage();;
+            if ((!empty($name)) && (!empty($description)) && (!empty($file_bdd))) {
+                $sql = 'INSERT INTO services (name, description, picture) VALUES (?, ?, ?)';
+                try {
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute([$name, $description, $file_bdd]);
+                }catch (Exception $e) {
+                    $_SESSION['error'] = "Erreur lors de l'ajout du service.". $e->getMessage();;
+                }
+                $_SESSION['message'] = "Service ajouté avec succès.";
             }
-            
-            $_SESSION['message'] = "Service ajouté avec succès.";
         }
-        
         header('Location: ' . $_SERVER['HTTP_REFERER']);
         exit();
         
     // Mise à jour d'un service
     } else if (isset($_POST['update_service'])) {
         // stockage données du formulaire
-        $id = $_POST['id'];
-        $name = htmlspecialchars($_POST['ud_name'], ENT_QUOTES, 'UTF-8');
-        $description = htmlspecialchars($_POST['ud_description'], ENT_QUOTES, 'UTF-8');
+        $id = filter_input(INPUT_POST,'id', FILTER_VALIDATE_INT);
+        $name = filter_input(INPUT_POST, 'add_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $description = filter_input(INPUT_POST, 'add_description', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         // Sécurité attaques XSS
         $file_name = strip_tags($_FILES['ud_picture']['name']);
         $file_size = $_FILES['ud_picture']['size'];
@@ -82,24 +82,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Déplacer l'image uploadée dans le répertoire souhaité
                 move_uploaded_file($file_tmp, $file_bdd); 
                 
-                $sql = 'UPDATE services SET name = ?, description = ?, picture = ? WHERE id = ?';
+                if ((!empty($name)) && (!empty($description)) && (!empty($file_bdd)) && (!empty($id))) {
+                    $sql = 'UPDATE services SET name = ?, description = ?, picture = ? WHERE id = ?';
+                    try {
+                        $stmt = $pdo->prepare($sql);
+                        $stmt->execute([$name, $description, $file_bdd, $id]);
+                    }catch (Exception $e) {
+                        $_SESSION['error'] = "Erreur lors de la mise à jour du service.". $e->getMessage();;
+                    }
+                    $_SESSION['message'] = "Service mis à jour avec succès.";
+                }
+            }
+        } else {
+            if ((!empty($name)) && (!empty($description)) && (!empty($id))) {
+                $sql = 'UPDATE services SET name = ?, description = ? WHERE id = ?';
                 try {
                     $stmt = $pdo->prepare($sql);
-                    $stmt->execute([$name, $description, $file_bdd, $id]);
+                    $stmt->execute([$name, $description, $id]);
                 }catch (Exception $e) {
                     $_SESSION['error'] = "Erreur lors de la mise à jour du service.". $e->getMessage();;
                 }
                 $_SESSION['message'] = "Service mis à jour avec succès.";
             }
-        } else {
-            $sql = 'UPDATE services SET name = ?, description = ? WHERE id = ?';
-            try {
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute([$name, $description, $id]);
-            }catch (Exception $e) {
-                $_SESSION['error'] = "Erreur lors de la mise à jour du service.". $e->getMessage();;
-            }
-            $_SESSION['message'] = "Service mis à jour avec succès.";
         }
         header('Location: ' . $_SERVER['HTTP_REFERER']);
         exit();
@@ -107,16 +111,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Suppression d'un service
     } else if (isset($_POST['delete_service'])) {
         // stockage données du formulaire
-        $id = $_POST['id'];
+        $id = filter_input(INPUT_POST,'id', FILTER_VALIDATE_INT);
         
-        $sql = 'DELETE FROM services WHERE id = ?';
-        try {
-            $stmt = $pdo->prepare($sql);
-            if($stmt->execute([$id])) {
-                $_SESSION['message'] = "Service supprimé avec succès.";
+        if ((!empty($id))) {
+            $sql = 'DELETE FROM services WHERE id = ?';
+            try {
+                $stmt = $pdo->prepare($sql);
+                if($stmt->execute([$id])) {
+                    $_SESSION['message'] = "Service supprimé avec succès.";
+                }
+            }catch (Exception $e) {
+                $_SESSION['error'] = "Erreur lors de la suppression du service.". $e->getMessage();;
             }
-        }catch (Exception $e) {
-            $_SESSION['error'] = "Erreur lors de la suppression du service.". $e->getMessage();;
         }
         header('Location: ' . $_SERVER['HTTP_REFERER']);
         exit();

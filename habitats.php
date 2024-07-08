@@ -172,8 +172,6 @@ document.querySelectorAll('.accordion-button').forEach(button => {
             body: JSON.stringify({ animal_id: animalId, animal_name: animalName })
         })
         .then(response => response.json())
-        .then(data => console.log('Clic enregistré',data))
-        .catch(error => console.error('Error:', error));
     });
 });
 </script>

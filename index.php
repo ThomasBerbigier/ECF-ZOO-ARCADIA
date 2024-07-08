@@ -55,7 +55,7 @@ $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <div class="card-body">
                             <h5 class="card-title text-center fs-3">Savane</h5>
                             <p class="card-text">Bienvenue dans l'habitat savane de notre zoo, une vaste étendue qui capture l'essence des plaines africaines. Ici, les lions règnent en maîtres, les élégantes girafes se promènent gracieusement et les majestueux éléphants complètent ce tableau.</p>
-                            <a href="habitats.php#savane" class="btn btn-dark fs-5">Je découvre la savane !</a>
+                            <a href="habitats.php#heading1" class="btn btn-dark fs-5">Je découvre la savane !</a>
                         </div>
                     </div>
                 </div>
@@ -65,7 +65,7 @@ $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <div class="card-body">
                             <h5 class="card-title text-center fs-3">Marais</h5>
                             <p class="card-text">Bienvenue dans l'habitat marais de notre zoo, un écosystème fascinant où l'eau et la terre se rencontrent pour créer un refuge unique. Les imposants alligators, Les flamboyants flamants roses et les robustes buffles peuplent cet habitat.</p>
-                            <a href="habitats.php#marais" class="btn btn-dark fs-5">Je découvre le marais !</a>
+                            <a href="habitats.php#heading2" class="btn btn-dark fs-5">Je découvre le marais !</a>
                         </div>
                     </div>
                 </div>
@@ -75,7 +75,7 @@ $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <div class="card-body">
                             <h5 class="card-title text-center fs-3">Jungle</h5>
                             <p class="card-text">Bienvenue dans l'habitat jungle de notre zoo, une oasis luxuriante où la nature s'épanouit dans toute sa splendeur. Ici, vous pouvez admirer les majestueux gorilles, plus loin, les adorables koalas et enfin, les puissants tigres.</p>
-                            <a href="habitats.php#jungle" class="btn btn-dark justify-content-center fs-5">Je découvre la jungle !</a>
+                            <a href="habitats.php#heading3" class="btn btn-dark justify-content-center fs-5">Je découvre la jungle !</a>
                         </div>
                     </div>
                 </div>

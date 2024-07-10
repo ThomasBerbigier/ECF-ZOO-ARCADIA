@@ -80,16 +80,16 @@ require_once __DIR__. "/administrateur_crud.php";
                                 <input type="hidden" name="id" value="<?= $schedule['id'] ?>">
                                     <div class="mt-2">
                                         <label for="ud_days" class="form-label">Jours d'ouverture :</label>
-                                        <input type="text" name="ud_days" class="form-control" value="<?= htmlspecialchars($schedule['day']) ?>" required>
+                                        <input type="text" name="ud_days" class="form-control" value="<?= htmlspecialchars_decode($schedule['day'], ENT_QUOTES) ?>" required>
                                     </div>
                                     <div class="mt-2">
                                         <label for="ud_hours" class="form-label">Heures d'ouverture :</label>
-                                        <input name="ud_hours" class="form-control" value="<?= htmlspecialchars($schedule['hour']) ?>"required>
+                                        <input name="ud_hours" class="form-control" value="<?= htmlspecialchars_decode($schedule['hour'], ENT_QUOTES) ?>"required>
                                     </div>
                                     <button type="submit" name="update_schedule" class="btn btn-warning">Modifier l'horaire</button>
                                     <button type="submit" name="delete_schedule" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet horaire ?');">Supprimer l'horaire</button>
                                     <div id="passwordHelpBlock" class="form-text">
-                                    Attention : supprimer les horaires non valides est très important pour l'affichage sur l'application. Ne garder qu'un seul horaire.
+                                    Attention : supprimer les horaires non valides est très important pour l'affichage sur l'application. <br> Ne garder qu'un seul horaire.
                                     </div>
                                 </form>
                             </div>
@@ -318,7 +318,7 @@ require_once __DIR__. "/administrateur_crud.php";
     <!-- Fin dashboard clics animaux -->
 </main>
 
-<!-- ?JoseArcadia!555 / 6976 / Windows Hello Plongez au cœur de notre habitat jungle, où vous pourrez admirer la majesté des gorilles, la douceur des koalas, et la puissance des tigres, dans un environnement luxuriant et exotique recréant fidèlement leur habitat naturel.-->
+<!-- ?JoseArcadia!555 / 6976 / Windows -->
 <?php 
 require_once __DIR__. "/templates/footer.php";
 ?>

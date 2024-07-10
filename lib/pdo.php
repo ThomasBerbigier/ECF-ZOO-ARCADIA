@@ -2,7 +2,7 @@
 
 try 
 {
-    $pdo = new PDO('mysql:host=localhost;dbname=zoo_arcadia', 'root', '');
+    $pdo = new PDO('mysql:host=localhost;dbname=zoo_arcadia', 'administrateur_arcadia', 'Mr7aF?nsozX4');
     // Activation des erreurs PDO
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     // mode de fetch par défaut : FETCH_ASSOC / FETCH_OBJ / FETCH_BOTH

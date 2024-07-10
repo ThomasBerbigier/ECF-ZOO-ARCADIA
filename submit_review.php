@@ -15,9 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $sql = "INSERT INTO reviews (name, comment, validate) VALUES (?, ?, 0)";
                 try{
                     $stmt = $pdo->prepare($sql);
-                    if($stmt->execute([$name, $comment])) {
-                        $_SESSION['message'] = "Votre avis a bien été envoyé. Merci de votre contribution !";
-                    }
+                    $stmt->execute([$name, $comment]);
+                    $_SESSION['message'] = "Votre avis a bien été envoyé. Merci de votre contribution !";
                 } catch(Exception $e){
                         $_SESSION['error'] = "Nous avons rencontré un problème. Merci de recommencer ultérieurement.";
                 }
@@ -41,9 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 try {
                     $stmt = $pdo->prepare($sql);
                     
-                    if($stmt->execute([$status, $id])) {
-                        $_SESSION['message'] = "L'avis a bien été traité";
-                    } 
+                    $stmt->execute([$status, $id]);
+                    $_SESSION['message'] = "L'avis a bien été traité";
                 } catch(Exception $e){
                     $_SESSION['error'] = "Erreur lors du traitement de l'avis.";
                 }

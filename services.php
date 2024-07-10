@@ -29,7 +29,7 @@ $services = $stmtServices->fetchAll();
                                 <img src="<?= htmlspecialchars($service['picture']) ?>" class="card-img-top h-100" alt="Image du service">
                                 <div class="card-body">
                                     <h3 class="text-center"><?= htmlspecialchars($service['name']) ?></h3>
-                                    <p><?= htmlspecialchars($service['description']) ?></p>
+                                    <p><?= htmlspecialchars_decode($service['description'], ENT_QUOTES) ?></p>
                                 </div>
                             </div>
                         </div>

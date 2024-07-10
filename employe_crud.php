@@ -40,9 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $sql = "INSERT INTO foods (food, food_weight, date, animal_id) VALUES (?, ?, ?, ?)";
             try {
                 $stmt = $pdo->prepare($sql);
-                if($stmt->execute([$food, $food_weight, $date, $animal_id])) {
-                    $_SESSION['message'] = "L'animal a bien été nourri.";
-                }
+                $stmt->execute([$food, $food_weight, $date, $animal_id]);
+                $_SESSION['message'] = "L'animal a bien été nourri.";
             } catch (Exception $e) {
                 $_SESSION['error'] = "Erreur lors du nourrissage.". $e->getMessage();;
             }

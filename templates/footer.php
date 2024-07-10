@@ -42,9 +42,8 @@ $schedules = $stmtSchedules->fetchAll();
                 </div>
                 <div class="col-12 col-lg-3 text-center pt-5" id="horaires">
                     <h6 class="text-uppercase fw-bold mb-4">horaires d'ouverture </h6>
-                    <p>La saison d'été a commencé ! <br>
-                    <?php foreach($schedules as $schedule) { ?>
-                        <?= htmlspecialchars($schedule['day']).' '.htmlspecialchars($schedule['hour']) ?> 
+                    <p> <?php foreach($schedules as $schedule) { ?>
+                        <?= htmlspecialchars_decode($schedule['day'], ENT_QUOTES).' '.htmlspecialchars_decode($schedule['hour'], ENT_QUOTES) ?> 
                     <?php }  ?> 
                     </p> 
                 </div>

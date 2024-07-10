@@ -36,7 +36,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="description" class="form-label fs-5">Description :</label>
-                                        <textarea name="ud_description" class="form-control" required><?= htmlspecialchars($service['description']) ?></textarea>
+                                        <textarea name="ud_description" class="form-control" required><?= htmlspecialchars_decode($service['description'], ENT_QUOTES) ?></textarea>
                                     </div>
                                     <div class="mb-3">
                                         <label for="ud_picture" class="form-label fs-5">Image (laisser vide pour conserver l'actuelle) :</label>

@@ -25,15 +25,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $sql = 'INSERT INTO reports (state, food, food_weight, passage, detail, animal_id)  VALUES(?, ?, ?, ?, ?, ?)';
             try {
                 $stmt = $pdo->prepare($sql);
-                if($stmt->execute([$state, $food, $food_weight, $passage, $detail, $animal_id])) {
-                    $_SESSION['message'] = "Le compte rendu a bien été envoyé.";
-                }
+                $stmt->execute([$state, $food, $food_weight, $passage, $detail, $animal_id]);
+                $_SESSION['message'] = "Le compte rendu a bien été envoyé.";
             } catch (Exception $e) {
                 $_SESSION['error'] = "Erreur lors de la soumission du compte rendu." . $e->getMessage();
             }
-            header('Location: veterinaire.php');
-            exit();
         }
+        header('Location: veterinaire.php');
+        exit();
     }
     if(isset($_POST['add_comment'])) {
         
@@ -44,15 +43,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $sql = 'UPDATE habitats SET comment = ? WHERE id = ?';
             try {
                 $stmt = $pdo->prepare($sql);
-                if($stmt->execute([$comment, $habitat])) {
-                    $_SESSION['message'] = "Le commentaire a bien été envoyé.";
-                }
+                $stmt->execute([$comment, $habitat]);
+                $_SESSION['message'] = "Le commentaire a bien été envoyé.";
             } catch (Exception $e) {
                 $_SESSION['error'] = "Erreur lors de la soumission du commentaire." . $e->getMessage();
             }
         }
         header('Location: veterinaire.php');
-        exit();
-        
+        exit();      
     }
 }

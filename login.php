@@ -1,5 +1,5 @@
 <?php
-ob_start();
+
 require_once __DIR__. "/templates/header.php";
 require_once __DIR__. "/lib/pdo.php"; 
 require_once __DIR__. "/lib/user.php";
@@ -60,4 +60,3 @@ foreach ($errors as $error) { ?>
     <?php }
 
 require_once __DIR__. "/templates/footer.php";
-ob_end_flush();

@@ -7,7 +7,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Visitez le Zoo Arcadia et découvrez une grande variété d'animaux et d'habitats fascinants. Profitez de nos activités éducatives et de nos événements spéciaux." />
     <title>Parc animalier au coeur de la Bretagne - Zoo Arcadia</title>
     <link rel="stylesheet" type="texte/css" media="screen" href="css/reset.css">
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -24,7 +23,7 @@
         <nav class="navbar navbar-expand-lg navbar-custom">
             <div class="container-fluid ">
                 <a class="navbar-brand me-5" href="index.php"></a>
-                <img src="assets/Logo/Capture_d_écran_2024-06-07_205635-removebg-preview_optimized_.webp" alt="Logo du zoo" width="130" height="80">
+                <img src="assets/Logo/Capture_d_écran_2024-06-07_205635-removebg-preview.png" alt="Logo du zoo" width="130" height="80">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -35,11 +34,11 @@
                         <a class="nav-link me-5 fs-4" href="services.php">Services</a> 
                         <a class="nav-link me-5 fs-4" href="contact.php">Contact</a>  
                         <?php if (isset($_SESSION['user'])) { 
-                                if ($_SESSION['role'] == 'administrateur') { ?>
+                                if ($_SESSION['role'] == 'administrateur') {?> 
                             <a class="nav-link me-5 fs-4" href="administrateur.php">Espace administrateur</a>
                         <?php } else if ($_SESSION['role'] == 'employe') { ?>
                             <a class="nav-link me-5 fs-4" href="employe.php">Espace employé</a>
-                        <?php } else if ($_SESSION['role'] == 'veterinaire') { ?>
+                        <?php } else if ($_SESSION['role'] == 'veterinaire') { ?> 
                         <a class="nav-link me-5 fs-4" href="veterinaire.php">Espace vétérinaire</a>
                         <?php } } ?>
                     </div>
@@ -48,6 +47,7 @@
                         <?php } else { ?>
                             <a href="#" class="btn btn-outline-light me-5 fs-4" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Espace professionnel</a>
                     <?php } ?>
+                    
                 </div>
             </div>
         </nav>

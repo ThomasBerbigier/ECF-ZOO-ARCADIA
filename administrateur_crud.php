@@ -8,6 +8,11 @@ require_once __DIR__. "/lib/send_email.php";
 
 use MongoDB\Client;
 
+if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'administrateur') {
+    header('Location: index.php');
+    exit();
+}
+
 // Récupère tous les services
 $sql = 'SELECT * FROM services';
 try {
@@ -104,11 +109,6 @@ try {
     $_SESSION['error'] = " Erreur ! " . $e->getMessage();
 }
 
-if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'administrateur') {
-    header('Location: index.php');
-    exit();
-}
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     // Création compte utilisateur
@@ -158,9 +158,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['error'] = "Tous les champs doivent être remplis.";
         }
         header('Location: administrateur.php');
-        exit();      
+        exit(); 
+    }     
     // Mise à jour d'un horaire
-    } else if (isset($_POST['update_schedule'])) {
+    if (isset($_POST['update_schedule'])) {
         // stockage données formulaire
         $id = filter_input(INPUT_POST,'id', FILTER_VALIDATE_INT);
         $day = filter_input(INPUT_POST, 'ud_days', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -172,6 +173,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute([$day, $hour, $id]);
                 $_SESSION['message'] = "Horaire modifié avec succès.";
+                header('Location: administrateur.php');
+                exit();
             } catch (Exception $e) {
                 $_SESSION['error'] = "Erreur lors de la modification de l'horaire.". $e->getMessage();
             }
@@ -179,9 +182,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['error'] = "Au moins un champ doit être rempli.";
         }
         header('Location: administrateur.php');
-        exit();
+        exit(); 
+    }
     // Supression d'un horaire
-    } else if (isset($_POST['delete_schedule'])) {
+    if (isset($_POST['delete_schedule'])) {
         // stockage données formulaire
         $id = filter_input(INPUT_POST,'id', FILTER_VALIDATE_INT);
         
@@ -215,11 +219,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $file_ext = explode('.', $file_name);
         $file_end = end($file_ext);
         $file_end = strtolower($file_end);
-        $extensions  = [ 'jpeg', 'jpg', 'png', 'svg'];
+        $extensions  = [ 'jpeg', 'jpg', 'png', 'svg', "webp"];
         
         if(in_array($file_end, $extensions) === false) {
-            $_SESSION['error'] = "Veuillez utiliser les extensions suivantes : JPEG, JPG , PNG , SVG";
-        } elseif($file_size > 10000000) { 
+            $_SESSION['error'] = "Veuillez utiliser les extensions suivantes : JPEG, JPG , PNG , SVG, WEBP";
+        } else if($file_size > 10000000) { 
             
             $_SESSION['error'] = "Le fichier est trop volumineux";
         } else {
@@ -244,8 +248,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         header('Location: administrateur.php');
         exit();
+    }
         // Mise à jour d'un habitat
-    } else if (isset($_POST['update_habitat'])) {
+    if (isset($_POST['update_habitat'])) {
             // stockage données du formulaire
         $id = filter_input(INPUT_POST,'id', FILTER_VALIDATE_INT);
         $name = filter_input(INPUT_POST, 'ud_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -259,11 +264,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $file_ext = explode('.', $file_name);
         $file_end = end($file_ext);
         $file_end = strtolower($file_end);
-        $extensions  = [ 'jpeg', 'jpg', 'png', 'svg'];
+        $extensions  = [ 'jpeg', 'jpg', 'png', 'svg', "webp"];
         
         if ($_FILES['ud_picture']['error'] == 0) {
             if(in_array($file_end, $extensions) === false) {
-                $_SESSION['error'] = "Veuillez utiliser les extensions suivantes : JPEG, JPG , PNG , SVG";
+                $_SESSION['error'] = "Veuillez utiliser les extensions suivantes : JPEG, JPG , PNG , SVG, WEBP";
             } elseif($file_size > 10000000) { 
                 
                 $_SESSION['error'] = "Le fichier est trop volumineux";
@@ -299,9 +304,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         header('Location: administrateur.php');
         exit();
-        
+    }
         // Suppression d'un habitat
-    } else if (isset($_POST['delete_habitat'])) {
+    if (isset($_POST['delete_habitat'])) {
             // stockage données du formulaire
         $id = filter_input(INPUT_POST,'id', FILTER_VALIDATE_INT);
         if ((!empty($id))) {
@@ -334,10 +339,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $file_ext = explode('.', $file_name);
         $file_end = end($file_ext);
         $file_end = strtolower($file_end);
-        $extensions  = [ 'jpeg', 'jpg', 'png', 'svg'];
+        $extensions  = [ 'jpeg', 'jpg', 'png', 'svg', 'webp'];
         
         if(in_array($file_end, $extensions) === false) {
-            $_SESSION['error'] = "Veuillez utiliser les extensions suivantes : JPEG, JPG , PNG , SVG";
+            $_SESSION['error'] = "Veuillez utiliser les extensions suivantes : JPEG, JPG , PNG , SVG, WEBP";
         } elseif($file_size > 10000000) { 
             $_SESSION['error'] = "Le fichier est trop volumineux";
         } else {
@@ -359,9 +364,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
         header('Location: administrateur.php');
-        exit();       
+        exit(); 
+    }      
         // Mis à jour d'un animal
-    } else if (isset($_POST['update_animal'])) {
+    if (isset($_POST['update_animal'])) {
             // stockage données du formulaire
         $id = filter_input(INPUT_POST,'id', FILTER_VALIDATE_INT);
         $name = filter_input(INPUT_POST,'ud_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -376,11 +382,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $file_ext = explode('.', $file_name);
         $file_end = end($file_ext);
         $file_end = strtolower($file_end);
-        $extensions  = [ 'jpeg', 'jpg', 'png', 'svg'];
+        $extensions  = [ 'jpeg', 'jpg', 'png', 'svg', 'webp'];
         
         if ($_FILES['ud_picture']['error'] == 0) {
             if(in_array($file_end, $extensions) === false) {
-                $_SESSION['error'] = "Veuillez utiliser les extensions suivantes : JPEG, JPG , PNG , SVG";
+                $_SESSION['error'] = "Veuillez utiliser les extensions suivantes : JPEG, JPG , PNG , SVG, WEBP";
             } elseif($file_size > 10000000) { 
                 
                 $_SESSION['error'] = "Le fichier est trop volumineux";
@@ -416,8 +422,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         header('Location: administrateur.php');
         exit();
+    }
         // Suppression d'un animal
-    } else if (isset($_POST['delete_animal'])) {
+    if (isset($_POST['delete_animal'])) {
         $id = filter_input(INPUT_POST,'id', FILTER_VALIDATE_INT);
         
         if (!empty($id)) {

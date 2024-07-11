@@ -18,14 +18,14 @@ $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <main>
     <!-- Image de présentation -->
-    <img class="img-accueil" src="assets/header/image_header.png" alt="image représentant un groupe de flamants roses présents dans le zoo">
+    <img class="img-accueil" src="assets/header/victoria-landavazo--OdpvGOejME-unsplash(3).jpg" alt="image représentant un groupe de flamants roses présents dans le zoo">
     <!--  Titre de présentation -->
     <div class="overlay">
         <h1 class="title-index">Bienvenue au Zoo Arcadia</h1>
     </div>
     <!-- Bandeau de séparation -->
     <div class="bandeau">
-        <h3>Venez découvrir un lieu aux valeurs écologiques et humaines</h3>
+        <h2>Venez découvrir un lieu aux valeurs écologiques et humaines</h2>
     </div>
     <!-- Début présentation du zoo -->
     <div class="container-presentation">
@@ -51,9 +51,9 @@ $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-4 mb-3">
                     <div class="card h-100 card-savane" style="width: 100%;">
-                        <img src="assets/main/accueil-habitats/savane-girafe.png" class="card-img-top h-100" alt="Photo d'une girafe dans la savane">
+                        <img src="assets/main/accueil-habitats/savane-girafe_optimized_.webp" class="card-img-top h-100" alt="Photo d'une girafe dans la savane">
                         <div class="card-body">
-                            <h5 class="card-title text-center fs-3">Savane</h5>
+                            <h3 class="card-title text-center">Savane</h3>
                             <p class="card-text">Bienvenue dans l'habitat savane de notre zoo, une vaste étendue qui capture l'essence des plaines africaines. Ici, les lions règnent en maîtres, les élégantes girafes se promènent gracieusement et les majestueux éléphants complètent ce tableau.</p>
                             <a href="habitats.php#heading1" class="btn btn-dark fs-5">Je découvre la savane !</a>
                         </div>
@@ -63,7 +63,7 @@ $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="card h-100 card-marais" style="width: 100%;">
                         <img src="assets/main/accueil-habitats/marais-alligator.png" class="card-img-top h-100" alt="Photo d'un alligator dans l'eau">
                         <div class="card-body">
-                            <h5 class="card-title text-center fs-3">Marais</h5>
+                            <h3 class="card-title text-center">Marais</h3>
                             <p class="card-text">Bienvenue dans l'habitat marais de notre zoo, un écosystème fascinant où l'eau et la terre se rencontrent pour créer un refuge unique. Les imposants alligators, Les flamboyants flamants roses et les robustes buffles peuplent cet habitat.</p>
                             <a href="habitats.php#heading2" class="btn btn-dark fs-5">Je découvre le marais !</a>
                         </div>
@@ -71,9 +71,9 @@ $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </div>
                 <div class="col-12 col-md-6 col-lg-4 mb-3">
                     <div class="card h-100 card-jungle" style="width: 100%;">
-                        <img src="assets/main/accueil-habitats/jungle-koala.png" class="card-img-top h-100" alt="Photo d'un koala marchant sur une branche">
+                        <img src="assets/main/accueil-habitats/jungle-koala_optimized_.webp" class="card-img-top h-100" alt="Photo d'un koala marchant sur une branche">
                         <div class="card-body">
-                            <h5 class="card-title text-center fs-3">Jungle</h5>
+                            <h3 class="card-title text-center">Jungle</h3>
                             <p class="card-text">Bienvenue dans l'habitat jungle de notre zoo, une oasis luxuriante où la nature s'épanouit dans toute sa splendeur. Ici, vous pouvez admirer les majestueux gorilles, plus loin, les adorables koalas et enfin, les puissants tigres.</p>
                             <a href="habitats.php#heading3" class="btn btn-dark justify-content-center fs-5">Je découvre la jungle !</a>
                         </div>
@@ -90,7 +90,7 @@ $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <p>Notre zoo possède tous les services nécessaires pour une journée réussie, retrouvez entre autre :</p>
             <ul class="custom-list">
                 <li > 
-                    <h3 class="title-with-logo">
+                    <h3 class="title-with-logo fs-3 h4">
                     <span>
                         <img src="assets/main/accueil-services/restaurant_7409492.svg" alt="Logo restaurant">
                     </span>
@@ -104,7 +104,7 @@ $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <p>Venez goûter aux spécialités bretonnes dans l'un de nos trois restaurants !</p>
                 </li>
                 <li>
-                    <h3 class="title-with-logo">
+                    <h3 class="title-with-logo fs-3 h4">
                         <span>
                             <img src="assets/main/accueil-services/guide_13794712.svg" alt="Logo visite guidée">
                         </span>
@@ -118,7 +118,7 @@ $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <p>Un guide vous fera visiter gratuitement les différents habitats du parc !</p>
                 </li>
                 <li>
-                    <h3 class="title-with-logo">
+                    <h3 class="title-with-logo fs-3 h4">
                         <span>
                             <img src="assets/main/accueil-services/icons8-train-64.png" alt="Logo petit train">
                         </span>
@@ -146,7 +146,7 @@ $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
                     <div class="card review-card text-center ">
                         <div class="card-header fs-5">
-                            <h5><?= htmlspecialchars($review['name']) ?></h5>
+                            <h3 class="h5"><?= htmlspecialchars($review['name']) ?></h3>
                         </div>
                         <div class="card-body fs-5" id="reviewsComment">
                             <p><?= htmlspecialchars($review['comment']) ?></p>
@@ -177,11 +177,11 @@ $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <form action="submit_review.php" method="POST">
                         <div class="mb-3">
                             <label for="name" class="form-label form-label-bg fs-5">Nom</label>
-                            <input type="text" class="form-control" name="name" placeholder="Ecrivez votre pseudo ici" required>
+                            <input type="text" id="name" class="form-control" name="name" placeholder="Ecrivez votre pseudo ici" required>
                         </div>
                         <div class="mb-3">
                             <label for="comment" class="form-label form-label-bg fs-5" >Avis</label>
-                            <textarea class="form-control" name="comment" rows="3" placeholder="Ecrivez votre texte ici" required></textarea>
+                            <textarea class="form-control" id="comment" name="comment" rows="3" placeholder="Ecrivez votre texte ici" required></textarea>
                         </div>
                         <button type="submit" name="submit_review" class="btn btn-dark fs-5">Soumettre</button>
                     </form>

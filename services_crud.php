@@ -24,10 +24,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $file_ext = explode('.', $file_name);
         $file_end = end($file_ext);
         $file_end = strtolower($file_end);
-        $extensions  = [ 'jpeg', 'jpg', 'png', 'svg'];
+        $extensions  = [ 'jpeg', 'jpg', 'png', 'svg', 'webp'];
         
         if(in_array($file_end, $extensions) === false) {
-            $_SESSION['error'] = "Veuillez utiliser les extensions suivantes : JPEG, JPG , PNG , SVG";
+            $_SESSION['error'] = "Veuillez utiliser les extensions suivantes : JPEG, JPG , PNG , SVG, WEBP";
         } elseif($file_size > 3000000) { 
             
             $_SESSION['error'] = "Le fichier est trop volumineux";
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $stmt = $pdo->prepare($sql);
                     $stmt->execute([$name, $description, $file_bdd]);
                 }catch (Exception $e) {
-                    $_SESSION['error'] = "Erreur lors de l'ajout du service.". $e->getMessage();;
+                    $_SESSION['error'] = "Erreur lors de l'ajout du service.". $e->getMessage();
                 }
                 $_SESSION['message'] = "Service ajouté avec succès.";
             }
@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         if ($_FILES['ud_picture']['error'] == 0) {
             if(in_array($file_end, $extensions) === false) {
-                $_SESSION['error'] = "Veuillez utiliser les extensions suivantes : JPEG, JPG , PNG , SVG";
+                $_SESSION['error'] = "Veuillez utiliser les extensions suivantes : JPEG, JPG , PNG , SVG, WEBP";
             } elseif($file_size > 3000000) { 
                 
                 $_SESSION['error'] = "Le fichier est trop volumineux";
@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $stmt->execute([$name, $description, $file_bdd, $id]);
                         $_SESSION['message'] = "Service mis à jour avec succès.";
                     }catch (Exception $e) {
-                        $_SESSION['error'] = "Erreur lors de la mise à jour du service.". $e->getMessage();;
+                        $_SESSION['error'] = "Erreur lors de la mise à jour du service.". $e->getMessage();
                     }
                 }
             }
@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $stmt->execute([$name, $description, $id]);
                     $_SESSION['message'] = "Service mis à jour avec succès.";
                 } catch (Exception $e) {
-                    $_SESSION['error'] = "Erreur lors de la mise à jour du service.". $e->getMessage();;
+                    $_SESSION['error'] = "Erreur lors de la mise à jour du service.". $e->getMessage();
                 }
             }
         }
@@ -120,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt->execute([$id]);
                 $_SESSION['message'] = "Service supprimé avec succès.";
             } catch (Exception $e) {
-                $_SESSION['error'] = "Erreur lors de la suppression du service.". $e->getMessage();;
+                $_SESSION['error'] = "Erreur lors de la suppression du service.". $e->getMessage();
             }
         }
         header('Location: ' . $_SERVER['HTTP_REFERER']);

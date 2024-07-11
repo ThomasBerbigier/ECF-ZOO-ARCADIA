@@ -56,11 +56,11 @@ require_once __DIR__. "/administrateur_crud.php";
                     <form action="administrateur.php" method="POST">
                         <div class="mt-2">
                             <label for="add_days" class="form-label">Jours d'ouverture :</label>
-                            <input type="text" name="add_days" class="form-control"  required>
+                            <input type="text" id="add_days" name="add_days" class="form-control"  required>
                         </div>
                         <div class="mt-2">
                             <label for="add_hours" class="form-label">Heures d'ouverture :</label>
-                            <input name="add_hours" class="form-control" required></input>
+                            <input name="add_hours" id="add_hours" class="form-control" required></input>
                         </div>
                         <button type="submit" name="add_schedule" class="btn btn-outline-light mt-2 btn-lg">Ajouter l'horaire</button>
                     </form>
@@ -80,11 +80,11 @@ require_once __DIR__. "/administrateur_crud.php";
                                 <input type="hidden" name="id" value="<?= $schedule['id'] ?>">
                                     <div class="mt-2">
                                         <label for="ud_days" class="form-label">Jours d'ouverture :</label>
-                                        <input type="text" name="ud_days" class="form-control" value="<?= htmlspecialchars_decode($schedule['day'], ENT_QUOTES) ?>" required>
+                                        <input type="text" id="ud_days" name="ud_days" class="form-control" value="<?= htmlspecialchars_decode($schedule['day'], ENT_QUOTES) ?>" required>
                                     </div>
                                     <div class="mt-2">
                                         <label for="ud_hours" class="form-label">Heures d'ouverture :</label>
-                                        <input name="ud_hours" class="form-control" value="<?= htmlspecialchars_decode($schedule['hour'], ENT_QUOTES) ?>"required>
+                                        <input name="ud_hours" id="ud_hours" class="form-control" value="<?= htmlspecialchars_decode($schedule['hour'], ENT_QUOTES) ?>"required>
                                     </div>
                                     <button type="submit" name="update_schedule" class="btn btn-warning">Modifier l'horaire</button>
                                     <button type="submit" name="delete_schedule" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet horaire ?');">Supprimer l'horaire</button>
@@ -109,16 +109,16 @@ require_once __DIR__. "/administrateur_crud.php";
                     <!--  le formulaire contient un file upload -->
                     <form action="administrateur.php" method="POST" enctype="multipart/form-data">
                         <div class="mt-2">
-                            <label for="add_name" class="form-label">Nom de l'Habitat :</label>
-                            <input type="text" name="add_name" class="form-control" required>
+                            <label for="add_name_habitat" class="form-label">Nom de l'Habitat :</label>
+                            <input type="text" id="add_name_habitat" name="add_name" class="form-control" required>
                         </div>
                         <div class="mt-2">
-                            <label for="add_description" class="form-label">Description :</label>
-                            <textarea name="add_description" class="form-control" required></textarea>
+                            <label for="add_description_habitat" class="form-label">Description :</label>
+                            <textarea name="add_description" id="add_description_habitat" class="form-control" required></textarea>
                         </div>
                         <div class="mt-2">
-                            <label for="add_picture" class="form-label">Image :</label>
-                            <input type="file" name="add_picture" class="form-control" required>
+                            <label for="add_picture_habitat" class="form-label">Image :</label>
+                            <input type="file" id="add_picture_habitat" name="add_picture" class="form-control" required>
                         </div>
                         <button type="submit" name="add_habitat" class="btn btn-outline-light mt-2 btn-lg">Ajouter l'Habitat</button>
                     </form>
@@ -131,16 +131,16 @@ require_once __DIR__. "/administrateur_crud.php";
                                 <form action="administrateur.php" method="post" enctype="multipart/form-data">
                                     <input type="hidden" name="id" value="<?= $habitat['id'] ?>">
                                     <div class="mb-3">
-                                        <label for="ud_name" class="form-label fs-5">Nom de l'habitat :</label>
-                                        <input type="text" name="ud_name" class="form-control" value="<?= htmlspecialchars($habitat['name']) ?>" required>
+                                        <label for="<?= htmlspecialchars($habitat['name']) ?>" class="form-label fs-5">Nom de l'habitat :</label>
+                                        <input type="text" id="<?= htmlspecialchars($habitat['name']) ?>" name="ud_name" class="form-control" value="<?= htmlspecialchars($habitat['name']) ?>" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="description" class="form-label fs-5">Description :</label>
-                                        <textarea name="ud_description" class="form-control" required><?= htmlspecialchars($habitat['description']) ?></textarea>
+                                        <label for="<?= htmlspecialchars($habitat['description']) ?>" class="form-label fs-5">Description :</label>
+                                        <textarea name="ud_description" id="<?= htmlspecialchars($habitat['description']) ?>" class="form-control" required><?= htmlspecialchars($habitat['description']) ?></textarea>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="ud_picture" class="form-label fs-5">Image (laisser vide pour conserver l'actuelle) :</label>
-                                        <input type="file" name="ud_picture" class="form-control">
+                                        <label for="<?= htmlspecialchars($habitat['picture']) ?>" class="form-label fs-5">Image (laisser vide pour conserver l'actuelle) :</label>
+                                        <input type="file" id="<?= htmlspecialchars($habitat['picture']) ?>" name="ud_picture" class="form-control">
                                     </div>
                                     <button type="submit" name="update_habitat" class="btn btn-warning">Mettre à jour l'Habitat</button>
                                     <button type="submit" name="delete_habitat" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet habitat ?');">Supprimer l'habitat</button>
@@ -163,19 +163,19 @@ require_once __DIR__. "/administrateur_crud.php";
                     <form action="administrateur.php" method="POST" enctype="multipart/form-data">
                         <div class="mt-2">
                             <label for="add_name" class="form-label">Prénom :</label>
-                            <input type="text" name="add_name" class="form-control" required>
+                            <input type="text" id="add_name" name="add_name" class="form-control" required>
                         </div>
                         <div class="mt-2">
                             <label for="add_race" class="form-label">Race :</label>
-                            <textarea name="add_race" class="form-control" required></textarea>
+                            <textarea name="add_race" id="add_race" class="form-control" required></textarea>
                         </div>
                         <div class="mt-2">
                             <label for="add_animal_habitat" class="form-label">Habitat :</label>
-                            <textarea name="add_animal_habitat" class="form-control" required></textarea>
+                            <textarea name="add_animal_habitat" id="add_animal_habitat" class="form-control" required></textarea>
                         </div>
                         <div class="mt-2">
                             <label for="add_picture" class="form-label">Image :</label>
-                            <input type="file" name="add_picture" class="form-control" required>
+                            <input type="file" id="add_picture" name="add_picture" class="form-control" required>
                         </div>
                         <button type="submit" name="add_animal" class="btn btn-outline-light mt-2 btn-lg">Ajouter l'animal</button>
                     </form>
@@ -190,25 +190,25 @@ require_once __DIR__. "/administrateur_crud.php";
                 <?php foreach ($animals as $animal) { ?>
                     <div class="col-6 col-lg-3 ">
                         <div class="card mb-3 mt-3">
-                            <img src="<?= htmlspecialchars($animal['picture']) ?>" alt="Image de l'habitat " class="img-fluid">
+                            <img src="<?= htmlspecialchars($animal['picture']) ?>" alt="<?= htmlspecialchars($animal['race']) ?> " class="img-fluid">
                             <div class="card-body">
                                 <form action="administrateur.php" method="post" enctype="multipart/form-data">
                                     <input type="hidden" name="id" value="<?= $animal['id'] ?>">
                                     <div class="mb-3">
-                                        <label for="ud_name" class="form-label fs-5">Prénom :</label>
-                                        <input type="text" name="ud_name" class="form-control" value="<?= htmlspecialchars($animal['name']) ?>" required>
+                                        <label for="<?= htmlspecialchars($animal['name']) ?>" class="form-label fs-5">Prénom :</label>
+                                        <input type="text" id="<?= htmlspecialchars($animal['name']) ?>" name="ud_name" class="form-control" value="<?= htmlspecialchars($animal['name']) ?>" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="ud_race" class="form-label fs-5">Race :</label>
-                                        <textarea name="ud_race" class="form-control" required><?= htmlspecialchars($animal['race']) ?></textarea>
+                                        <label for="<?= htmlspecialchars($animal['race']) ?>" class="form-label fs-5">Race :</label>
+                                        <textarea name="ud_race" id="<?= htmlspecialchars($animal['race']) ?>" class="form-control" required><?= htmlspecialchars($animal['race']) ?></textarea>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="ud_animal_habitat" class="form-label fs-5">Habitat :</label>
-                                        <textarea name="ud_animal_habitat" class="form-control" required><?= htmlspecialchars($animal['habitat']) ?></textarea>
+                                        <label for="<?= htmlspecialchars($animal['id']).htmlspecialchars($animal['name']) ?>" class="form-label fs-5">Habitat :</label>
+                                        <textarea name="ud_animal_habitat" id="<?= htmlspecialchars($animal['id']).htmlspecialchars($animal['name']) ?>" class="form-control" required><?= htmlspecialchars($animal['habitat']) ?></textarea>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="ud_picture" class="form-label fs-5">Image (laisser vide pour conserver l'actuelle) :</label>
-                                        <input type="file" name="ud_picture" class="form-control">
+                                        <label for="<?= htmlspecialchars($animal['picture']) ?>" class="form-label fs-5">Image (laisser vide pour conserver l'actuelle) :</label>
+                                        <input type="file" id="<?= htmlspecialchars($animal['picture']) ?>" name="ud_picture" class="form-control">
                                     </div>
                                     <button type="submit" name="update_animal" class="btn btn-warning">Mettre à jour l'animal</button>
                                     <button type="submit" name="delete_animal" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet habitat ?');">Supprimer l'animal</button>

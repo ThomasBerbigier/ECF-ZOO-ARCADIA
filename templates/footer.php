@@ -15,7 +15,7 @@ $schedules = $stmtSchedules->fetchAll();
             <div class="row p-4">
                 <div class="col-12 col-lg-3 d-flex justify-content-center text-center">
                     <div>
-                        <img src="assets/Logo/Capture_d_écran_2024-06-07_205635-removebg-preview.png" alt="Logo du zoo" width="120" height="70">
+                        <img src="assets/Logo/Capture_d_écran_2024-06-07_205635-removebg-preview_optimized_.webp" alt="Logo du zoo" width="120" height="70">
                         <div class="d-flex">
                             <div class="d-flex flex-column pt-1 mx-4">
                                 <a href="index.php" class="text-light">Accueil</a>
@@ -41,25 +41,25 @@ $schedules = $stmtSchedules->fetchAll();
                     </div>
                 </div>
                 <div class="col-12 col-lg-3 text-center pt-5" id="horaires">
-                    <h6 class="text-uppercase fw-bold mb-4">horaires d'ouverture </h6>
+                    <h3 class="text-uppercase fw-bold mb-4 h6">horaires d'ouverture </h3>
                     <p> <?php foreach($schedules as $schedule) { ?>
                         <?= htmlspecialchars_decode($schedule['day'], ENT_QUOTES).' '.htmlspecialchars_decode($schedule['hour'], ENT_QUOTES) ?> 
                     <?php }  ?> 
                     </p> 
                 </div>
                 <div class="col-12 col-lg-3 text-center pt-5">
-                    <h6 class="text-uppercase fw-bold mb-3 ">Adresse</h6>
+                    <h3 class="text-uppercase fw-bold mb-3 h6">Adresse</h3>
                     <p> 1 chemin du roi Saint-Judicaël <br> 35380 Paimpont <br> Bretagne, France</p>
                 </div>
                 <div class="col-12 col-lg-3 pt-5 text-center" id="social">
-                    <h6 class="text-uppercase fw-bold mb-4">réseaux sociaux</h6>
+                    <h3 class="text-uppercase fw-bold mb-4 h6">réseaux sociaux</h3>
                     <div id="tags-social">
-                        <a class="p-1" href="#"><i class="fa-brands fa-facebook-f fa-2xl" style="color: #3783f4;"></i></a>
-                        <a class="p-1" href="#"><i class="fa-brands fa-square-instagram fa-2xl" style="color: #bb00bb;"></i></a>
-                        <a class="p-1" href="#"><i class="fa-brands fa-twitter fa-2xl" style="color: #3783f4;"></i></a>
-                        <a class="p-1" href="#"><i class="fa-brands fa-snapchat fa-2xl" style="color: #FFD43B;"></i></a>
-                        <a class="p-1" href="#"><i class="fa-brands fa-linkedin-in fa-2xl" style="color: #3783f4;"></i></a>
-                        <a class="p-1" href="#"><i class="fa-brands fa-youtube fa-2xl" style="color: #ff5b5b;"></i></a>
+                        <a class="p-1" href="index.php"><i class="fa-brands fa-facebook-f fa-2xl" aria-label="facebook" style="color: #3783f4;"></i></a>
+                        <a class="p-1" href="index.php"><i class="fa-brands fa-square-instagram fa-2xl" aria-label="innstagram" style="color: #bb00bb;"></i></a>
+                        <a class="p-1" href="index.php"><i class="fa-brands fa-twitter fa-2xl"  aria-label="twitter"style="color: #3783f4;"></i></a>
+                        <a class="p-1" href="index.php"><i class="fa-brands fa-snapchat fa-2xl" aria-label="snapchat" style="color: #FFD43B;"></i></a>
+                        <a class="p-1" href="index.php"><i class="fa-brands fa-linkedin-in fa-2xl" aria-label="linkedin" style="color: #3783f4;"></i></a>
+                        <a class="p-1" href="index.php"><i class="fa-brands fa-youtube fa-2xl" aria-label="youtube" style="color: #ff5b5b;"></i></a>
                     </div>
                 </div>
             </div> 

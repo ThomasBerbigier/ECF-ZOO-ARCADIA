@@ -51,5 +51,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: employe.php#foodSection');
         exit();
     }
-    
 }

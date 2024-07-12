@@ -25,6 +25,7 @@ class ComposerStaticInit2185d2f99bcd56787481d9357a5972d3
         ),
         'M' => 
         array (
+            'Monolog\\' => 8,
             'MongoDB\\' => 8,
         ),
     );
@@ -45,6 +46,10 @@ class ComposerStaticInit2185d2f99bcd56787481d9357a5972d3
         'PHPMailer\\PHPMailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+        ),
+        'Monolog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
         'MongoDB\\' => 
         array (

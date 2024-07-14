@@ -20,8 +20,15 @@ if (!isset($data['animal_id']) || !is_numeric($data['animal_id']) || !isset($dat
 $animal_id = (int) $data['animal_id'];
 $animal_name = $data['animal_name'];
 
+if(getenv('ORMONGO_URL') !== false) {
+    $connect = "mongodb://administrateur_arcadia:Mr7aF?nsozX4@iad2-c18-0.mongo.objectrocket.com:52011,iad2-c18-1.mongo.objectrocket.com:52011,iad2-c18-2.mongo.objectrocket.com:52011/zoo_arcadia?replicaSet=3ca8fb33ce9646b19289adf77e800551";
+} else {
+    // Local
+    $connect = "mongodb://localhost:27017";
+}
+
 try {
-    $client = new Client("mongodb://localhost:27017");
+    $client = new Client($connect);
     $collection = $client->zoo_arcadia->animals_clicks;
     
     // Vérification si l'animal doit être enregistré

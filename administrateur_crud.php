@@ -98,10 +98,18 @@ try {
 $animals_filter = $stmtFilter->fetchAll(PDO::FETCH_ASSOC);
 
 // Accès BDDNR
-$client = new Client("mongodb://localhost:27017");
-$collection = $client->zoo_arcadia->animals_clicks;
-// Récupère tous les documents de la collection, trie en ordre décroissant
+//Heroku
+if(getenv('ORMONGO_URL') !== false) {
+    $connect = "mongodb://administrateur_arcadia:Mr7aF?nsozX4@iad2-c18-0.mongo.objectrocket.com:52011,iad2-c18-1.mongo.objectrocket.com:52011,iad2-c18-2.mongo.objectrocket.com:52011/zoo_arcadia?replicaSet=3ca8fb33ce9646b19289adf77e800551";
+} else {
+    // Local
+    $connect = "mongodb://localhost:27017";
+}
 try {
+    $client = new Client($connect);
+    $collection = $client->zoo_arcadia->animals_clicks;
+    // Récupère tous les documents de la collection, trie en ordre décroissant
+    
     $cursor = $collection->find([], [
         'sort' => ['click_count' => -1]
     ]);    

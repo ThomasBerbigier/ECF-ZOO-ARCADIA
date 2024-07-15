@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__. "/lib/pdo.php";
-require_once __DIR__. "/templates/header.php";
 require_once __DIR__. "/veterinaire_crud.php";
+require_once __DIR__. "/templates/header.php";
 
 // Récupère les animaux pour les options du select 
 $sql = 'SELECT id, name FROM animals';
@@ -121,6 +121,8 @@ foreach ($food_by_animal as $row) {
                         <label for="detail" class="form-label">Détail de l'état de l'animal (facultatif) :</label>
                         <textarea class="form-control" id="detail" name="detail" placeholder="Facultatif" rows="2"></textarea>
                     </div>
+                    <!-- Champ caché pour le token CSRF -->
+                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
                     <button type="submit" name="add_report" class="btn btn-outline-light mt-2 btn-lg">Poster compte rendu</button>
                 </form>
                 </div>
@@ -147,6 +149,8 @@ foreach ($food_by_animal as $row) {
                                 <?php } ?>
                             </select>
                         </div>
+                        <!-- Champ caché pour le token CSRF -->
+                        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
                         <button type="submit" name="add_comment" class="btn btn-outline-light mt-2 btn-lg">Envoyer</button>
                     </form>
                 </div>

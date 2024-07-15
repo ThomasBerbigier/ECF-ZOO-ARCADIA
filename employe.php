@@ -51,10 +51,14 @@ $animals = $stmtAnimaux->fetchAll();
                                 <p class="card-text"><?= htmlspecialchars($review['comment']) ?></p>
                                 <form action="submit_review.php" method="post" class="d-inline">
                                     <input type="hidden" name="id" value="<?= $review['id'] ?>">
+                                    <!-- Champ caché pour le token CSRF -->
+                                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
                                     <button type="submit" name="action" value="validate" class="btn btn-success">Valider</button>
                                 </form>
                                 <form action="submit_review.php" method="post" class="d-inline">
                                     <input type="hidden" name="id" value="<?= $review['id'] ?>">
+                                    <!-- Champ caché pour le token CSRF -->
+                                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
                                     <button type="submit" name="action" value="invalidate" class="btn btn-danger">Invalider</button>
                                 </form>
                             </div>
@@ -100,8 +104,10 @@ $animals = $stmtAnimaux->fetchAll();
                         <?php foreach ($animals as $animal) { ?>
                             <option value="<?= $animal['id'] ?>"><?= htmlspecialchars($animal['name']) ?></option>
                         <?php } ?>
-            </select>
+                        </select>
                     </div>
+                    <!-- Champ caché pour le token CSRF -->
+                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
                     <button type="submit" name="add_food" class="btn btn-outline-light mt-2 btn-lg">Nourrir l'animal</button>
                 </form>
                 </div>

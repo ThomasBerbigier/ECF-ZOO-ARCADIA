@@ -1,7 +1,7 @@
 <?php
-
-require_once __DIR__. "/templates/header.php";
 require_once __DIR__. "/administrateur_crud.php";
+require_once __DIR__. "/templates/header.php";
+
 
 ?>
 <!-- Début Formulaire ajout utilisateur employé ou vétérinaire -->
@@ -38,6 +38,8 @@ require_once __DIR__. "/administrateur_crud.php";
                             <option value="3">Vétérinaire</option>
                         </select>
                     </div>
+                    <!-- Champ caché pour le token CSRF -->
+                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
                     <button type="submit" name="add_user" class="btn btn-outline-light mt-2 btn-lg">Créer le compte</button>
                 </form>
                 </div>
@@ -62,6 +64,8 @@ require_once __DIR__. "/administrateur_crud.php";
                             <label for="add_hours" class="form-label">Heures d'ouverture :</label>
                             <input name="add_hours" id="add_hours" class="form-control" required></input>
                         </div>
+                        <!-- Champ caché pour le token CSRF -->
+                        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
                         <button type="submit" name="add_schedule" class="btn btn-outline-light mt-2 btn-lg">Ajouter l'horaire</button>
                     </form>
                 </div>
@@ -86,6 +90,8 @@ require_once __DIR__. "/administrateur_crud.php";
                                         <label for="ud_hours" class="form-label">Heures d'ouverture :</label>
                                         <input name="ud_hours" id="ud_hours" class="form-control" value="<?= htmlspecialchars_decode($schedule['hour'], ENT_QUOTES) ?>"required>
                                     </div>
+                                    <!-- Champ caché pour le token CSRF -->
+                                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
                                     <button type="submit" name="update_schedule" class="btn btn-warning">Modifier l'horaire</button>
                                     <button type="submit" name="delete_schedule" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet horaire ?');">Supprimer l'horaire</button>
                                     <div id="passwordHelpBlock" class="form-text">
@@ -120,9 +126,11 @@ require_once __DIR__. "/administrateur_crud.php";
                             <label for="add_picture_habitat" class="form-label">Image :</label>
                             <input type="file" id="add_picture_habitat" name="add_picture" class="form-control" required>
                         </div>
+                        <!-- Champ caché pour le token CSRF -->
+                        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
                         <button type="submit" name="add_habitat" class="btn btn-outline-light mt-2 btn-lg">Ajouter l'Habitat</button>
                     </form>
-
+                    
                     <h2 class="pt-5">Modifer / Supprimer un habitat</h2>
                     <?php foreach ($habitats as $habitat) { ?>
                         <div class="card mb-3 mt-3">
@@ -142,6 +150,8 @@ require_once __DIR__. "/administrateur_crud.php";
                                         <label for="<?= htmlspecialchars($habitat['picture']) ?>" class="form-label fs-5">Image (laisser vide pour conserver l'actuelle) :</label>
                                         <input type="file" id="<?= htmlspecialchars($habitat['picture']) ?>" name="ud_picture" class="form-control">
                                     </div>
+                                    <!-- Champ caché pour le token CSRF -->
+                                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
                                     <button type="submit" name="update_habitat" class="btn btn-warning">Mettre à jour l'Habitat</button>
                                     <button type="submit" name="delete_habitat" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet habitat ?');">Supprimer l'habitat</button>
                                 </form>
@@ -177,6 +187,8 @@ require_once __DIR__. "/administrateur_crud.php";
                             <label for="add_picture" class="form-label">Image :</label>
                             <input type="file" id="add_picture" name="add_picture" class="form-control" required>
                         </div>
+                        <!-- Champ caché pour le token CSRF -->
+                        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
                         <button type="submit" name="add_animal" class="btn btn-outline-light mt-2 btn-lg">Ajouter l'animal</button>
                     </form>
                 </div>
@@ -210,6 +222,8 @@ require_once __DIR__. "/administrateur_crud.php";
                                         <label for="<?= htmlspecialchars($animal['picture']) ?>" class="form-label fs-5">Image (laisser vide pour conserver l'actuelle) :</label>
                                         <input type="file" id="<?= htmlspecialchars($animal['picture']) ?>" name="ud_picture" class="form-control">
                                     </div>
+                                    <!-- Champ caché pour le token CSRF -->
+                                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
                                     <button type="submit" name="update_animal" class="btn btn-warning">Mettre à jour l'animal</button>
                                     <button type="submit" name="delete_animal" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet habitat ?');">Supprimer l'animal</button>
                                 </form>
@@ -244,6 +258,8 @@ require_once __DIR__. "/administrateur_crud.php";
                             <label for="report_date" class="form-label text-light">Filtrer par Date :</label>
                             <input type="date" name="report_date" id="report_date" class="form-control" value="<?= $_GET['report_date'] ?? '' ?>">
                         </div>
+                        <!-- Champ caché pour le token CSRF -->
+                        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
                         <div class="col-3 align-self-end">
                             <button type="submit" class="btn btn-primary">Filtrer</button>
                         </div>
@@ -277,7 +293,7 @@ require_once __DIR__. "/administrateur_crud.php";
                                             <td><?= htmlspecialchars($row['state']) ?></td>
                                             <td><?= htmlspecialchars($row['food']) ?></td>
                                             <td><?= htmlspecialchars($row['food_weight']) ?></td>
-                                            <td><?= htmlspecialchars($row['detail']) ?></td>
+                                            <td><?= htmlspecialchars_decode($row['detail'], ENT_QUOTES) ?></td>
                                         </tr>
                                     <?php } ?>
                                 </tbody>

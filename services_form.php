@@ -20,6 +20,8 @@
                             <label for="add_picture_service" class="form-label">Image :</label>
                             <input type="file" id="add_picture_service" name="add_picture" class="form-control" required>
                         </div>
+                        <!-- Champ caché pour le token CSRF -->
+                        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
                         <button type="submit" name="add_service" class="btn btn-outline-light mt-2 btn-lg">Ajouter le Service</button>
                     </form>
                     
@@ -42,6 +44,8 @@
                                         <label for="<?= htmlspecialchars($service['picture']) ?>" class="form-label fs-5">Image (laisser vide pour conserver l'actuelle) :</label>
                                         <input type="file" id="<?= htmlspecialchars($service['picture']) ?>" name="ud_picture" class="form-control">
                                     </div>
+                                    <!-- Champ caché pour le token CSRF -->
+                                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
                                     <button type="submit" name="update_service" class="btn btn-warning">Mettre à jour le Service</button>
                                     <button type="submit" name="delete_service" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce service ?');">Supprimer le Service</button>
                                 </form>

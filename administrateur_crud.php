@@ -1,7 +1,7 @@
 <?php
 
 require 'vendor/autoload.php';
-require_once __DIR__. "/templates/header.php";
+require_once __DIR__. "/lib/session.php";
 require_once __DIR__. "/lib/pdo.php"; 
 require_once __DIR__. "/lib/user.php";
 require_once __DIR__. "/lib/send_email.php";
@@ -119,335 +119,340 @@ try {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
-    // Création compte utilisateur
-    if(isset($_POST['add_user'])) {
-        // Récupérer les données du formulaire
-        $email = filter_input(INPUT_POST, 'createEmail', FILTER_SANITIZE_EMAIL);
-        $password = password_hash($_POST['createPassword'], PASSWORD_BCRYPT);
-        $role = $_POST['selectRole'];
-        
-        // Vérifier que le rôle sélectionné est valide (employé ou vétérinaire)
-        if (($role == 2 || $role == 3) && (!empty($email)) && (!empty($password))) {
-            // Insérer le nouvel utilisateur
-            $sql = 'INSERT INTO users (email, password, role_id) VALUES (?, ?, ?)';
-            try {
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute([$email, $password, $role]);
-                $_SESSION['message'] = "Compte utilisateur crée avec succès. Mail de confirmation envoyé.";
-                // Envoyer mail de confirmation
-                sendEmail($email);
-            } catch (Exception $e) {
-                $_SESSION['error'] = "Erreur lors de la création du compte.". $e->getMessage();
-            }
-        } else {
-            $_SESSION['error'] = "Tous les champs doivent être remplis.";
-        }
-        header('Location: administrateur.php');
-        exit();
-    }
-    
-    // CRUD HORAIRE
-    // Ajout d'un horaire
-    if(isset($_POST['add_schedule'])) {
-        // stockage données formulaire
-        $day = filter_input(INPUT_POST, 'add_days', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $hour = filter_input(INPUT_POST,'add_hours', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        
-        if ((!empty($day)) && (!empty($hour))) {
-            $sql = 'INSERT INTO schedule (day, hour) VALUES (?, ?)';
-            try {
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute([$day, $hour]);
-                $_SESSION['message'] = "Horaire ajouté avec succès.";
-            } catch (Exception $e) {
-                $_SESSION['error'] = "Erreur lors de l'ajout de l'horaire.". $e->getMessage();
-            }
-        } else {
-            $_SESSION['error'] = "Tous les champs doivent être remplis.";
-        }
-        header('Location: administrateur.php');
-        exit(); 
-    }     
-    // Mise à jour d'un horaire
-    if (isset($_POST['update_schedule'])) {
-        // stockage données formulaire
-        $id = filter_input(INPUT_POST,'id', FILTER_VALIDATE_INT);
-        $day = filter_input(INPUT_POST, 'ud_days', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $hour = filter_input(INPUT_POST, 'ud_hours', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        
-        if ((!empty($id)) && (!empty($day) || !empty($hour))) {
-            $sql = 'UPDATE schedule SET day = ?, hour = ? WHERE id = ?';
-            try {
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute([$day, $hour, $id]);
-                $_SESSION['message'] = "Horaire modifié avec succès.";
-                header('Location: administrateur.php');
-                exit();
-            } catch (Exception $e) {
-                $_SESSION['error'] = "Erreur lors de la modification de l'horaire.". $e->getMessage();
-            }
-        }  else {
-            $_SESSION['error'] = "Au moins un champ doit être rempli.";
-        }
-        header('Location: administrateur.php');
-        exit(); 
-    }
-    // Supression d'un horaire
-    if (isset($_POST['delete_schedule'])) {
-        // stockage données formulaire
-        $id = filter_input(INPUT_POST,'id', FILTER_VALIDATE_INT);
-        
-        if ((!empty($id))) {
-            $sql = 'DELETE FROM schedule WHERE id = ?';
-            try {
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute([$id]);
-                $_SESSION['message'] = "Horaire supprimé avec succès.";
-            } catch (Exception $e) {
-                $_SESSION['error'] = "Erreur lors de la suppression de l'horaire.". $e->getMessage();
-            } 
-        }  else {
-            $_SESSION['error'] = "Erreur lors de la suppression de l'horaire.";
-        }
-        header('Location: administrateur.php');
-        exit();
-    }
-    // CRUD HABITAT
-    // Création d'un Habitat
-    if (isset($_POST['add_habitat'])) {
-        // stockage données du formulaire
-        $name = filter_input(INPUT_POST, 'add_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $description = filter_input(INPUT_POST, 'add_description', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        // Sécurité attaques XSS
-        $file_name = strip_tags($_FILES['add_picture']['name']);
-        $file_size = $_FILES['add_picture']['size'];
-        $file_tmp = $_FILES ['add_picture']['tmp_name'];
-        $file_type = $_FILES['add_picture']['type'];
-        
-        $file_ext = explode('.', $file_name);
-        $file_end = end($file_ext);
-        $file_end = strtolower($file_end);
-        $extensions  = [ 'jpeg', 'jpg', 'png', 'svg', "webp"];
-        
-        if(in_array($file_end, $extensions) === false) {
-            $_SESSION['error'] = "Veuillez utiliser les extensions suivantes : JPEG, JPG , PNG , SVG, WEBP";
-        } else if($file_size > 10000000) { 
+    if (isset($_POST['csrf_token']) && $_POST['csrf_token'] === $_SESSION['csrf_token']) {
+        // Création compte utilisateur
+        if(isset($_POST['add_user'])) {
+            // Récupérer les données du formulaire
+            $email = filter_input(INPUT_POST, 'createEmail', FILTER_SANITIZE_EMAIL);
+            $password = password_hash($_POST['createPassword'], PASSWORD_BCRYPT);
+            $role = $_POST['selectRole'];
             
-            $_SESSION['error'] = "Le fichier est trop volumineux";
-        } else {
-            // Supprime les caractères spéciaux
-            $file_name = preg_replace('/[^A-Za-z0-9.\-]/', '' ,$file_name);
-            $file_bdd = "assets/main/habitats/habitats/".$file_name;
-            // Déplacer l'image uploadée dans le répertoire souhaité
-            move_uploaded_file($file_tmp, $file_bdd); 
-            
-            if ((!empty($name)) && (!empty($description)) && (!empty($file_bdd))) {
-                $sql = 'INSERT INTO habitats (name, description, picture) VALUES (?, ?, ?)';
+            // Vérifier que le rôle sélectionné est valide (employé ou vétérinaire)
+            if (($role == 2 || $role == 3) && (!empty($email)) && (!empty($password))) {
+                // Insérer le nouvel utilisateur
+                $sql = 'INSERT INTO users (email, password, role_id) VALUES (?, ?, ?)';
                 try {
                     $stmt = $pdo->prepare($sql);
-                    $stmt->execute([$name, $description, $file_bdd]);
-                    $_SESSION['message'] = "Habitat ajouté avec succès.";
+                    $stmt->execute([$email, $password, $role]);
+                    $_SESSION['message'] = "Compte utilisateur crée avec succès. Mail de confirmation envoyé.";
+                    // Envoyer mail de confirmation
+                    sendEmail($email);
                 } catch (Exception $e) {
-                    $_SESSION['error'] = "Erreur lors de l'ajout de l'habitat'.". $e->getMessage();
-                } 
+                    $_SESSION['error'] = "Erreur lors de la création du compte.". $e->getMessage();
+                }
             } else {
                 $_SESSION['error'] = "Tous les champs doivent être remplis.";
             }
+            header('Location: administrateur.php');
+            exit();
         }
-        header('Location: administrateur.php');
-        exit();
-    }
-        // Mise à jour d'un habitat
-    if (isset($_POST['update_habitat'])) {
+        
+        // CRUD HORAIRE
+        // Ajout d'un horaire
+        if(isset($_POST['add_schedule'])) {
+            // stockage données formulaire
+            $day = filter_input(INPUT_POST, 'add_days', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $hour = filter_input(INPUT_POST,'add_hours', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            
+            if ((!empty($day)) && (!empty($hour))) {
+                $sql = 'INSERT INTO schedule (day, hour) VALUES (?, ?)';
+                try {
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute([$day, $hour]);
+                    $_SESSION['message'] = "Horaire ajouté avec succès.";
+                } catch (Exception $e) {
+                    $_SESSION['error'] = "Erreur lors de l'ajout de l'horaire.". $e->getMessage();
+                }
+            } else {
+                $_SESSION['error'] = "Tous les champs doivent être remplis.";
+            }
+            header('Location: administrateur.php');
+            exit(); 
+        }     
+        // Mise à jour d'un horaire
+        if (isset($_POST['update_schedule'])) {
+            // stockage données formulaire
+            $id = filter_input(INPUT_POST,'id', FILTER_VALIDATE_INT);
+            $day = filter_input(INPUT_POST, 'ud_days', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $hour = filter_input(INPUT_POST, 'ud_hours', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            
+            if ((!empty($id)) && (!empty($day) || !empty($hour))) {
+                $sql = 'UPDATE schedule SET day = ?, hour = ? WHERE id = ?';
+                try {
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute([$day, $hour, $id]);
+                    $_SESSION['message'] = "Horaire modifié avec succès.";
+                    header('Location: administrateur.php');
+                    exit();
+                } catch (Exception $e) {
+                    $_SESSION['error'] = "Erreur lors de la modification de l'horaire.". $e->getMessage();
+                }
+            }  else {
+                $_SESSION['error'] = "Au moins un champ doit être rempli.";
+            }
+            header('Location: administrateur.php');
+            exit(); 
+        }
+        // Supression d'un horaire
+        if (isset($_POST['delete_schedule'])) {
+            // stockage données formulaire
+            $id = filter_input(INPUT_POST,'id', FILTER_VALIDATE_INT);
+            
+            if ((!empty($id))) {
+                $sql = 'DELETE FROM schedule WHERE id = ?';
+                try {
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute([$id]);
+                    $_SESSION['message'] = "Horaire supprimé avec succès.";
+                } catch (Exception $e) {
+                    $_SESSION['error'] = "Erreur lors de la suppression de l'horaire.". $e->getMessage();
+                } 
+            }  else {
+                $_SESSION['error'] = "Erreur lors de la suppression de l'horaire.";
+            }
+            header('Location: administrateur.php');
+            exit();
+        }
+        // CRUD HABITAT
+        // Création d'un Habitat
+        if (isset($_POST['add_habitat'])) {
             // stockage données du formulaire
-        $id = filter_input(INPUT_POST,'id', FILTER_VALIDATE_INT);
-        $name = filter_input(INPUT_POST, 'ud_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $description = filter_input(INPUT_POST, 'ud_description', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $name = filter_input(INPUT_POST, 'add_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $description = filter_input(INPUT_POST, 'add_description', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             // Sécurité attaques XSS
-        $file_name = strip_tags($_FILES['ud_picture']['name']);
-        $file_size = $_FILES['ud_picture']['size'];
-        $file_tmp = $_FILES ['ud_picture']['tmp_name'];
-        $file_type = $_FILES['ud_picture']['type'];
-        
-        $file_ext = explode('.', $file_name);
-        $file_end = end($file_ext);
-        $file_end = strtolower($file_end);
-        $extensions  = [ 'jpeg', 'jpg', 'png', 'svg', "webp"];
-        
-        if ($_FILES['ud_picture']['error'] == 0) {
+            $file_name = strip_tags($_FILES['add_picture']['name']);
+            $file_size = $_FILES['add_picture']['size'];
+            $file_tmp = $_FILES ['add_picture']['tmp_name'];
+            $file_type = $_FILES['add_picture']['type'];
+            
+            $file_ext = explode('.', $file_name);
+            $file_end = end($file_ext);
+            $file_end = strtolower($file_end);
+            $extensions  = [ 'jpeg', 'jpg', 'png', 'svg', "webp"];
+            
             if(in_array($file_end, $extensions) === false) {
                 $_SESSION['error'] = "Veuillez utiliser les extensions suivantes : JPEG, JPG , PNG , SVG, WEBP";
-            } elseif($file_size > 10000000) { 
+            } else if($file_size > 10000000) { 
                 
                 $_SESSION['error'] = "Le fichier est trop volumineux";
             } else {
-                    // Supprime les caractères spéciaux
+                // Supprime les caractères spéciaux
                 $file_name = preg_replace('/[^A-Za-z0-9.\-]/', '' ,$file_name);
                 $file_bdd = "assets/main/habitats/habitats/".$file_name;
-                    // Déplacer l'image uploadée dans le répertoire souhaité
+                // Déplacer l'image uploadée dans le répertoire souhaité
                 move_uploaded_file($file_tmp, $file_bdd); 
                 
-                if ((!empty($name)) && (!empty($description)) && (!empty($file_bdd)) && (!empty($id))) {
-                    $sql = 'UPDATE habitats SET name = ?, description = ?, picture = ? WHERE id = ?';
+                if ((!empty($name)) && (!empty($description)) && (!empty($file_bdd))) {
+                    $sql = 'INSERT INTO habitats (name, description, picture) VALUES (?, ?, ?)';
                     try {
                         $stmt = $pdo->prepare($sql);
-                        $stmt->execute([$name, $description, $file_bdd, $id]);
+                        $stmt->execute([$name, $description, $file_bdd]);
+                        $_SESSION['message'] = "Habitat ajouté avec succès.";
+                    } catch (Exception $e) {
+                        $_SESSION['error'] = "Erreur lors de l'ajout de l'habitat'.". $e->getMessage();
+                    } 
+                } else {
+                    $_SESSION['error'] = "Tous les champs doivent être remplis.";
+                }
+            }
+            header('Location: administrateur.php');
+            exit();
+        }
+            // Mise à jour d'un habitat
+        if (isset($_POST['update_habitat'])) {
+                // stockage données du formulaire
+            $id = filter_input(INPUT_POST,'id', FILTER_VALIDATE_INT);
+            $name = filter_input(INPUT_POST, 'ud_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $description = filter_input(INPUT_POST, 'ud_description', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                // Sécurité attaques XSS
+            $file_name = strip_tags($_FILES['ud_picture']['name']);
+            $file_size = $_FILES['ud_picture']['size'];
+            $file_tmp = $_FILES ['ud_picture']['tmp_name'];
+            $file_type = $_FILES['ud_picture']['type'];
+            
+            $file_ext = explode('.', $file_name);
+            $file_end = end($file_ext);
+            $file_end = strtolower($file_end);
+            $extensions  = [ 'jpeg', 'jpg', 'png', 'svg', "webp"];
+            
+            if ($_FILES['ud_picture']['error'] == 0) {
+                if(in_array($file_end, $extensions) === false) {
+                    $_SESSION['error'] = "Veuillez utiliser les extensions suivantes : JPEG, JPG , PNG , SVG, WEBP";
+                } elseif($file_size > 10000000) { 
+                    
+                    $_SESSION['error'] = "Le fichier est trop volumineux";
+                } else {
+                        // Supprime les caractères spéciaux
+                    $file_name = preg_replace('/[^A-Za-z0-9.\-]/', '' ,$file_name);
+                    $file_bdd = "assets/main/habitats/habitats/".$file_name;
+                        // Déplacer l'image uploadée dans le répertoire souhaité
+                    move_uploaded_file($file_tmp, $file_bdd); 
+                    
+                    if ((!empty($name)) && (!empty($description)) && (!empty($file_bdd)) && (!empty($id))) {
+                        $sql = 'UPDATE habitats SET name = ?, description = ?, picture = ? WHERE id = ?';
+                        try {
+                            $stmt = $pdo->prepare($sql);
+                            $stmt->execute([$name, $description, $file_bdd, $id]);
+                            $_SESSION['message'] = "Habitat mis à jour avec succès.";
+                        }catch (Exception $e) {
+                            $_SESSION['error'] = "Erreur lors de la mise à jour de l'habitat'.". $e->getMessage();
+                        }
+                    }
+                }
+            } else {
+                if ((!empty($name)) && (!empty($description)) && (!empty($id))) {
+                    $sql = 'UPDATE habitats SET name = ?, description = ? WHERE id = ?';
+                    try {
+                        $stmt = $pdo->prepare($sql);
+                        $stmt->execute([$name, $description, $id]);
                         $_SESSION['message'] = "Habitat mis à jour avec succès.";
                     }catch (Exception $e) {
-                        $_SESSION['error'] = "Erreur lors de la mise à jour de l'habitat'.". $e->getMessage();
+                            $_SESSION['error'] = "Erreur lors de la mise à jour de l'habitat'.". $e->getMessage();
                     }
                 }
             }
-        } else {
-            if ((!empty($name)) && (!empty($description)) && (!empty($id))) {
-                $sql = 'UPDATE habitats SET name = ?, description = ? WHERE id = ?';
+            header('Location: administrateur.php');
+            exit();
+        }
+            // Suppression d'un habitat
+        if (isset($_POST['delete_habitat'])) {
+                // stockage données du formulaire
+            $id = filter_input(INPUT_POST,'id', FILTER_VALIDATE_INT);
+            if ((!empty($id))) {
+                $sql = 'DELETE FROM habitats WHERE id = ?';
                 try {
                     $stmt = $pdo->prepare($sql);
-                    $stmt->execute([$name, $description, $id]);
-                    $_SESSION['message'] = "Habitat mis à jour avec succès.";
-                }catch (Exception $e) {
-                        $_SESSION['error'] = "Erreur lors de la mise à jour de l'habitat'.". $e->getMessage();
-                }
-            }
-        }
-        header('Location: administrateur.php');
-        exit();
-    }
-        // Suppression d'un habitat
-    if (isset($_POST['delete_habitat'])) {
-            // stockage données du formulaire
-        $id = filter_input(INPUT_POST,'id', FILTER_VALIDATE_INT);
-        if ((!empty($id))) {
-            $sql = 'DELETE FROM habitats WHERE id = ?';
-            try {
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute([$id]);
-                $_SESSION['message'] = "Habitat supprimé avec succès.";
-            } catch (Exception $e) {
-                $_SESSION['error'] = "Erreur lors de la suppression de l'habitat.". $e->getMessage();
-            } 
-        }
-        header('Location: administrateur.php');
-        exit();
-    }
-    
-    // CRUD ANIMAUX
-    // Création d'un Animal
-    if (isset($_POST['add_animal'])) {
-        // stockage données du formulaire
-        $name = filter_input(INPUT_POST,'add_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $race = filter_input(INPUT_POST,'add_race', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $habitat = filter_input(INPUT_POST,'add_animal_habitat', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        // Sécurité attaques XSS
-        $file_name = strip_tags($_FILES['add_picture']['name']);
-        $file_size = $_FILES['add_picture']['size'];
-        $file_tmp = $_FILES ['add_picture']['tmp_name'];
-        $file_type = $_FILES['add_picture']['type'];
-        
-        $file_ext = explode('.', $file_name);
-        $file_end = end($file_ext);
-        $file_end = strtolower($file_end);
-        $extensions  = [ 'jpeg', 'jpg', 'png', 'svg', 'webp'];
-        
-        if(in_array($file_end, $extensions) === false) {
-            $_SESSION['error'] = "Veuillez utiliser les extensions suivantes : JPEG, JPG , PNG , SVG, WEBP";
-        } elseif($file_size > 10000000) { 
-            $_SESSION['error'] = "Le fichier est trop volumineux";
-        } else {
-            // Supprime les caractères spéciaux
-            $file_name = preg_replace('/[^A-Za-z0-9.\-]/', '' ,$file_name);
-            $file_bdd = "assets/main/habitats/animaux/".$file_name;
-            // Déplacer l'image uploadée dans le répertoire souhaité
-            move_uploaded_file($file_tmp, $file_bdd); 
-            
-            if ((!empty($name)) && (!empty($race)) && (!empty($habitat)) && (!empty($file_bdd))) {
-                $sql = 'INSERT INTO animals (name, race, picture, habitat) VALUES (?, ?, ?, ?)';
-                try {
-                    $stmt = $pdo->prepare($sql);
-                    $stmt->execute([$name, $race, $file_bdd, $habitat]);
-                    $_SESSION['message'] = "Animal ajouté avec succès.";
-                }catch (Exception $e) {
-                    $_SESSION['error'] = "Erreur lors de l'ajout de l'animal'.". $e->getMessage();
+                    $stmt->execute([$id]);
+                    $_SESSION['message'] = "Habitat supprimé avec succès.";
+                } catch (Exception $e) {
+                    $_SESSION['error'] = "Erreur lors de la suppression de l'habitat.". $e->getMessage();
                 } 
             }
+            header('Location: administrateur.php');
+            exit();
         }
-        header('Location: administrateur.php');
-        exit(); 
-    }      
-        // Mis à jour d'un animal
-    if (isset($_POST['update_animal'])) {
+        
+        // CRUD ANIMAUX
+        // Création d'un Animal
+        if (isset($_POST['add_animal'])) {
             // stockage données du formulaire
-        $id = filter_input(INPUT_POST,'id', FILTER_VALIDATE_INT);
-        $name = filter_input(INPUT_POST,'ud_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $race = filter_input(INPUT_POST,'ud_race', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $habitat = filter_input(INPUT_POST,'ud_animal_habitat', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $name = filter_input(INPUT_POST,'add_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $race = filter_input(INPUT_POST,'add_race', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $habitat = filter_input(INPUT_POST,'add_animal_habitat', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             // Sécurité attaques XSS
-        $file_name = strip_tags($_FILES['ud_picture']['name']);
-        $file_size = $_FILES['ud_picture']['size'];
-        $file_tmp = $_FILES ['ud_picture']['tmp_name'];
-        $file_type = $_FILES['ud_picture']['type'];
-        
-        $file_ext = explode('.', $file_name);
-        $file_end = end($file_ext);
-        $file_end = strtolower($file_end);
-        $extensions  = [ 'jpeg', 'jpg', 'png', 'svg', 'webp'];
-        
-        if ($_FILES['ud_picture']['error'] == 0) {
+            $file_name = strip_tags($_FILES['add_picture']['name']);
+            $file_size = $_FILES['add_picture']['size'];
+            $file_tmp = $_FILES ['add_picture']['tmp_name'];
+            $file_type = $_FILES['add_picture']['type'];
+            
+            $file_ext = explode('.', $file_name);
+            $file_end = end($file_ext);
+            $file_end = strtolower($file_end);
+            $extensions  = [ 'jpeg', 'jpg', 'png', 'svg', 'webp'];
+            
             if(in_array($file_end, $extensions) === false) {
                 $_SESSION['error'] = "Veuillez utiliser les extensions suivantes : JPEG, JPG , PNG , SVG, WEBP";
             } elseif($file_size > 10000000) { 
-                
                 $_SESSION['error'] = "Le fichier est trop volumineux";
             } else {
-                    // Supprime les caractères spéciaux
+                // Supprime les caractères spéciaux
                 $file_name = preg_replace('/[^A-Za-z0-9.\-]/', '' ,$file_name);
                 $file_bdd = "assets/main/habitats/animaux/".$file_name;
-                    // Déplacer l'image uploadée dans le répertoire souhaité
+                // Déplacer l'image uploadée dans le répertoire souhaité
                 move_uploaded_file($file_tmp, $file_bdd); 
                 
-                if ((!empty($name) || !empty($race) || !empty($habitat) || !empty($file_bdd)) && (!empty($id))) {
-                    $sql = 'UPDATE animals SET name = ?, race = ?, picture = ?, habitat = ? WHERE id = ?';
+                if ((!empty($name)) && (!empty($race)) && (!empty($habitat)) && (!empty($file_bdd))) {
+                    $sql = 'INSERT INTO animals (name, race, picture, habitat) VALUES (?, ?, ?, ?)';
                     try {
                         $stmt = $pdo->prepare($sql);
-                        $stmt->execute([$name, $race, $file_bdd, $habitat, $id]);
+                        $stmt->execute([$name, $race, $file_bdd, $habitat]);
+                        $_SESSION['message'] = "Animal ajouté avec succès.";
+                    }catch (Exception $e) {
+                        $_SESSION['error'] = "Erreur lors de l'ajout de l'animal'.". $e->getMessage();
+                    } 
+                }
+            }
+            header('Location: administrateur.php');
+            exit(); 
+        }      
+            // Mis à jour d'un animal
+        if (isset($_POST['update_animal'])) {
+                // stockage données du formulaire
+            $id = filter_input(INPUT_POST,'id', FILTER_VALIDATE_INT);
+            $name = filter_input(INPUT_POST,'ud_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $race = filter_input(INPUT_POST,'ud_race', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $habitat = filter_input(INPUT_POST,'ud_animal_habitat', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                // Sécurité attaques XSS
+            $file_name = strip_tags($_FILES['ud_picture']['name']);
+            $file_size = $_FILES['ud_picture']['size'];
+            $file_tmp = $_FILES ['ud_picture']['tmp_name'];
+            $file_type = $_FILES['ud_picture']['type'];
+            
+            $file_ext = explode('.', $file_name);
+            $file_end = end($file_ext);
+            $file_end = strtolower($file_end);
+            $extensions  = [ 'jpeg', 'jpg', 'png', 'svg', 'webp'];
+            
+            if ($_FILES['ud_picture']['error'] == 0) {
+                if(in_array($file_end, $extensions) === false) {
+                    $_SESSION['error'] = "Veuillez utiliser les extensions suivantes : JPEG, JPG , PNG , SVG, WEBP";
+                } elseif($file_size > 10000000) { 
+                    
+                    $_SESSION['error'] = "Le fichier est trop volumineux";
+                } else {
+                        // Supprime les caractères spéciaux
+                    $file_name = preg_replace('/[^A-Za-z0-9.\-]/', '' ,$file_name);
+                    $file_bdd = "assets/main/habitats/animaux/".$file_name;
+                        // Déplacer l'image uploadée dans le répertoire souhaité
+                    move_uploaded_file($file_tmp, $file_bdd); 
+                    
+                    if ((!empty($name) || !empty($race) || !empty($habitat) || !empty($file_bdd)) && (!empty($id))) {
+                        $sql = 'UPDATE animals SET name = ?, race = ?, picture = ?, habitat = ? WHERE id = ?';
+                        try {
+                            $stmt = $pdo->prepare($sql);
+                            $stmt->execute([$name, $race, $file_bdd, $habitat, $id]);
+                            $_SESSION['message'] = "Animal mis à jour avec succès.";
+                        } catch (Exception $e) {
+                            $_SESSION['error'] = "Erreur lors de la mise à jour de l'animal'.". $e->getMessage();
+                        } 
+                    }
+                }
+            } else {
+                if ((!empty($name) || !empty($race) || !empty($habitat)) && (!empty($id))) {
+                    $sql = 'UPDATE animals SET name = ?, race = ?, habitat = ? WHERE id = ?';
+                    try {
+                        $stmt = $pdo->prepare($sql);
+                        $stmt->execute([$name, $race, $habitat, $id]);
                         $_SESSION['message'] = "Animal mis à jour avec succès.";
                     } catch (Exception $e) {
                         $_SESSION['error'] = "Erreur lors de la mise à jour de l'animal'.". $e->getMessage();
                     } 
                 }
             }
-        } else {
-            if ((!empty($name) || !empty($race) || !empty($habitat)) && (!empty($id))) {
-                $sql = 'UPDATE animals SET name = ?, race = ?, habitat = ? WHERE id = ?';
+            header('Location: administrateur.php');
+            exit();
+        }
+            // Suppression d'un animal
+        if (isset($_POST['delete_animal'])) {
+            $id = filter_input(INPUT_POST,'id', FILTER_VALIDATE_INT);
+            
+            if (!empty($id)) {
+                $sql = 'DELETE FROM animals WHERE id = ?';
                 try {
                     $stmt = $pdo->prepare($sql);
-                    $stmt->execute([$name, $race, $habitat, $id]);
-                    $_SESSION['message'] = "Animal mis à jour avec succès.";
+                    $stmt->execute([$id]);
+                    $_SESSION['message'] = "Animal supprimé avec succès.";
                 } catch (Exception $e) {
                     $_SESSION['error'] = "Erreur lors de la mise à jour de l'animal'.". $e->getMessage();
-                } 
+                }
             }
+            header('Location: administrateur.php');
+            exit();
         }
-        header('Location: administrateur.php');
-        exit();
-    }
-        // Suppression d'un animal
-    if (isset($_POST['delete_animal'])) {
-        $id = filter_input(INPUT_POST,'id', FILTER_VALIDATE_INT);
-        
-        if (!empty($id)) {
-            $sql = 'DELETE FROM animals WHERE id = ?';
-            try {
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute([$id]);
-                $_SESSION['message'] = "Animal supprimé avec succès.";
-            } catch (Exception $e) {
-                $_SESSION['error'] = "Erreur lors de la mise à jour de l'animal'.". $e->getMessage();
-            }
-        }
-        header('Location: administrateur.php');
-        exit();
+    }else {
+        // Token CSRF invalide
+        die("Token CSRF invalide.");
     }
 }
 
-
+require_once __DIR__. "/templates/header.php";

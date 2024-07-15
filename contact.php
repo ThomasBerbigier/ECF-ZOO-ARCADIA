@@ -34,7 +34,9 @@ require_once __DIR__. "/contact_email.php" ;
                             <label for="email" class="form-label">Email</label>
                             <input type="email" class="form-control" id="email" name="email" placeholder="Ecrivez votre adresse mail ici" required>
                     </div>
-                <button type="submit" name="submitContact" class="btn btn-outline-light btn-lg">Envoyer</button>
+                    <!-- Champ caché pour le token CSRF -->
+                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
+                    <button type="submit" name="submitContact" class="btn btn-outline-light btn-lg">Envoyer</button>
                 </form>
             </div>
         </div>

@@ -1,5 +1,9 @@
 <?php
     require_once __DIR__. "/../lib/session.php";
+    // Protéger contre les attaques ClickJacking
+    header('X-Frame-Options: DENY');
+    // Ajouter l'en-tête CSP
+    header("Content-Security-Policy: default-src 'self'; script-src 'self' https://apis.google.com; style-src 'self' https://fonts.googleapis.com; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com; frame-ancestors 'self';");
 ?>
 
 <!DOCTYPE html>
@@ -64,17 +68,19 @@
                         <div class=" container-form">
                             <h2 class="mb-5">Connexion</h2>
                             <form action="login.php" method="POST">
-                            <div class="form-group">
-                                <label for="email">Email :</label>
-                                <input type="email" id="email" name="email" placeholder="Ex : arcadia@zoo.fr" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Mot de passe :</label>
-                                <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="submit" name="loginUser" value="Se connecter">
-                            </div>
+                                <div class="form-group">
+                                    <label for="email">Email :</label>
+                                    <input type="email" id="email" name="email" placeholder="Ex : arcadia@zoo.fr" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Mot de passe :</label>
+                                    <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" required>
+                                </div>
+                                <!-- Champ caché pour le token CSRF -->
+                                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
+                                <div class="form-group">
+                                    <input type="submit" name="loginUser" value="Se connecter">
+                                </div>
                             </form>
                         </div>
                     </div>

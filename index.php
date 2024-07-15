@@ -183,6 +183,8 @@ $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <label for="comment" class="form-label form-label-bg fs-5" >Avis</label>
                             <textarea class="form-control" id="comment" name="comment" rows="3" placeholder="Ecrivez votre texte ici" required></textarea>
                         </div>
+                        <!-- Champ caché pour le token CSRF -->
+                        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
                         <button type="submit" name="submit_review" class="btn btn-dark fs-5">Soumettre</button>
                     </form>
                 </div>

@@ -50,7 +50,7 @@ $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="container-card text-center mt-5">
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-4 mb-3">
-                    <div class="card h-100 card-savane" style="width: 100%;">
+                    <div class="card h-100 card-savane">
                         <img src="assets/main/accueil-habitats/savane-girafe_optimized_.webp" class="card-img-top h-100" alt="Photo d'une girafe dans la savane">
                         <div class="card-body">
                             <h3 class="card-title text-center">Savane</h3>
@@ -60,7 +60,7 @@ $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-4 mb-3">
-                    <div class="card h-100 card-marais" style="width: 100%;">
+                    <div class="card h-100 card-marais">
                         <img src="assets/main/accueil-habitats/marais-alligator.png" class="card-img-top h-100" alt="Photo d'un alligator dans l'eau">
                         <div class="card-body">
                             <h3 class="card-title text-center">Marais</h3>
@@ -70,7 +70,7 @@ $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-4 mb-3">
-                    <div class="card h-100 card-jungle" style="width: 100%;">
+                    <div class="card h-100 card-jungle">
                         <img src="assets/main/accueil-habitats/jungle-koala_optimized_.webp" class="card-img-top h-100" alt="Photo d'un koala marchant sur une branche">
                         <div class="card-body">
                             <h3 class="card-title text-center">Jungle</h3>

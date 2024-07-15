@@ -183,7 +183,12 @@ header {
 .accueil .card-title {
     color: rgb(255, 255, 255, 0.7);
 }
-
+.accueil .card-jungle,
+.accueil .card-marais,
+.accueil .card-savane {
+    width: 100%;
+    
+}
 /* Accueil services */
 .container-services {
     transform: translateY(100px); /* Initialement déplacé vers le bas */

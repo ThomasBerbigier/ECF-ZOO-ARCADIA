@@ -333,8 +333,6 @@ require_once __DIR__. "/templates/header.php";
     </section>
     <!-- Fin dashboard clics animaux -->
 </main>
-
-<!-- ?JoseArcadia!555 / 6976 / Windows -->
 <?php 
 require_once __DIR__. "/templates/footer.php";
 ?>

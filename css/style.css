@@ -1,3 +1,7 @@
+/* Police titres  */
+main, body {
+    font-family:Arial, Helvetica, sans-serif;
+}
 /* image de fond */
 .background {
     position: fixed;

@@ -1,90 +1,87 @@
-﻿Pour déployer l'application en local, suivez les étapes ci-dessous.
+# 🦁 Zoo Arcadia - Application Web
 
-Prérequis:
-
-1. Visual Studio Code (VSCode): Assurez-vous que vous avez installé VSCode sur votre machine.
-1. XAMPP: Un package complet qui inclut Apache, MariaDB et PHP.
-1. Composer: Un gestionnaire de dépendances pour PHP.
-1. Git: Pour gérer le code source et effectuer des opérations de contrôle de version.
-1. MongoDB: Pour la base de données NoSQL.
-
-Étape 1: Installation des outils nécessaires
-
-`	`VSCode:
-
-`    	`Téléchargez et installez VSCode depuis le site officiel: [VSCode](https://code.visualstudio.com/).
-
-`	`XAMPP:
-
-`    	`Téléchargez et installez XAMPP depuis le site officiel: [XAMPP](https://www.apachefriends.org/fr/index.html).
-
-`    	`Une fois installé, lancez XAMPP et démarrez les services Apache et MySQL.
-
-`	`Composer:
-
-`    	`Téléchargez et installez Composer depuis le site officiel: [Composer](https://getcomposer.org/).
-
-`    	`Pour vérifier que Composer est correctement installé, ouvrez un terminal et tapez composer --version.
-
-`	`Git:
-
-`    	`Téléchargez et installez Git depuis le site officiel: [Git](https://git-scm.com/).
+## Description
+Le zoo Arcadia est un parc animalier indépendant qui accorde une importance particulière à l'écologie et à la santé de ses animaux.
+Le directeur, José, souhaitait moderniser le zoo avec une application web permettant aux visiteurs de découvrir les différents habitats, services, et animaux tout en reflétant les valeurs écologiques du zoo.
+En parallèle, elle devait intégrer un aspect fonctionnel avec un espace spécialement conçu pour les professionnels, leur permettant de gérer efficacement les opérations internes et de maintenir le bien-être des animaux. 
 
 
+## Démonstration
 
-`	`MongoDB:
-
-`    	`Téléchargez et installez [MongoDB](https://www.mongodb.com/fr-fr).
-
-Étape 2: Configuration de la base de données
-
-`	`MariaDB (via XAMPP):
-
-1. Accédez à phpMyAdmin via le tableau de bord XAMPP en cliquant sur Admin (ou à l'adresse http://localhost/phpmyadmin).
-1. Créez une nouvelle base de données pour votre application.
-1. Importez le fichier SQL présent dans le repository pour créer les tables et insérer les données initiales. Cela peut être fait en utilisant l'option "Importer" dans phpMyAdmin.
-
-`	`MongoDB:
-
-1. ` `Démarrez MongoDB en exécutant, depuis le terminal, la commande mongod.
-1. Utilisez un client comme MongoDB Compass pour créer une nouvelle base de données et une nouvelle collection.
-1. Configurez la connexion MongoDB dans les fichiers de l'application (register\_click.php et administrateur\_crud.php).
-
-Étape 3: Configuration de l'application
-
-1. Placez votre projet dans le répertoire htdocs de XAMPP.    
-
-2. Cloner le dépôt, ouvrez un terminal et clonez le dépôt Git: 
-
-git clone URL\_DU\_REPO
-
-3. Installer les dépendances PHP
-
-Dans le répertoire de votre projet, exécutez la commande suivante pour installer les dépendances:
-
-`		`composer install
-
-`		`composer require mongodb/mongodb
-
-`		`composer require phpmailer/phpmailer
-
-Étape 4: Lancement de l'application
-
-1. Démarrer le serveur local 
-
-Assurez-vous que les services Apache et MySQL sont en cours d'exécution dans XAMPP.
-
-Assurez-vous que votre fichier de configuration de base de données (ici pdo.php) contient les bonnes informations de connexion.
-
-2. Accéder à l'application
-
-Ouvrez votre navigateur web et accédez à l'adresse http://localhost/votre-projet pour voir votre application en action.
-
-3. Vérifier le fonctionnement
-
-Assurez-vous que toutes les fonctionnalités de l'application sont opérationnelles en testant les différentes pages et fonctionnalités (connexion, affichage des animaux, etc.).
+L'application est déployée en ligne et accessible via [Heroku](https://salty-scrubland-07219-ce96da39ee13.herokuapp.com/index.php).
 
 
+## Stack Technique
+
+- **Front-end** :  
+  ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+  ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+  ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+  ![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)
+
+- **Back-end** :  
+  ![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
+
+- **Base de données** :  
+  ![MariaDB](https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white)
+  ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
+
+- **Outils de développement** :  
+  ![Visual Studio Code](https://img.shields.io/badge/Visual_Studio_Code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white)
+  ![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+  ![Composer](https://img.shields.io/badge/Composer-885630?style=for-the-badge&logo=composer&logoColor=white)
+  ![XAMPP](https://img.shields.io/badge/XAMPP-FB7A24?style=for-the-badge&logo=xampp&logoColor=white)
+  ![Heroku](https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white)
 
 
-En suivant ces étapes, vous devriez pouvoir déployer et exécuter votre application en local avec succès.
+## Fonctionnalités Principales
+
+- **Page d’accueil** : Présentation du zoo avec les différents habitats, services, et avis des visiteurs.
+- **Vue globale des services** : Affichage des services proposés (restauration, visites guidées, etc.), configurables par l'administrateur et par les employés.
+- **Vue des habitats** : Détail des habitats avec les animaux associés et leurs informations, incluant les états de santé.
+- **Gestion des avis** : Les visiteurs peuvent laisser des avis validés par les employés avant publication.
+- **Espace administrateur** : Gestion des utilisateurs (employés, vétérinaires), services, habitats, et animaux, avec accès aux statistiques.
+- **Espace employé** : Validation des avis visiteurs et gestion des services. Enregistrement des données alimentaires des animaux.
+- **Espace vétérinaire** : Remplissage de comptes rendus de santé pour les animaux.
+- **Connexion sécurisée** : Système d'authentification avec accès restreint aux utilisateurs autorisés.
+- **Formulaire de contact** : Les visiteurs peuvent contacter le zoo via un formulaire en ligne. Les messages sont envoyés par email.
+
+## Prérequis
+
+- **Visual Studio Code** : Éditeur de code.
+- **XAMPP** : Pour Apache, MariaDB et PHP.
+- **Composer** : Gestionnaire de dépendances PHP.
+- **Git** : Contrôle de version.
+- **MongoDB** : Base de données NoSQL pour les statistiques.
+
+## Installation et Mise en Route
+
+1. **Cloner le dépôt** :
+   ```bash
+   git clone https://github.com/ThomasBerbigier/ECF-ZOO-ARCADIA
+
+2. **Configurer la base de données** :
+   - **MariaDB** :
+     - Accédez à phpMyAdmin via XAMPP et créez une base de données pour l'application.
+     - Importez le fichier SQL présent dans la racine du projet pour initialiser les tables et les données.
+   - **MongoDB** :
+     - Démarrez MongoDB avec la commande `mongod`.
+     - Utilisez un client comme MongoDB Compass pour créer une base de données et une collection.
+     - Configurez la connexion MongoDB dans les fichiers `register_click.php` et `administrateur_crud.php`.
+
+3. **Installer les dépendances** :
+   - Placez le projet dans le répertoire `htdocs` de XAMPP.
+   - Installez les dépendances PHP :
+     ```bash
+     composer install
+     composer require mongodb/mongodb
+     composer require phpmailer/phpmailer
+     ```
+
+4. **Lancer l'application** :
+   - Démarrez Apache et MySQL dans XAMPP.
+   - Assurez-vous que le fichier `pdo.php` contient les bonnes informations de connexion.
+   - Ouvrez `http://localhost/votre-projet` dans un navigateur pour accéder à l'application.
+
+---
+
